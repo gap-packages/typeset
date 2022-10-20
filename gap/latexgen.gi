@@ -67,7 +67,7 @@ function( m )
     	od;
     	Append(s,"\\\\\n");
   	od;
-  	Append(s,"\\end{{array}}\\right)");
+  	Append(s,"\\end{{array}}\\right)\n");
   	return s;
 end);
 
