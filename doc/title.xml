@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    latexgen
+  </Title>
+  <Subtitle>
+    Automatic LaTeX string generation for common &GAP; objects
+  </Subtitle>
+  <Version>
+    0.1
+  </Version>
+  <Author>
+    Zachariah Newbery<Alt Only="LaTeX"><Br/></Alt>
+<Email>zn6@st-andrews.ac.uk</Email>
+<Homepage>https://zachnewbery.com</Homepage>
+
+  </Author>
+  <Date>
+    26 September 2022
+  </Date>
+  </TitlePage>
