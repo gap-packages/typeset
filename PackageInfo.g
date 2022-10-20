@@ -18,7 +18,7 @@ Persons := [
   rec(
     FirstNames := "Zachariah",
     LastName := "Newbery",
-    WWWHome := "zachnewbery.com",
+    WWWHome := "https://zachnewbery.com",
     Email := "zn6@st-andrews.ac.uk",
     IsAuthor := true,
     IsMaintainer := true,
