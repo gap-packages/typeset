@@ -17,7 +17,7 @@
 #!   Typeset takes a mathematical object and generates a mark-up string representing
 #!   that object in the given mark-up language (default: LaTeX). Optional records can
 #!   be added to modify the result:
-#!      < list of optional parameters >
+#!      TODO: list of optional parameters
 #! 
 #! @Returns
 #!   String representation of object in given mark-up language.
