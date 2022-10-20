@@ -9,5 +9,4 @@ gap> Typeset(x);
 '0'&'1'\\
 '1'&'0'\\
 \end{array}\right)
-
 gap> STOP_TEST( "latexgen.tst" );
