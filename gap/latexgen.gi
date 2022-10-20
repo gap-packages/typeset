@@ -1,3 +1,4 @@
+#! @Chapter Methods
 #! @Section Method Definitions
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
