@@ -10,6 +10,8 @@
 #! Typeset is also built to be incredibly extensible, and can be easily
 #! extended to also support the generation of strings for other mark-up
 #! languages.
+#!
+#! @Section Example Methods
 
 #! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
