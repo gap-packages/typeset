@@ -201,13 +201,13 @@ function(poly)
 
 	for i in [ le-1, le-3..1 ] do
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Append(r, ext[i + 1]);
+			Add(r, ext[i + 1]);
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Append(r, ext[i][j + 1]);
+					Add(r, ext[i][j + 1]);
 				fi;
 			od;
 		fi;
