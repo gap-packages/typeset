@@ -107,6 +107,7 @@ function (poly)
 	fi;
 
 	for i in [ le-1, le-3..1 ] do
+		c := true;
 		if ext[i + 1]=one then
 			if i<le-1 then
 				Append(str, "+");
@@ -118,15 +119,18 @@ function (poly)
 		else
 			if IsRat(ext[i + 1]) then
 				if ext[i + 1]<0 then
-					Append(str, "-{}");
+					Append(str, "{}");
 				else
-					Append(str, "+{}");
+					if i<le-1 then
+						Append(str, "+");
+					fi;
+					Append(str, "{}");
 				fi;
 			fi;	
 		fi;
 
 		if Length(ext[i]) < 2 then
-			if c=true then
+			if c=false then
 				Append(str, String(one));
 			fi;
 		else
