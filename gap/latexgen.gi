@@ -338,6 +338,7 @@ function( tbl )
 	od;
 
 	# Generate Legend
+	Print("\% For including legends, make sure to include the amsmath package in your preamble (\\usepackage{amsmath})\n");
 	Add(ret, CtblLatexLegend(data));
 
 	return ret;
