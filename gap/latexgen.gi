@@ -151,6 +151,7 @@ function (poly)
 			od;
 		fi;
 	od;
+	Append(str, "\n");
 
 	return str;
 end);
