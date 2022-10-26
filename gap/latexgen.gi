@@ -118,9 +118,9 @@ function (poly)
 		else
 			if IsRat(ext[i + 1]) then
 				if ext[i + 1]<0 then
-					Append(str, "- {}");
+					Append(str, "-{}");
 				else
-					Append(str, "+ {}");
+					Append(str, "+{}");
 				fi;
 			fi;	
 		fi;
@@ -131,7 +131,19 @@ function (poly)
 			fi;
 		else
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
-				Append(str, "{}");
+				ind:=ext[i][j];
+				if HasIndeterminateName(fam,ind) then
+					Append(str,IndeterminateName(fam,ind));
+				else
+					Append(str,"x_{{");
+					Append(str,String(ind)); 
+					Append(str,"}}");
+				fi;
+				if 1 <> ext[i][j+1]  then
+					Append(str,"^{{");
+					Append(str,"{}");
+					Append(str,"}}");
+				fi;
 			od;
 		fi;
 	od;
@@ -168,6 +180,37 @@ function ( m )
 		for j in [1..n] do
 			Append(r, LatexString(m[i][j] : options := subOptions));
 		od;
+	od;
+
+	return r;
+end);
+
+InstallMethod(GenArgs, "polynomials", true,
+[ IsPolynomial ], 0, 
+function(poly)
+	local i, j, fam, ext, zero, one, mone, le, r, subOptions;
+	subOptions := MergeSubOptions(ValueOption("options"));
+
+	r := [];
+	fam := FamilyObj(poly);
+	ext := ExtRepPolynomialRatFun(poly);
+	zero := fam!.zeroCoefficient;
+	one := fam!.oneCoefficient;
+	mone := -one;
+	le := Length(ext);
+
+	for i in [ le-1, le-3..1 ] do
+		if ext[i + 1] <> one and ext[i + 1] <> mone then
+			Append(r, ext[i + 1]);
+		fi;
+
+		if Length(ext[i]) > 1 then
+			for j in [ 1, 3 .. Length(ext[i]) - 1] do
+				if 1 <> ext[i][j + 1] then
+					Append(r, ext[i][j + 1]);
+				fi;
+			od;
+		fi;
 	od;
 
 	return r;
