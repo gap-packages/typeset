@@ -366,7 +366,10 @@ function (data)
 		Append(ret, irrnames[i]);
 		Append(ret, "=");
 		Append(ret, String(irrstack[i]));
-		Append(ret, "\\\\\n");
+		
+		if i <> Length(irrstack) then
+			Append(ret, "\\\\\n");
+		fi;
 
 		q:= Quadratic(irrstack[i]);
 		if q <> fail then
