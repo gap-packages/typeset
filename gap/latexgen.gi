@@ -333,11 +333,15 @@ function( tbl )
 	for i in [1..Length(chars)] do
 		for j in [1..Length(chars[i])] do
 			entry := CharacterTableDisplayStringEntryDefault(chars[i][j], data);
+			if '/' in entry then
+				# Use bar environment for complex conjugate.
+				entry := Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
+			fi;
 			Add(ret, entry);
 		od;
 	od;
 
-	# Generate Legend
+	# Generate Legend.
 	Print("\% For including legends, make sure to include the amsmath package in your preamble (\\usepackage{amsmath})\n");
 	Add(ret, CtblLatexLegend(data));
 
