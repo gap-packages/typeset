@@ -4,7 +4,6 @@ gap> START_TEST( "ctbl.tst" );
 # 'Typeset' for Character Table of Cyclic Group of Order 10.
 gap> c := CharacterTable("Cyclic", 10);;
 gap> Typeset(c);
-% For including legends, make sure to include the amsmath package in your preamble (\usepackage{amsmath})
 \begin{tabular}{c c c c c c c c c c c}
  & 1a & 10a & 5a & 10b & 5b & 2a & 5c & 10c & 5d & 10d\\
 X.1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
