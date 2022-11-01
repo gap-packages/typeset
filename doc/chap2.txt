@@ -1,0 +1,10 @@
+  
+  [1X2 [33X[0;0YMethods[133X[101X
+  
+  
+  [1X2.1 [33X[0;0YMethod Definitions[133X[101X
+  
+  [1X2.1-1 Typeset[101X
+  
+  [33X[1;0Y[29X[2XTypeset[102X( [3Xx[103X ) [32X operation[133X
+  

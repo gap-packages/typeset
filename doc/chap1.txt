@@ -1,0 +1,64 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0Ylatexgen is a package that implements an operation Typeset that can generate
+  LaTeX  string  representations  of  a  commonly  used subset of mathematical
+  objects within the GAP system.[133X
+  
+  [33X[0;0YTypeset  is  also  built  to  be  incredibly  extensible,  and can be easily
+  extended  to  also  support  the  generation  of  strings  for other mark-up
+  languages.[133X
+  
+  
+  [1X1.1 [33X[0;0YExample Methods[133X[101X
+  
+  [1X1.1-1 Typeset[101X
+  
+  [33X[1;0Y[29X[2XTypeset[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YString representation of object in given mark-up language.[133X
+  
+  [33X[0;0YTypeset   takes  a  mathematical  object  and  generates  a  mark-up  string
+  representing  that  object  in  the given mark-up language (default: LaTeX).
+  Optional  records  can be added to modify the result: TODO: list of optional
+  parameters[133X
+  
+  [1X1.1-2 LatexString[101X
+  
+  [33X[1;0Y[29X[2XLatexString[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YString representation of objet in LaTeX.[133X
+  
+  [33X[0;0YLatexString  generates  a  string  representation  of  a passed mathematical
+  object that can be rendered by a LaTeX typesetter.[133X
+  
+  [1X1.1-3 GenLatexTmpl[101X
+  
+  [33X[1;0Y[29X[2XGenLatexTmpl[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YUnpopulated   LaTeX  format  string  representing  the  structural
+            description of the passed object.[133X
+  
+  [33X[0;0YGenLatexTmpl  generates  a  format  string  that  represents  the structural
+  definition  of  the  given  mathematical  object  in  LaTeX.  It contains no
+  parameter  values,  and  will  need  to  be  populated  with  the  arguments
+  representing  the semantic values of the object before it can be rendered in
+  a LaTeX environment.[133X
+  
+  [1X1.1-4 GenArgs[101X
+  
+  [33X[1;0Y[29X[2XGenArgs[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YList of strings that describe the semantic structure of an object.[133X
+  
+  [33X[0;0YGenArgs  generates  the  arguments describing the semantic definition of the
+  passed mathematical object. This should result in a list that can be used to
+  populate a format string in any mark-up language.[133X
+  
+  [1X1.1-5 MergeSubOptions[101X
+  
+  [33X[1;0Y[29X[2XMergeSubOptions[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YRecords  representing the options that should be passed to any sub
+            calls within the current method.[133X
+  
+  [33X[0;0YMergeSubOptions  will  merge  the options records passed optionally within a
+  function  call to GenArgs. It allows for the subOpts record value to specify
+  any  option values that should be altered on nested subcalls when generating
+  typesetting strings.[133X
+  

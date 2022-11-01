@@ -1,1 +1,40 @@
-Placeholder
+  
+  
+                                   [1X latexgen [101X
+  
+  
+           [1X Automatic LaTeX string generation for common [5XGAP[105X objects [101X
+  
+  
+                                      0.1
+  
+  
+                               26 September 2022
+  
+  
+                               Zachariah Newbery
+  
+  
+  
+  Zachariah Newbery
+      Email:    [7Xmailto:zn6@st-andrews.ac.uk[107X
+      Homepage: [7Xhttps://zachnewbery.com[107X
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (latexgen)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YExample Methods[133X
+      1.1-1 Typeset
+      1.1-2 LatexString
+      1.1-3 GenLatexTmpl
+      1.1-4 GenArgs
+      1.1-5 MergeSubOptions
+  2 [33X[0;0YMethods[133X
+    2.1 [33X[0;0YMethod Definitions[133X
+      2.1-1 Typeset
+  
+  
+  [32X
