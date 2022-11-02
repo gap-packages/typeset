@@ -1,7 +1,7 @@
 gap> START_TEST( "structure descriptions of groups" );
 
 # 'Typeset' for sample structure descriptions
-gap> TypesetStructureDescription("C2")
+gap> TypesetStructureDescription("C2");
 \rm C_{2}
 gap> TypesetStructureDescription("C5 : C4");
 \rm C_{5} \rtimes C_{4}
