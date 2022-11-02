@@ -225,6 +225,15 @@ function (tbl )
 	return ret;
 end);
 
+InstallMethod(GenLatexTmpl, "for fp groups", true,
+[ IsFpGroup ], 0,
+function ( g )
+	local str;
+	str := "\\langle";
+
+	return str;
+end);
+
 #############################################################################
 ##
 #M  GenArgs( <object> ) . 
@@ -346,6 +355,15 @@ function( tbl )
 	Add(ret, CtblLatexLegend(data));
 
 	return ret;
+end);
+
+InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
+function ( g )
+	local lst;
+
+	lst := [];
+
+	return lst;
 end);
 
 #############################################################################
