@@ -1,14 +1,22 @@
+InstallMethod(TypesetStructureDescription, "typesetting structure description strings", true,
+[ IsString ], 0, 
+function( desc )
+    local str;
+    str := Concatenation("\\rm ", LatexStructureDescription(desc), "\n");
+    Print(str);
+end);
+
 InstallMethod(LatexStructureDescription, "for structure description strings", true,
 [ IsString ], 0 ,
 function( desc )
     local ret, sub, j, i, closed, op;
     # Handle possible operators {:, ., x, /, =}
     if ':' in desc then
-        return ConcatStructDescOperands(desc, ':', "\rtimes");
+        return ConcatStructDescOperands(desc, ":", "\\rtimes");
     elif '.' in desc then
-        return ConcatStructDescOperands(desc, ".", "\cdot");
+        return ConcatStructDescOperands(desc, ".", "\\cdot");
     elif 'x' in desc then
-        return ConcatStructDescOperands(desc, "x", "\times");
+        return ConcatStructDescOperands(desc, "x", "\\times");
     elif '/' in desc then
         return ConcatStructDescOperands(desc, "/", "/");
     elif '=' in desc then
@@ -35,8 +43,10 @@ function( desc )
                     return Concatenation(ret, "\Phi(", op);
                 fi;
             fi;
+            # If parentheses are included, can return the raw description.
             return desc;
         else
+            # Generic structure descriptions
             ret := "";
             closed := false;
             for i in [Length(desc), Length(desc) - 1..1] do
