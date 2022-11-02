@@ -23,7 +23,6 @@ function( desc )
             for i in [Length(desc), Length(desc) - 1..1] do
                 if IsAlphaChar(desc[i]) then
                     if closed then
-                        Print("closed");
                         Add(ret, '{', 1);
                         Add(ret, '_', 1);
                     fi;
