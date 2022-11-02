@@ -1,4 +1,18 @@
+#
+# latexgen: Automatic LaTeX string generation for common GAP objects
+#
+#! @Chapter Structure Descriptions
+#!
+#! latexgen is a package that implements an operation Typeset that can
+#! generate LaTeX string representations of a commonly used subset
+#! of mathematical objects within the GAP system.
+#!
+#! Typeset is also built to be incredibly extensible, and can be easily
+#! extended to also support the generation of strings for other mark-up
+#! languages.
+#!
 #! @Section Structure Description of Groups
+
 #! @Description
 #!   TypesetStructureDescription generates a typesettable representation equivalent to a given
 #!   structure description of a group. These structure descriptions can be calculated
