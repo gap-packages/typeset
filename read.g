@@ -4,3 +4,4 @@
 # Reading the implementation part of the package.
 #
 ReadPackage( "latexgen", "gap/latexgen.gi");
+ReadPackage( "latexgen", "gap/structdesc.gi");
