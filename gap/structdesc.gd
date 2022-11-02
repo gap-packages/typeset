@@ -1,3 +1,4 @@
+#! @Section Structure Description of Groups
 #! @Description
 #!   TypesetStructureDescription generates a typesettable representation equivalent to a given
 #!   structure description of a group. These structure descriptions can be calculated
