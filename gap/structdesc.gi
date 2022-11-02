@@ -1,21 +1,40 @@
 InstallMethod(LatexStructureDescription, "for structure description strings", true,
 [ IsString ], 0 ,
 function( desc )
-    local ret, sub, i, closed;
-    # Handle possible operators
+    local ret, sub, j, i, closed, op;
+    # Handle possible operators {:, ., x, /, =}
     if ':' in desc then
-        return ConcatStructDescOperands(desc, ':', " : ");
+        return ConcatStructDescOperands(desc, ':', "\rtimes");
     elif '.' in desc then
-        desc := ReplacedString(desc, "Phi", "\\Phi");
-        return ConcatStructDescOperands(desc, '.', " \\cdot ");
+        return ConcatStructDescOperands(desc, ".", "\cdot");
     elif 'x' in desc then
-        return ConcatStructDescOperands(desc, 'x', " \\times ");
+        return ConcatStructDescOperands(desc, "x", "\times");
     elif '/' in desc then
-        return ConcatStructDescOperands(desc, '/', " / ");
+        return ConcatStructDescOperands(desc, "/", "/");
     elif '=' in desc then
-        return ConcatStructDescOperands(desc, '=', " = ");
+        return ConcatStructDescOperands(desc, "=", "=");
     else
         if '(' in desc and ')' in desc then
+            if not ',' in desc and not "Sz(" in desc and not "Ree(" in desc then
+                # Structure descriptions of the form C(G) or Phi(G)
+                ret := "";
+
+                # Ignore preceding open parentheses
+                j := 1;
+                while desc[j]='(' do
+                    j := j + 1;
+                    Add(ret, '(');
+                od;
+
+                # Recurse on nested operand
+                if StartsWith(desc{[j..Length(desc)]}, "C(") then
+                    op := LatexStructureDescription(desc{[j+2..Length(desc)]});
+                    return Concatenation(ret, "C(", op);
+                else
+                    op := LatexStructureDescription(desc{[j+4..Length(desc)]});
+                    return Concatenation(ret, "\Phi(", op);
+                fi;
+            fi;
             return desc;
         else
             ret := "";
@@ -40,9 +59,9 @@ function( desc )
 end);
 
 InstallMethod(ConcatStructDescOperands, "for structure description operands", true,
-[ IsString, IsChar, IsString ], 0,
+[ IsString, IsString, IsString ], 0,
 function( desc, sep, newsep )
-    local sub, i, tokens;
+    local sub, i, tokens, ret;
 
     sub := SplitString(desc, sep);
     tokens := [];
