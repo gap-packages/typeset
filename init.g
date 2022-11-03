@@ -5,3 +5,4 @@
 #
 
 ReadPackage( "latexgen", "gap/latexgen.gd");
+ReadPackage( "latexgen", "gap/structdesc.gd");

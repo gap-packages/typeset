@@ -14,6 +14,21 @@
 #! @Section Example Methods
 
 #! @Description
+#!   Info class for the <Package>latexgen</Package> package.  Set this to the following
+#!   levels for different levels of information:
+#!     * 0 - No messages
+#!     * 1 - Problems only: messages describing what went wrong, with no
+#!           messages if an operation is successful
+#!     * 2 - Required preamble packages: displays informations about any required
+#!           LaTeX packages that need to be added to the preamble to be rendered.
+#!     * 3 - Progress: also shows step-by-step progress of operations
+#!
+#!   Set this using, for example `SetInfoLevel(InfoLatexgen, 1)`.
+#!   Default value is 2.
+DeclareInfoClass("InfoLatexgen");
+SetInfoLevel(InfoLatexgen, 2);
+
+#! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
 #!   that object in the given mark-up language (default: LaTeX). Optional records can
 #!   be added to modify the result:
