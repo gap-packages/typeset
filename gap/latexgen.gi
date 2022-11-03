@@ -1,5 +1,9 @@
-#! @Chapter Methods
-#! @Section Method Definitions
+#############################################################################
+##
+#M  Typeset( <object> ) . 
+##  
+## produces a typesettable string representing the provided object.
+##
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x )
@@ -29,6 +33,12 @@ function( x )
 	Print(t(x : options := options));
 end);
 
+#############################################################################
+##
+#M  LatexString( <object> ) . 
+##  
+## produces a LaTeX-renderable string representing the provided object.
+##
 InstallMethod(LatexString, "for all objects", true,
 [ IsObject ],0,
 function( x )
@@ -42,6 +52,12 @@ function( x )
 	return string;
 end);
 
+#############################################################################
+##
+#M  GenLatexTmpl( <object> ) . 
+##  
+## produces a template LaTeX string representing the structure of the provided object.
+##
 InstallMethod(GenLatexTmpl, "for rationals", true,
 [ IsRat ], 0,
 function( x )
@@ -123,6 +139,13 @@ function (poly)
 	return str;
 end);
 
+#############################################################################
+##
+#M  GenArgs( <object> ) . 
+##  
+## produces a list of objects representing the semantics of the provided object.
+## used to populate the template string.
+##
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
 function (x)
@@ -150,6 +173,14 @@ function ( m )
 	return r;
 end);
 
+#############################################################################
+##
+#M  MergeSubOptions( <options record> ) . 
+##  
+## generates a new options record that can be passed to sub-calls from a parent.
+## used to allow users to set options that may differ between recursive calls
+## of a single method (e.g. Matrix delimitors).
+##
 InstallMethod(MergeSubOptions, "for generating alternative sub-call options", true,
 [ IsRecord ], 0,
 function ( opts )

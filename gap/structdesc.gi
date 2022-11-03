@@ -1,3 +1,9 @@
+#############################################################################
+##
+#M  TypesetStructureDescription( <structure description string> ) . 
+##  
+## converts a structure description string into a typesettable format.
+##
 InstallMethod(TypesetStructureDescription, "typesetting structure description strings", true,
 [ IsString ], 0, 
 function( desc )
@@ -6,6 +12,12 @@ function( desc )
     Print(str);
 end);
 
+#############################################################################
+##
+#M  LatexStructureDescription( <structure description string> ) . 
+##  
+## converts a structure description string into a LaTeX-renderable format.
+##
 InstallMethod(LatexStructureDescription, "for structure description strings", true,
 [ IsString ], 0 ,
 function( desc )
@@ -41,7 +53,7 @@ function( desc )
                     return Concatenation(ret, "C(", op);
                 else
                     op := LatexStructureDescription(desc{[j+4..Length(desc)]});
-                    return Concatenation(ret, "\Phi(", op);
+                    return Concatenation(ret, "\\Phi(", op);
                 fi;
             fi;
             # If parentheses are included, can return the raw description.
@@ -69,6 +81,13 @@ function( desc )
     fi;
 end);
 
+#############################################################################
+##
+#M  ConcatStructDescOperands( <structure description string>, <separator>, <new separator> ) . 
+##  
+## splits and concatenates operands for binary operators within structure descriptions
+## based on the provided separators.
+##
 InstallMethod(ConcatStructDescOperands, "for structure description operands", true,
 [ IsString, IsString, IsString ], 0,
 function( desc, sep, newsep )
