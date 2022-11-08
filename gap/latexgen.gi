@@ -111,9 +111,9 @@ function( m )
   	Append(s,"}}\n");
   	for i in [1..l] do
     	for j in [1..n] do
-      	Append(s,"{}");
+      	Append(s,"{} ");
       	if j<n then
-        	Add(s,'&');
+        	Add(s,'& ');
       	fi;
     	od;
     	Append(s,"\\\\\n");
@@ -122,15 +122,9 @@ function( m )
   	return s;
 end);
 
-InstallMethod(GenLatexTmpl, "for permutations", true,
-[ IsPerm ], 0,
-function( x )
-	return "{}";
-end);
-
 InstallMethod(GenLatexTmpl, "for polynomials", true,
 [ IsPolynomial ], 0,
-function (poly)
+function ( poly )
 	local fam, ext, str, zero, one, mone, le, c, s, ind, i, j;
 
 	fam := FamilyObj(poly);
@@ -252,8 +246,13 @@ end);
 InstallMethod(GenLatexTmpl, "for matrix groups", true,
 [ IsMatrixGroup ], 0,
 function ( g )
-	local str;
+	local str, i;
 	str := "\\langle";
+
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
 
 	return str;
 end);
@@ -261,8 +260,13 @@ end);
 InstallMethod(GenLatexTmpl, "for permutation groups", true,
 [ IsPermGroup ], 0,
 function ( g )
-	local str;
+	local str, i;
 	str := "\\langle";
+
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
 
 	return str;
 end);
@@ -319,7 +323,7 @@ function ( m )
 
 	for i in [1..l] do
 		for j in [1..n] do
-			Append(r, LatexString(m[i][j] : options := subOptions));
+			Add(r, LatexString(m[i][j] : options := subOptions));
 		od;
 	od;
 
@@ -418,18 +422,26 @@ end);
 
 InstallMethod(GenArgs, "matrix groups", true, [ IsMatrixGroup ], 0,
 function ( g )
-	local lst;
-
+	local lst, gens, i;
 	lst := [];
+	gens := GeneratorsOfGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, LatexString(gens[i]));
+	od;
 
 	return lst;
 end);
 
 InstallMethod(GenArgs, "permutation groups", true, [ IsPermGroup ], 0,
 function ( g )
-	local lst;
-
+	local lst, gens, i;
 	lst := [];
+	gens := GeneratorsOfGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, String(gens[i]));
+	od;
 
 	return lst;
 end);
