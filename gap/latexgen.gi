@@ -61,7 +61,10 @@ end);
 InstallMethod(GenLatexTmpl, "for rationals", true,
 [ IsRat ], 0,
 function( x )
-	return "{}";
+	if IsInt(x) then
+		return "{}";
+	fi;
+	return "\\frac{{{}}}{{{}}}";
 end);
 
 InstallMethod(GenLatexTmpl, "matrix", true,
@@ -166,9 +169,10 @@ end);
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
 function (x)
-	local list;
-	list := [ String(x) ];
-	return list;
+	if IsInt(x) then
+    	return [ String(x) ];
+  	fi;
+	return [ NumeratorRat(x), Denominator(x) ];
 end);
 
 InstallMethod(GenArgs, "matrix", true,
