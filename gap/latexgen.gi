@@ -67,6 +67,20 @@ function( x )
 	return "\\frac{{{}}}{{{}}}";
 end);
 
+InstallMethod(GenLatexTmpl, "for an internal FFE", true,
+[IsFFE and IsInternalRep], 0,
+function ( ffe )
+	local str, log,deg,char;
+  	char := Characteristic(ffe);
+  	if IsZero( ffe ) then
+    	str := "0*Z({})";
+  	else
+    	str := "Z({}{}){}";
+  	fi;
+  	ConvertToStringRep(str);
+  	return str;
+end );
+
 InstallMethod(GenLatexTmpl, "matrix", true,
 [ IsMatrix ], 0,
 function( m )
@@ -172,7 +186,28 @@ function (x)
 	if IsInt(x) then
     	return [ String(x) ];
   	fi;
-	return [ NumeratorRat(x), Denominator(x) ];
+	return [ NumeratorRat(x), DenominatorRat(x) ];
+end);
+
+InstallMethod(GenArgs, "internal ffe", true,
+[ IsFFE and IsInternalRep ], 0,
+function ( ffe )
+	local char, ret, deg, log;
+	char := Characteristic(ffe);
+	ret := [ char, "", "" ];
+	if not IsZero(ffe) then
+		deg:=DegreeFFE(ffe);
+		if deg <> 1  then
+			ret[2] := Concatenation("^{", String(deg), "}");
+		fi;
+
+		log:= LogFFE(ffe,Z( char ^ deg ));
+		if log <> 1 then
+			ret[3] := Concatenation("^{", String(log), "}");
+		fi;
+	fi;
+
+	return ret;
 end);
 
 InstallMethod(GenArgs, "matrix", true,
@@ -210,13 +245,13 @@ function(poly)
 
 	for i in [ le-1, le-3..1 ] do
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, ext[i + 1]);
+			Add(r, LatexString(ext[i + 1]));
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, ext[i][j + 1]);
+					Add(r, LatexString(ext[i][j + 1]));
 				fi;
 			od;
 		fi;
