@@ -113,7 +113,7 @@ function( m )
     	for j in [1..n] do
       	Append(s,"{} ");
       	if j<n then
-        	Add(s,'& ');
+        	Append(s,"& ");
       	fi;
     	od;
     	Append(s,"\\\\\n");
@@ -231,6 +231,16 @@ function ( g )
 	local str;
 	str := "\\langle";
 
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, "\\mid");
+
+	for i in [1..Length(RelatorsOfFpGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
+
 	return str;
 end);
 
@@ -269,6 +279,63 @@ function ( g )
 	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
 
 	return str;
+end);
+
+InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
+[IsAssocWord and IsLetterAssocWordRep],0,
+function( elm )
+	local names,len,i,g,h,e,a,s;
+
+	names:= ShallowCopy(FamilyObj( elm )!.names);
+	for i in [1..Length(names)] do
+		s:=names[i];
+		e:=Length(s);
+		while e>0 and s[e] in CHARS_DIGITS do
+			e:=e-1;
+		od;
+		if e<Length(s) then
+			if e=Length(s)-1 then
+				s:=Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
+			else
+				s:=Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+			fi;
+			names[i]:=s;
+		fi;
+	od;
+
+	s:="";
+	elm:=LetterRepAssocWord(elm);
+	len:= Length( elm );
+	i:= 2;
+	if len = 0 then
+		return( "id" );
+	else
+		g:=AbsInt(elm[1]);
+		e:=SignInt(elm[1]);
+		while i <= len do
+			h:=AbsInt(elm[i]);
+			if h=g then
+				e:=e+SignInt(elm[i]);
+			else
+				Append(s, names[g] );
+				if e<>1 then
+					Append(s,"^{");
+					Append(s,String(e));
+					Append(s,"}");
+				fi;
+				g:=h;
+				e:=SignInt(elm[i]);
+			fi;
+			i:=i+1;
+		od;
+		Append(s, names[g] );
+		if e<>1 then
+			Append(s,"^{");
+			Append(s,String(e));
+			Append(s,"}");
+		fi;
+	fi;
+	return s;
 end);
 
 #############################################################################
@@ -404,9 +471,18 @@ end);
 
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
 function ( g )
-	local lst;
-
+	local lst, gens, rels;
 	lst := [];
+	gens := GeneratorsOfGroup(g);
+	rels := RelatorsOfFpGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, LatexString(gens[i]));
+	od;
+
+	for i in [1..rels] do
+		Add(lst, LatexString(rels[i]))
+	od;
 
 	return lst;
 end);
@@ -444,6 +520,12 @@ function ( g )
 	od;
 
 	return lst;
+end);
+
+InstallMethod(GenArgs,"assoc word in letter rep",true,
+[IsAssocWord and IsLetterAssocWordRep],0,
+function( elm )
+	return [];
 end);
 
 #############################################################################
