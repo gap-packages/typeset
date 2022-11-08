@@ -481,7 +481,7 @@ function ( g )
 	od;
 
 	for j in [1..rels] do
-		Add(lst, LatexString(rels[j]))
+		Add(lst, LatexString(rels[j]));
 	od;
 
 	return lst;
