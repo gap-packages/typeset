@@ -228,7 +228,7 @@ end);
 InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
 function ( g )
-	local str;
+	local str, i, j;
 	str := "\\langle";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
@@ -236,7 +236,7 @@ function ( g )
 	od;
 	str := Concatenation(str{[1..Length(str)-1]}, "\\mid");
 
-	for i in [1..Length(RelatorsOfFpGroup(g))] do
+	for j in [1..Length(RelatorsOfFpGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
 	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
@@ -471,7 +471,7 @@ end);
 
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
 function ( g )
-	local lst, gens, rels;
+	local lst, gens, rels, i, j;
 	lst := [];
 	gens := GeneratorsOfGroup(g);
 	rels := RelatorsOfFpGroup(g);
@@ -480,8 +480,8 @@ function ( g )
 		Add(lst, LatexString(gens[i]));
 	od;
 
-	for i in [1..rels] do
-		Add(lst, LatexString(rels[i]))
+	for j in [1..rels] do
+		Add(lst, LatexString(rels[j]))
 	od;
 
 	return lst;
