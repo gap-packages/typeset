@@ -477,10 +477,10 @@ function ( g )
 	rels := RelatorsOfFpGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, LatexString(gens[i]));
+		Add(lst, String(gens[i]));
 	od;
 
-	for j in [1..rels] do
+	for j in [1..Length(rels)] do
 		Add(lst, LatexString(rels[j]));
 	od;
 
