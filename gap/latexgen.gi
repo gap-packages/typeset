@@ -122,6 +122,12 @@ function( m )
   	return s;
 end);
 
+InstallMethod(GenLatexTmpl, "for permutations", true,
+[ IsPerm ], 0,
+function( x )
+	return "{}";
+end);
+
 InstallMethod(GenLatexTmpl, "for polynomials", true,
 [ IsPolynomial ], 0,
 function (poly)
@@ -227,6 +233,33 @@ end);
 
 InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
+function ( g )
+	local str;
+	str := "\\langle";
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl, "for pc groups", true,
+[ IsPcGroup ], 0,
+function ( g )
+	local str;
+	str := "\\langle";
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl, "for matrix groups", true,
+[ IsMatrixGroup ], 0,
+function ( g )
+	local str;
+	str := "\\langle";
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl, "for permutation groups", true,
+[ IsPermGroup ], 0,
 function ( g )
 	local str;
 	str := "\\langle";
@@ -357,7 +390,42 @@ function( tbl )
 	return ret;
 end);
 
+InstallMethod(GenArgs, "permutation", true,
+[ IsPerm ], 0,
+function (x)
+	local list;
+	list := [ String(x) ];
+	return list;
+end);
+
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
+function ( g )
+	local lst;
+
+	lst := [];
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "pc groups", true, [ IsPcGroup ], 0,
+function ( g )
+	local lst;
+
+	lst := [];
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "matrix groups", true, [ IsMatrixGroup ], 0,
+function ( g )
+	local lst;
+
+	lst := [];
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "permutation groups", true, [ IsPermGroup ], 0,
 function ( g )
 	local lst;
 
