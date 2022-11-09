@@ -287,50 +287,52 @@ InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
 function( elm )
 	local names,len,i,g,h,e,a,s;
 
-	names:= ShallowCopy(FamilyObj( elm )!.names);
+	names := ShallowCopy(FamilyObj( elm )!.names);
 	for i in [1..Length(names)] do
-		s:=names[i];
-		e:=Length(s);
+		s := names[i];
+		e := Length(s);
 		while e>0 and s[e] in CHARS_DIGITS do
-			e:=e-1;
+			e := e-1;
 		od;
 		if e<Length(s) then
 			if e=Length(s)-1 then
-				s:=Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
+				s := Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
 			else
-				s:=Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+				s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
 			fi;
-			names[i]:=s;
+			names[i] := s;
 		fi;
 	od;
 
-	s:="";
-	elm:=LetterRepAssocWord(elm);
-	len:= Length( elm );
-	i:= 2;
+	s := "";
+	elm := LetterRepAssocWord(elm);
+	len := Length( elm );
+	i := 2;
+
+	substr := 
 	if len = 0 then
 		return( "id" );
 	else
-		g:=AbsInt(elm[1]);
-		e:=SignInt(elm[1]);
+		g := AbsInt(elm[1]);
+		e := SignInt(elm[1]);
 		while i <= len do
-			h:=AbsInt(elm[i]);
+			h := AbsInt(elm[i]);
 			if h=g then
-				e:=e+SignInt(elm[i]);
+				e := e+SignInt(elm[i]);
 			else
 				Append(s, names[g] );
-				if e<>1 then
+				if e <> 1 then
 					Append(s,"^{");
 					Append(s,String(e));
 					Append(s,"}");
 				fi;
-				g:=h;
-				e:=SignInt(elm[i]);
+				g := h;
+				e := SignInt(elm[i]);
 			fi;
-			i:=i+1;
+			i := i+1;
 		od;
 		Append(s, names[g] );
-		if e<>1 then
+		if e <> 1 then
 			Append(s,"^{");
 			Append(s,String(e));
 			Append(s,"}");
