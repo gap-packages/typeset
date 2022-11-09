@@ -247,10 +247,11 @@ end);
 InstallMethod(GenLatexTmpl, "for pc groups", true,
 [ IsPcGroup ], 0,
 function ( g )
-	local str;
-	str := "\\langle";
+	local str, iso, fp;
+	iso := IsomorphismFpGroupByPcgs( FamilyPcgs (g), "f");
+	fp := Image(iso);
 
-	return str;
+	return GenLatexTmpl(fp);
 end);
 
 InstallMethod(GenLatexTmpl, "for matrix groups", true,
@@ -489,9 +490,11 @@ end);
 
 InstallMethod(GenArgs, "pc groups", true, [ IsPcGroup ], 0,
 function ( g )
-	local lst;
+	local lst, iso, fp;
+	iso := IsomorphismFpGroupByPcgs(FamilyPcgs(g), "f");
+	fp := Image(iso);
 
-	lst := [];
+	lst := GenArgs(fp);
 
 	return lst;
 end);
