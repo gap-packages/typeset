@@ -66,6 +66,14 @@ DeclareOperation("GenLatexTmpl", [ IsObject ]);
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Description
+#!   CtblLatexLegend generates a string representation of the mathematical substitutions for entries
+#!   within a character table.
+#!
+#! @Returns
+#!  Strings that describe the calculated substitutions.
+DeclareOperation("CtblLatexLegend", [ IsRecord ]);
+
+#! @Description
 #!   MergeSubOptions will merge the options records passed optionally within a function call to
 #!   GenArgs. It allows for the subOpts record value to specify any option values that should
 #!   be altered on nested subcalls when generating typesetting strings.

@@ -6,24 +6,32 @@
 ##
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
-function( x )
+function( x, opts... )
 	local options, defaults, name, t, f, string;
 
-	if ValueOption("options") = fail then
-		# Merge default options with user-passed optional parameters.
-		defaults := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
-		options := rec();
+	if IsEmpty(opts) then
+		if ValueOption("options") = fail then
+			# Merge default options with user-passed optional parameters.
+			defaults := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+			options := rec();
 
-		for name in RecNames(defaults) do
-			if ValueOption(name) = fail then
-				options.(name) := defaults.(name);
-			else
-				options.(name) := ValueOption(name);
-			fi;
-		od;
-	else
-		# Handling where options struct has already been constructed.
-		options := ValueOption("options");
+			for name in RecNames(defaults) do
+				if ValueOption(name) = fail then
+					options.(name) := defaults.(name);
+				else
+					options.(name) := ValueOption(name);
+				fi;
+			od;
+		else
+			# Handling where options struct has already been constructed.
+			options := ValueOption("options");
+		fi;
+	elif Length(opts)>=1 then
+		options := opts[1];
+		if Length(opts) > 1 then
+			# Throw error
+			Error("More than one optional argument passed.");
+		fi;
 	fi;
 
 	# Determine function to create output string (based on lang option).
@@ -180,6 +188,43 @@ function (poly)
 	return str;
 end);
 
+InstallMethod(GenLatexTmpl, "for character tables", true,
+[ IsCharacterTable ], 0,
+function (tbl )
+	local ret, cnr, classes, i, j, k, nCols, nRows, header;
+
+	ret := "\\begin{{tabular}}{{";
+	cnr := CharacterNames(tbl);
+	classes := ClassNames(tbl);
+
+	nRows := Length(cnr);
+	nCols := Length(classes);
+
+	# Format specifier.
+	for i in [1..nCols] do
+		Append(ret, "c ");
+	od;
+	Append(ret, "c}}\n & ");
+
+	header := JoinStringsWithSeparator(ClassNames(tbl), " & ");
+	Append(ret, header);
+	Append(ret, " \\\\\n");
+
+	for j in [1..nRows] do
+		Append(ret, cnr[j]);
+		Append(ret, " & ");
+		for k in [2..nCols] do
+			Append(ret, "{} & ");
+		od;
+		Append(ret, "{} \\\\\n");
+	od;
+
+	# Closing environment, with empty space for legend.
+	Append(ret, "\\end{{tabular}}{}");
+
+	return ret;
+end);
+
 #############################################################################
 ##
 #M  GenArgs( <object> ) . 
@@ -274,6 +319,75 @@ function(poly)
 	od;
 
 	return r;
+end);
+
+InstallMethod(GenArgs, "character tables", true,
+[ IsCharacterTable ], 0,
+function( tbl )
+	local ret, chars, data, i, j, entry;
+	ret := [];
+	chars := List(Irr(tbl), ValuesOfClassFunction);
+	data := CharacterTableDisplayStringEntryDataDefault(tbl);
+
+	# Generate character substitutions.
+	for i in [1..Length(chars)] do
+		for j in [1..Length(chars[i])] do
+			entry := CharacterTableDisplayStringEntryDefault(chars[i][j], data);
+			if '/' in entry then
+				# Use bar environment for complex conjugate.
+				entry := Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
+			fi;
+			Add(ret, entry);
+		od;
+	od;
+
+	# Generate Legend.
+	# Print("\% For including legends, make sure to include the amsmath package in your preamble (\\usepackage{amsmath})\n");
+	Add(ret, CtblLatexLegend(data));
+
+	return ret;
+end);
+
+#############################################################################
+##
+#M  CtblLatexLegend( <character table entry data> ) . 
+##  
+## generates a legend that specifies what substitutions have been used in a
+## representation of the character table. Uses the align environment.
+##
+InstallMethod(CtblLatexLegend, "for generating LaTeX representation of a character table legend", true,
+[ IsRecord ], 0,
+function (data) 
+	local ret, irrstack, irrnames, i, q;
+	ret := "";
+
+	irrstack := data.irrstack;
+	if not IsEmpty(irrstack) then
+		irrnames := data.irrnames;
+		Append(ret, "\n\\begin{align*}\n");
+	fi;
+
+	for i in [1..Length(irrstack)] do
+		Append(ret, irrnames[i]);
+		Append(ret, " &= ");
+		Append(ret, String(irrstack[i]));
+		Append(ret, " \\\\\n");
+
+		q:= Quadratic(irrstack[i]);
+		if q <> fail then
+			Append(ret, " &= ");
+			Append(ret, q.display);
+			Append(ret, " = ");
+			Append(ret, q.ATLAS);
+			Append(ret, " \\\\\n");
+		fi;
+	od;
+
+	if ret <> "" then
+		Append(ret, "\\end{align*}");
+	fi;
+
+	return ret;
 end);
 
 #############################################################################
