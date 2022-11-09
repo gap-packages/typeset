@@ -9,4 +9,4 @@ gap> y := Indeterminate(Rationals, 2);;
 gap> g := 3 + x^2 * y + y ^ 5 + x;;
 gap> Typeset(g);
 x_{2}^{5}+x_{1}^{2}x_{2}+x_{1}+3
-gap> STOP_TEST( "polynomials.tst" )
+gap> STOP_TEST( "polynomials.tst" );

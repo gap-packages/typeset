@@ -10,7 +10,6 @@
 <#Include SYSTEM "title.xml">
 <TableOfContents/>
 <Body>
-<#Include SYSTEM "_AutoDocMainFile.xml">
 </Body>
 <TheIndex/>
 </Book>
