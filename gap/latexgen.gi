@@ -6,7 +6,7 @@
 ##
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
-function( x )
+function( x, opts... )
 	local options, defaults, name, t, f, string;
 
 	if IsEmpty(opts) then
@@ -387,7 +387,7 @@ function (data)
 	od;
 
 	if ret <> "" then
-		Append(ret, "\\end{align*}\n");
+		Append(ret, "\\end{align*}");
 	fi;
 
 	return ret;
