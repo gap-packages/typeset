@@ -229,17 +229,17 @@ InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
 function ( g )
 	local str, i, j;
-	str := "\\langle";
+	str := "\\langle ";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, "\\mid");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\mid ");
 
 	for j in [1..Length(RelatorsOfFpGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
 
 	return str;
 end);
@@ -258,12 +258,12 @@ InstallMethod(GenLatexTmpl, "for matrix groups", true,
 [ IsMatrixGroup ], 0,
 function ( g )
 	local str, i;
-	str := "\\langle";
+	str := "\\langle ";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
 
 	return str;
 end);
@@ -272,12 +272,12 @@ InstallMethod(GenLatexTmpl, "for permutation groups", true,
 [ IsPermGroup ], 0,
 function ( g )
 	local str, i;
-	str := "\\langle";
+	str := "\\langle ";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, "\\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
 
 	return str;
 end);
@@ -572,7 +572,7 @@ function ( l, names, tseed )
 
 	i := 1;
 	ret := "";
-	while i < Length(substr) do
+	while i <= Length(substr) do
 		if i > 1 then
 			# More than one substring in word
 			# Only valid operator is *
@@ -580,21 +580,21 @@ function ( l, names, tseed )
 		fi;
 
 		exp := 1;
-		if word[i] > n then
+		if substr[i] > n then
 			# Can extract the component IDs from the second entry in a
-			t := a[2][word[i] - n];
+			t := a[2][substr[i] - n];
 			if t[1] = 0 then
 				# Single letter raised to a power
 				if t[2] < 0 then
 					Append(ret, names[ -t[2] ] );
-	  				Append(ret, "^{{-" );
+	  				Append(ret, "^{-" );
 	  				Append(ret, String(t[3]));
-					Append(ret, "}}");
+					Append(ret, "}");
 				else
 					Append(ret, names[ -t[2] ] );
-	  				Append(ret, "^{{" );
+	  				Append(ret, "^{" );
 	  				Append(ret, String(t[3]));
-					Append(ret, "}}");
+					Append(ret, "}");
 				fi;
 			else
 				# Constructed substring from multiple letter names
@@ -602,29 +602,31 @@ function ( l, names, tseed )
 				Append(ret,FactoriseAssocWordLatex(t,names,Filtered(a[2],x->x[1]=0)));
 				Add(ret,')');
 			fi;
-		elif word[i] < 0 then
-			Append(ret, names[-word[i]]);
+		elif substr[i] < 0 then
+			Append(ret, names[-substr[i]]);
 			exp := -1;
 		else
-			Append(ret, names[-word[i]]);
+			Append(ret, names[substr[i]]);
 		fi;
 
-		if i<Length(word) and word[i]=word[i+1] then
-      		j:=i;
-      		i:=i+1;
-      		while i<=Length(word) and word[j]=word[i] do
-				i:=i+1;
+		if i < Length(substr) and substr[i]=substr[i+1] then
+			# Consume duplicates of substring
+      		j := i;
+      		i := i+1;
+
+      		while i <= Length(substr) and substr[j]=substr[i] do
+				i := i+1;
       		od;
-      		Append(ret, "^{{");
+      		Append(ret, "^{");
       		Append(ret, String(exp*(i-j)));
-			Append(ret, "}}");
+			Append(ret, "}");
     	elif exp=-1 then
-			# Inverse
-      		Append(ret,"^{{-1}}");
-      		i:=i+1;
+			# Inverse power
+      		Append(ret,"^{-1}");
+      		i := i+1;
     	else
       		# No power given
-      		i:=i+1;
+      		i := i+1;
     	fi;
 	od;
 	ConvertToStringRep(ret);
