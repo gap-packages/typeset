@@ -208,7 +208,7 @@ function (tbl )
 
 	header := JoinStringsWithSeparator(ClassNames(tbl), " & ");
 	Append(ret, header);
-	Append(ret, "\\\\\n");
+	Append(ret, " \\\\\n");
 
 	for j in [1..nRows] do
 		Append(ret, cnr[j]);
@@ -220,7 +220,7 @@ function (tbl )
 	od;
 
 	# Closing environment, with empty space for legend.
-	Append(ret, "\\end{{tabular}}\n{}");
+	Append(ret, "\\end{{tabular}}{}");
 
 	return ret;
 end);
@@ -364,25 +364,22 @@ function (data)
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
 		irrnames := data.irrnames;
-		Append(ret, "\\begin{align*}\n");
+		Append(ret, "\n\\begin{align*}\n");
 	fi;
 
 	for i in [1..Length(irrstack)] do
 		Append(ret, irrnames[i]);
-		Append(ret, "=");
+		Append(ret, " &= ");
 		Append(ret, String(irrstack[i]));
-		
-		if i <> Length(irrstack) then
-			Append(ret, "\\\\\n");
-		fi;
+		Append(ret, " \\\\\n");
 
 		q:= Quadratic(irrstack[i]);
 		if q <> fail then
-			Append(ret, " = ");
+			Append(ret, " &= ");
 			Append(ret, q.display);
 			Append(ret, " = ");
 			Append(ret, q.ATLAS);
-			Append(ret, "\\\\\n");
+			Append(ret, " \\\\\n");
 		fi;
 	od;
 
