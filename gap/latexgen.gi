@@ -148,7 +148,7 @@ function (poly)
 
 		if Length(ext[i]) < 2 then
 			if c=false then
-				Append(str, String(one));
+				Append(str, "{}");
 			fi;
 		else
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
@@ -232,7 +232,7 @@ end);
 InstallMethod(GenArgs, "polynomials", true,
 [ IsPolynomial ], 0, 
 function(poly)
-	local i, j, fam, ext, zero, one, mone, le, r, subOptions;
+	local i, j, fam, ext, zero, one, mone, c, le, r, subOptions;
 	subOptions := MergeSubOptions(ValueOption("options"));
 
 	r := [];
@@ -244,16 +244,22 @@ function(poly)
 	le := Length(ext);
 
 	for i in [ le-1, le-3..1 ] do
+		c := false;
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, LatexString(ext[i + 1]));
+			Add(r, LatexString(ext[i + 1] : options := subOptions));
+			c := true;
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, LatexString(ext[i][j + 1]));
+					Add(r, LatexString(ext[i][j + 1] : options := subOptions));
 				fi;
 			od;
+		else
+			if c=false then
+				Add(r, LatexString(ext[i + 1] : options := subOptions));
+			fi;
 		fi;
 	od;
 
