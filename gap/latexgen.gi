@@ -7,7 +7,7 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x )
-	local options, defaults, name, t, f;
+	local options, defaults, name, t, f, string;
 
 	if ValueOption("options") = fail then
 		# Merge default options with user-passed optional parameters.
@@ -30,7 +30,9 @@ function( x )
 	f := options.("Lang");
 	f[1] := UppercaseChar(f[1]);
 	t := EvalString(Concatenation(f, "String"));
-	Print(t(x : options := options));
+	string := t(x : options := options);
+	Add(string, '\n');
+	Print(string);
 end);
 
 #############################################################################
@@ -58,6 +60,12 @@ end);
 ##  
 ## produces a template LaTeX string representing the structure of the provided object.
 ##
+InstallMethod(GenLatexTmpl, "fallback default method for all objects", true,
+[ IsObject ], 0,
+function( obj )
+	return "{}";
+end);
+
 InstallMethod(GenLatexTmpl, "for rationals", true,
 [ IsRat ], 0,
 function( x )
@@ -102,7 +110,7 @@ function( m )
     	od;
     	Append(s,"\\\\\n");
   	od;
-  	Append(s,"\\end{{array}}\\right)\n");
+  	Append(s,"\\end{{array}}\\right)");
   	return s;
 end);
 
@@ -168,7 +176,6 @@ function (poly)
 			od;
 		fi;
 	od;
-	Append(str, "\n");
 
 	return str;
 end);
@@ -180,6 +187,9 @@ end);
 ## produces a list of objects representing the semantics of the provided object.
 ## used to populate the template string.
 ##
+InstallMethod(GenArgs, "fallback default method", true,
+[ IsObject ], 0, String);
+
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
 function (x)
@@ -196,12 +206,12 @@ function ( ffe )
 	char := Characteristic(ffe);
 	ret := [ char, "", "" ];
 	if not IsZero(ffe) then
-		deg:=DegreeFFE(ffe);
+		deg := DegreeFFE(ffe);
 		if deg <> 1  then
 			ret[2] := Concatenation("^{", String(deg), "}");
 		fi;
 
-		log:= LogFFE(ffe,Z( char ^ deg ));
+		log := LogFFE(ffe,Z( char ^ deg ));
 		if log <> 1 then
 			ret[3] := Concatenation("^{", String(log), "}");
 		fi;
