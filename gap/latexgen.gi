@@ -285,9 +285,11 @@ end);
 InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	local names,len,i,g,h,e,a,s;
+	local orig,names,len,i,g,h,e,a,s,substr;
 
-	names := ShallowCopy(FamilyObj( elm )!.names);
+	# Generate names using subscript over . notation
+	orig := FamilyObj(elm)!.names;
+	names := ShallowCopy(orig);
 	for i in [1..Length(names)] do
 		s := names[i];
 		e := Length(s);
@@ -306,10 +308,12 @@ function( elm )
 
 	s := "";
 	elm := LetterRepAssocWord(elm);
-	len := Length( elm );
+	len := Length(elm);
 	i := 2;
 
-	substr := FindSubstringPowers(elm, FamilyObj( elm )!.names, []);
+	# Factorise word as power of substrings
+	substr := FindSubstringPowers(elm, orig, []);
+	word := substr[1];
 	if len = 0 then
 		return( "id" );
 	else
@@ -573,6 +577,19 @@ function (data)
 	fi;
 
 	return ret;
+end);
+
+#############################################################################
+##
+#M  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
+##  
+## constructs a string based on the return values from FindSubstringPowers
+## and the names of the letters.
+##
+InstallMethod(FactoriseAssocWordLatex, "for factorise assoc word in letter rep for LaTeX", true,
+[ IsWord, IsList, IsList ],
+function ( l, names, tseed )
+	return "";
 end);
 
 #############################################################################

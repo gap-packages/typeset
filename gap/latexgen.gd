@@ -74,6 +74,14 @@ DeclareOperation("GenArgs", [ IsObject ]);
 DeclareOperation("CtblLatexLegend", [ IsRecord ]);
 
 #! @Description
+#!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word
+#!   in letter representation, based on the return value from FindSubstringPowers.
+#!
+#! @Returns
+#!  String describing the factorised assoc word.
+DeclareOperation("FactoriseAssocWordLatex", [ IsWord, IsList, IsList ]);
+
+#! @Description
 #!   MergeSubOptions will merge the options records passed optionally within a function call to
 #!   GenArgs. It allows for the subOpts record value to specify any option values that should
 #!   be altered on nested subcalls when generating typesetting strings.
