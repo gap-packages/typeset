@@ -309,7 +309,7 @@ function( elm )
 	len := Length( elm );
 	i := 2;
 
-	substr := 
+	substr := FindSubstringPowers(elm, FamilyObj( elm )!.names, []);
 	if len = 0 then
 		return( "id" );
 	else
