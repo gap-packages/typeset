@@ -285,7 +285,7 @@ end);
 InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	local orig,names,len,i,g,h,e,a,s,substr;
+	local orig,names,i,e,s,l,substr;
 
 	# Generate names using subscript over . notation
 	orig := FamilyObj(elm)!.names;
@@ -306,43 +306,10 @@ function( elm )
 		fi;
 	od;
 
-	s := "";
-	elm := LetterRepAssocWord(elm);
-	len := Length(elm);
-	i := 2;
-
 	# Factorise word as power of substrings
-	substr := FindSubstringPowers(elm, orig, []);
-	word := substr[1];
-	if len = 0 then
-		return( "id" );
-	else
-		g := AbsInt(elm[1]);
-		e := SignInt(elm[1]);
-		while i <= len do
-			h := AbsInt(elm[i]);
-			if h=g then
-				e := e+SignInt(elm[i]);
-			else
-				Append(s, names[g] );
-				if e <> 1 then
-					Append(s,"^{");
-					Append(s,String(e));
-					Append(s,"}");
-				fi;
-				g := h;
-				e := SignInt(elm[i]);
-			fi;
-			i := i+1;
-		od;
-		Append(s, names[g] );
-		if e <> 1 then
-			Append(s,"^{");
-			Append(s,String(e));
-			Append(s,"}");
-		fi;
-	fi;
-	return s;
+	l := LetterRepAssocWord(elm);
+	substr := FactoriseAssocWordLatex(l, orig, []);
+	return substr;
 end);
 
 #############################################################################
@@ -586,10 +553,83 @@ end);
 ## constructs a string based on the return values from FindSubstringPowers
 ## and the names of the letters.
 ##
-InstallMethod(FactoriseAssocWordLatex, "for factorise assoc word in letter rep for LaTeX", true,
-[ IsWord, IsList, IsList ],
+InstallMethod(FactoriseAssocWordLatex, "for factorising assoc word in letter rep for LaTeX", true,
+[ IsList, IsList, IsList ],
 function ( l, names, tseed )
-	return "";
+	local n, a, substr, i, ret, exp, t, word, j;
+
+	n := Length(names);
+	if Length(l)>0 and n=infinity then
+      n := 2*(Maximum(List(l,AbsInt))+1);
+    fi;
+    a := FindSubstringPowers(l,n + Length(tseed)); # tseed numbers are used already
+
+	# FindSubstringPowers returns 2 element list.
+	# Element 1: List of substring IDs which when concatenated will result in the original word.
+	# Element 2: IDs of substrings which are constructed from individual letters.
+	substr := a[1];
+	a[2] := Concatenation(tseed, a[2]);
+
+	i := 1;
+	ret := "";
+	while i < Length(substr) do
+		if i > 1 then
+			# More than one substring in word
+			# Only valid operator is *
+			Add(ret, '*');
+		fi;
+
+		exp := 1;
+		if word[i] > n then
+			# Can extract the component IDs from the second entry in a
+			t := a[2][word[i] - n];
+			if t[1] = 0 then
+				# Single letter raised to a power
+				if t[2] < 0 then
+					Append(ret, names[ -t[2] ] );
+	  				Append(ret, "^{{-" );
+	  				Append(ret, String(t[3]));
+					Append(ret, "}}");
+				else
+					Append(ret, names[ -t[2] ] );
+	  				Append(ret, "^{{" );
+	  				Append(ret, String(t[3]));
+					Append(ret, "}}");
+				fi;
+			else
+				# Constructed substring from multiple letter names
+				Add(ret,'(');
+				Append(ret,FactoriseAssocWordLatex(t,names,Filtered(a[2],x->x[1]=0)));
+				Add(ret,')');
+			fi;
+		elif word[i] < 0 then
+			Append(ret, names[-word[i]]);
+			exp := -1;
+		else
+			Append(ret, names[-word[i]]);
+		fi;
+
+		if i<Length(word) and word[i]=word[i+1] then
+      		j:=i;
+      		i:=i+1;
+      		while i<=Length(word) and word[j]=word[i] do
+				i:=i+1;
+      		od;
+      		Append(ret, "^{{");
+      		Append(ret, String(exp*(i-j)));
+			Append(ret, "}}");
+    	elif exp=-1 then
+			# Inverse
+      		Append(ret,"^{{-1}}");
+      		i:=i+1;
+    	else
+      		# No power given
+      		i:=i+1;
+    	fi;
+	od;
+	ConvertToStringRep(ret);
+
+	return ret;
 end);
 
 #############################################################################

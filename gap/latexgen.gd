@@ -79,7 +79,7 @@ DeclareOperation("CtblLatexLegend", [ IsRecord ]);
 #!
 #! @Returns
 #!  String describing the factorised assoc word.
-DeclareOperation("FactoriseAssocWordLatex", [ IsWord, IsList, IsList ]);
+DeclareOperation("FactoriseAssocWordLatex", [ IsList, IsList, IsList ]);
 
 #! @Description
 #!   MergeSubOptions will merge the options records passed optionally within a function call to
