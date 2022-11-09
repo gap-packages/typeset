@@ -74,7 +74,7 @@ AvailabilityTest := ReturnTrue,
 
 TestFile := "tst/testall.g",
 
-#Keywords := [ "TODO" ],
+Keywords := [ "latex", "typesetting", "markdown" ],
 
 ));
 

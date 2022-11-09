@@ -7,7 +7,7 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x )
-	local options, defaults, name, t, f;
+	local options, defaults, name, t, f, string;
 
 	if ValueOption("options") = fail then
 		# Merge default options with user-passed optional parameters.
@@ -30,7 +30,9 @@ function( x )
 	f := options.("Lang");
 	f[1] := UppercaseChar(f[1]);
 	t := EvalString(Concatenation(f, "String"));
-	Print(t(x : options := options));
+	string := t(x : options := options);
+	Add(string, '\n');
+	Print(string);
 end);
 
 #############################################################################
@@ -58,11 +60,34 @@ end);
 ##  
 ## produces a template LaTeX string representing the structure of the provided object.
 ##
+InstallMethod(GenLatexTmpl, "fallback default method for all objects", true,
+[ IsObject ], 0,
+function( obj )
+	return "{}";
+end);
+
 InstallMethod(GenLatexTmpl, "for rationals", true,
 [ IsRat ], 0,
 function( x )
-	return "{}";
+	if IsInt(x) then
+		return "{}";
+	fi;
+	return "\\frac{{{}}}{{{}}}";
 end);
+
+InstallMethod(GenLatexTmpl, "for an internal FFE", true,
+[IsFFE and IsInternalRep], 0,
+function ( ffe )
+	local str, log,deg,char;
+  	char := Characteristic(ffe);
+  	if IsZero( ffe ) then
+    	str := "0*Z({})";
+  	else
+    	str := "Z({}{}){}";
+  	fi;
+  	ConvertToStringRep(str);
+  	return str;
+end );
 
 InstallMethod(GenLatexTmpl, "matrix", true,
 [ IsMatrix ], 0,
@@ -85,7 +110,7 @@ function( m )
     	od;
     	Append(s,"\\\\\n");
   	od;
-  	Append(s,"\\end{{array}}\\right)\n");
+  	Append(s,"\\end{{array}}\\right)");
   	return s;
 end);
 
@@ -107,6 +132,7 @@ function (poly)
 	fi;
 
 	for i in [ le-1, le-3..1 ] do
+		c := true;
 		if ext[i + 1]=one then
 			if i<le-1 then
 				Append(str, "+");
@@ -118,20 +144,35 @@ function (poly)
 		else
 			if IsRat(ext[i + 1]) then
 				if ext[i + 1]<0 then
-					Append(str, "- {}");
+					Append(str, "{}");
 				else
-					Append(str, "+ {}");
+					if i<le-1 then
+						Append(str, "+");
+					fi;
+					Append(str, "{}");
 				fi;
 			fi;	
 		fi;
 
 		if Length(ext[i]) < 2 then
-			if c=true then
-				Append(str, String(one));
+			if c=false then
+				Append(str, "{}");
 			fi;
 		else
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
-				Append(str, "{}");
+				ind:=ext[i][j];
+				if HasIndeterminateName(fam,ind) then
+					Append(str,IndeterminateName(fam,ind));
+				else
+					Append(str,"x_{{");
+					Append(str,String(ind)); 
+					Append(str,"}}");
+				fi;
+				if 1 <> ext[i][j+1]  then
+					Append(str,"^{{");
+					Append(str,"{}");
+					Append(str,"}}");
+				fi;
 			od;
 		fi;
 	od;
@@ -146,12 +187,37 @@ end);
 ## produces a list of objects representing the semantics of the provided object.
 ## used to populate the template string.
 ##
+InstallMethod(GenArgs, "fallback default method", true,
+[ IsObject ], 0, String);
+
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
 function (x)
-	local list;
-	list := [ String(x) ];
-	return list;
+	if IsInt(x) then
+    	return [ String(x) ];
+  	fi;
+	return [ NumeratorRat(x), DenominatorRat(x) ];
+end);
+
+InstallMethod(GenArgs, "internal ffe", true,
+[ IsFFE and IsInternalRep ], 0,
+function ( ffe )
+	local char, ret, deg, log;
+	char := Characteristic(ffe);
+	ret := [ char, "", "" ];
+	if not IsZero(ffe) then
+		deg := DegreeFFE(ffe);
+		if deg <> 1  then
+			ret[2] := Concatenation("^{", String(deg), "}");
+		fi;
+
+		log := LogFFE(ffe,Z( char ^ deg ));
+		if log <> 1 then
+			ret[3] := Concatenation("^{", String(log), "}");
+		fi;
+	fi;
+
+	return ret;
 end);
 
 InstallMethod(GenArgs, "matrix", true,
@@ -168,6 +234,43 @@ function ( m )
 		for j in [1..n] do
 			Append(r, LatexString(m[i][j] : options := subOptions));
 		od;
+	od;
+
+	return r;
+end);
+
+InstallMethod(GenArgs, "polynomials", true,
+[ IsPolynomial ], 0, 
+function(poly)
+	local i, j, fam, ext, zero, one, mone, c, le, r, subOptions;
+	subOptions := MergeSubOptions(ValueOption("options"));
+
+	r := [];
+	fam := FamilyObj(poly);
+	ext := ExtRepPolynomialRatFun(poly);
+	zero := fam!.zeroCoefficient;
+	one := fam!.oneCoefficient;
+	mone := -one;
+	le := Length(ext);
+
+	for i in [ le-1, le-3..1 ] do
+		c := false;
+		if ext[i + 1] <> one and ext[i + 1] <> mone then
+			Add(r, LatexString(ext[i + 1] : options := subOptions));
+			c := true;
+		fi;
+
+		if Length(ext[i]) > 1 then
+			for j in [ 1, 3 .. Length(ext[i]) - 1] do
+				if 1 <> ext[i][j + 1] then
+					Add(r, LatexString(ext[i][j + 1] : options := subOptions));
+				fi;
+			od;
+		else
+			if c=false then
+				Add(r, LatexString(ext[i + 1] : options := subOptions));
+			fi;
+		fi;
 	od;
 
 	return r;
