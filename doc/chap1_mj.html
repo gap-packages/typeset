@@ -28,11 +28,14 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7ED1D62579C10890">1.1 <span class="Heading">Example Methods</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7FBC14437D1F193F">1.1-1 Typeset</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X87DB22C07E0577EE">1.1-2 LatexString</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X817F73037F401EBE">1.1-3 GenLatexTmpl</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X860806A279FED206">1.1-4 GenArgs</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8564D42C83B07928">1.1-5 MergeSubOptions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7836EBA18368A803">1.1-1 InfoLatexgen</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7FBC14437D1F193F">1.1-2 Typeset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8680171A79DBE21B">1.1-3 TypesetString</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X817F73037F401EBE">1.1-4 GenLatexTmpl</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X860806A279FED206">1.1-5 GenArgs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X799019C783DBB0B1">1.1-6 CtblLatexLegend</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7A5FBB7479C86F83">1.1-7 FactoriseAssocWordLatex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8564D42C83B07928">1.1-8 MergeSubOptions</a></span>
 </div></div>
 </div>
 
@@ -46,27 +49,51 @@
 
 <h4>1.1 <span class="Heading">Example Methods</span></h4>
 
+<p><a id="X7836EBA18368A803" name="X7836EBA18368A803"></a></p>
+
+<h5>1.1-1 InfoLatexgen</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoLatexgen</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the <strong class="pkg">latexgen</strong> package. Set this to the following levels for different levels of information:</p>
+
+
+<ul>
+<li><p>0 - No messages</p>
+
+</li>
+<li><p>1 - Problems only: messages describing what went wrong, with no messages if an operation is successful</p>
+
+</li>
+<li><p>2 - Required preamble packages: displays informations about any required LaTeX packages that need to be added to the preamble to be rendered.</p>
+
+</li>
+<li><p>3 - Progress: also shows step-by-step progress of operations</p>
+
+</li>
+</ul>
+<p>Set this using, for example <code class="code">SetInfoLevel(InfoLatexgen, 1)</code>. Default value is 2.</p>
+
 <p><a id="X7FBC14437D1F193F" name="X7FBC14437D1F193F"></a></p>
 
-<h5>1.1-1 Typeset</h5>
+<h5>1.1-2 Typeset</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Typeset</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: String representation of object in given mark-up language.</p>
 
 <p>Typeset takes a mathematical object and generates a mark-up string representing that object in the given mark-up language (default: LaTeX). Optional records can be added to modify the result: TODO: list of optional parameters</p>
 
-<p><a id="X87DB22C07E0577EE" name="X87DB22C07E0577EE"></a></p>
+<p><a id="X8680171A79DBE21B" name="X8680171A79DBE21B"></a></p>
 
-<h5>1.1-2 LatexString</h5>
+<h5>1.1-3 TypesetString</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LatexString</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: String representation of objet in LaTeX.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TypesetString</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Typesetable String representation of object.</p>
 
-<p>LatexString generates a string representation of a passed mathematical object that can be rendered by a LaTeX typesetter.</p>
+<p>TypesetString generates a string representation of a passed mathematical object that can be rendered by a typesetter.</p>
 
 <p><a id="X817F73037F401EBE" name="X817F73037F401EBE"></a></p>
 
-<h5>1.1-3 GenLatexTmpl</h5>
+<h5>1.1-4 GenLatexTmpl</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GenLatexTmpl</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: Unpopulated LaTeX format string representing the structural description of the passed object.</p>
@@ -75,16 +102,34 @@
 
 <p><a id="X860806A279FED206" name="X860806A279FED206"></a></p>
 
-<h5>1.1-4 GenArgs</h5>
+<h5>1.1-5 GenArgs</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GenArgs</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: List of strings that describe the semantic structure of an object.</p>
 
 <p>GenArgs generates the arguments describing the semantic definition of the passed mathematical object. This should result in a list that can be used to populate a format string in any mark-up language.</p>
 
+<p><a id="X799019C783DBB0B1" name="X799019C783DBB0B1"></a></p>
+
+<h5>1.1-6 CtblLatexLegend</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CtblLatexLegend</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Strings that describe the calculated substitutions.</p>
+
+<p>CtblLatexLegend generates a string representation of the mathematical substitutions for entries within a character table.</p>
+
+<p><a id="X7A5FBB7479C86F83" name="X7A5FBB7479C86F83"></a></p>
+
+<h5>1.1-7 FactoriseAssocWordLatex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FactoriseAssocWordLatex</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var>, <var class="Arg">arg3</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: String describing the factorised assoc word.</p>
+
+<p>FactoriseAssocWordLatex generates a factorised string representation of an assoc word in letter representation, based on the return value from FindSubstringPowers.</p>
+
 <p><a id="X8564D42C83B07928" name="X8564D42C83B07928"></a></p>
 
-<h5>1.1-5 MergeSubOptions</h5>
+<h5>1.1-8 MergeSubOptions</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MergeSubOptions</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns: Records representing the options that should be passed to any sub calls within the current method.</p>
