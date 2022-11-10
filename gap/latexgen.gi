@@ -35,28 +35,31 @@ function( x, opts... )
 	fi;
 
 	# Determine function to create output string (based on lang option).
-	f := options.("Lang");
-	f[1] := UppercaseChar(f[1]);
-	t := EvalString(Concatenation(f, "String"));
-	string := t(x : options := options);
+	string := TypesetString(x : options := options);
 	Add(string, '\n');
 	Print(string);
 end);
 
 #############################################################################
 ##
-#M  LatexString( <object> ) . 
+#M  TypesetString( <object> ) . 
 ##  
-## produces a LaTeX-renderable string representing the provided object.
+## produces a typesetable string representing the provided object.
 ##
-InstallMethod(LatexString, "for all objects", true,
+InstallMethod(TypesetString, "for all objects", true,
 [ IsObject ],0,
 function( x )
-	local options, string, args, tmpl;
+	local options, lang, string, args, tmpl;
 	
+	# Determine template string generation function.
 	options := ValueOption("options");
+	lang := options.("Lang");
+	lang[1] := UppercaseChar(lang[1]);
+	t := EvalString(Concatenation("Gen", lang, "Tmpl"));
+
+	# Generate and populate template string.
+	tmpl := t(x : options := options);
 	args := GenArgs(x : options := options);
-	tmpl := GenLatexTmpl(x : options := options);
 	Add(args, tmpl, 1);
 	string := CallFuncList(StringFormatted, args);
 	return string;
@@ -283,33 +286,9 @@ function ( g )
 end);
 
 InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
-[IsAssocWord and IsLetterAssocWordRep],0,
+[IsAssocWord and IsLetterAssocWordRep], 0,
 function( elm )
-	local orig,names,i,e,s,l,substr;
-
-	# Generate names using subscript over . notation
-	orig := FamilyObj(elm)!.names;
-	names := ShallowCopy(orig);
-	for i in [1..Length(names)] do
-		s := names[i];
-		e := Length(s);
-		while e>0 and s[e] in CHARS_DIGITS do
-			e := e-1;
-		od;
-		if e<Length(s) then
-			if e=Length(s)-1 then
-				s := Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
-			else
-				s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-			fi;
-			names[i] := s;
-		fi;
-	od;
-
-	# Factorise word as power of substrings
-	l := LetterRepAssocWord(elm);
-	substr := FactoriseAssocWordLatex(l, orig, []);
-	return substr;
+	return "{}";
 end);
 
 #############################################################################
@@ -324,7 +303,7 @@ InstallMethod(GenArgs, "fallback default method", true,
 
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
-function (x)
+function ( x )
 	if IsInt(x) then
     	return [ String(x) ];
   	fi;
@@ -364,7 +343,7 @@ function ( m )
 
 	for i in [1..l] do
 		for j in [1..n] do
-			Add(r, LatexString(m[i][j] : options := subOptions));
+			Add(r, TypesetString(m[i][j] : options := subOptions));
 		od;
 	od;
 
@@ -373,7 +352,7 @@ end);
 
 InstallMethod(GenArgs, "polynomials", true,
 [ IsPolynomial ], 0, 
-function(poly)
+function( poly )
 	local i, j, fam, ext, zero, one, mone, c, le, r, subOptions;
 	subOptions := MergeSubOptions(ValueOption("options"));
 
@@ -388,19 +367,19 @@ function(poly)
 	for i in [ le-1, le-3..1 ] do
 		c := false;
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, LatexString(ext[i + 1] : options := subOptions));
+			Add(r, TypesetString(ext[i + 1] : options := subOptions));
 			c := true;
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, LatexString(ext[i][j + 1] : options := subOptions));
+					Add(r, TypesetString(ext[i][j + 1] : options := subOptions));
 				fi;
 			od;
 		else
 			if c=false then
-				Add(r, LatexString(ext[i + 1] : options := subOptions));
+				Add(r, TypesetString(ext[i + 1] : options := subOptions));
 			fi;
 		fi;
 	od;
@@ -437,7 +416,7 @@ end);
 
 InstallMethod(GenArgs, "permutation", true,
 [ IsPerm ], 0,
-function (x)
+function ( x )
 	local list;
 	list := [ String(x) ];
 	return list;
@@ -455,7 +434,7 @@ function ( g )
 	od;
 
 	for j in [1..Length(rels)] do
-		Add(lst, GenLatexTmpl(rels[j]));
+		Add(lst, TypesetString(rels[j]));
 	od;
 
 	return lst;
@@ -479,7 +458,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, LatexString(gens[i]));
+		Add(lst, TypesetString(gens[i]));
 	od;
 
 	return lst;
@@ -501,7 +480,32 @@ end);
 InstallMethod(GenArgs,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	return [];
+	local orig,names,i,e,s,l,substr;
+
+	# Generate names using subscript over . notation
+	orig := FamilyObj(elm)!.names;
+	names := ShallowCopy(orig);
+	for i in [1..Length(names)] do
+		s := names[i];
+		e := Length(s);
+		while e>0 and s[e] in CHARS_DIGITS do
+			e := e-1;
+		od;
+		if e<Length(s) then
+			if e=Length(s)-1 then
+				s := Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
+			else
+				s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+			fi;
+			names[i] := s;
+		fi;
+	od;
+
+	# Factorise word as power of substrings
+	l := LetterRepAssocWord(elm);
+	substr := FactoriseAssocWordLatex(l, orig, []);
+
+	return [ substr ];
 end);
 
 #############################################################################
@@ -513,7 +517,7 @@ end);
 ##
 InstallMethod(CtblLatexLegend, "for generating LaTeX representation of a character table legend", true,
 [ IsRecord ], 0,
-function (data) 
+function ( data ) 
 	local ret, irrstack, irrnames, i, q;
 	ret := "";
 

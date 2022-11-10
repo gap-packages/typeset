@@ -39,12 +39,12 @@ SetInfoLevel(InfoLatexgen, 2);
 DeclareOperation("Typeset", [ IsObject ]);
 
 #! @Description
-#!   LatexString generates a string representation of a passed mathematical object that
-#!   can be rendered by a LaTeX typesetter.
+#!   TypesetString generates a string representation of a passed mathematical object that
+#!   can be rendered by a typesetter.
 #!
 #! @Returns
-#!   String representation of objet in LaTeX.
-DeclareOperation("LatexString", [ IsObject ]);
+#!   Typesetable String representation of object.
+DeclareOperation("TypesetString", [ IsObject ]);
 
 #! @Description
 #!   GenLatexTmpl generates a format string that represents the structural definition

@@ -83,4 +83,4 @@ X.10 & 1 & \bar{A} & \bar{B} & -B & -A & -1 & -\bar{A} & -\bar{B} & B & A \\
 A &= -E(5)^3 \\
 B &= E(5) \\
 \end{align*}
-gap> STOP_TEST( "ctbl.tst" );
+gap> STOP_TEST( "ctbls.tst" );
