@@ -7,7 +7,7 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x, opts... )
-	local options, defaults, name, t, f, string;
+	local options, defaults, name, string;
 
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
@@ -49,7 +49,7 @@ end);
 InstallMethod(TypesetString, "for all objects", true,
 [ IsObject ],0,
 function( x )
-	local options, lang, string, args, tmpl;
+	local options, lang, t, string, args, tmpl;
 	
 	# Determine template string generation function.
 	options := ValueOption("options");

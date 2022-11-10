@@ -1,3 +1,4 @@
+#@local x, y, f, b, g
 gap> START_TEST( "polynomial Latex string generation ");
 
 # Trivial single variable polynomial
