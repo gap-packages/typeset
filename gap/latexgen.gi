@@ -191,6 +191,12 @@ function ( poly )
 	return str;
 end);
 
+InstallMethod(GenLatexTmpl, "for rational functions (non-polynomial)", true,
+[ IsRationalFunction ], 0,
+function( ratf )
+	return "\\frac{{{}}}{{{}}}";
+end);
+
 InstallMethod(GenLatexTmpl, "for character tables", true,
 [ IsCharacterTable ], 0,
 function (tbl )
@@ -385,6 +391,16 @@ function( poly )
 	od;
 
 	return r;
+end);
+
+InstallMethod(GenArgs, "rational functions (non-polynomial)", true,
+[ IsRationalFunction ], 0,
+function( ratf )
+	local num, den;
+	num := NumeratorOfRationalFunction(ratf);
+	den := DenominatorOfRationalFunction(ratf);
+
+	return [ TypesetString(num), TypesetString(den) ];
 end);
 
 InstallMethod(GenArgs, "character tables", true,

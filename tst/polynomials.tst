@@ -25,5 +25,11 @@ gap> Typeset(b);
 x_{1}^{7}x_{2}+x_{1}^{6}x_{2}^{2}+5x_{1}^{5}+x_{1}^{3}x_{2}^{2}+x_{1}^{2}x_{2}\
 ^{3}+3x_{1}^{2}x_{2}+3x_{1}x_{2}^{2}+5x_{1}x_{2}+15
 
+# Non-Polynomial Rational Functions
+gap> b:=(g)/(f^2);;
+gap> Typeset(b);
+\frac{x_{1}^{2}x_{2}+x_{1}x_{2}^{2}+5}{x_{1}^{10}+2x_{1}^{6}x_{2}+6x_{1}^{5}+x\
+_{1}^{2}x_{2}^{2}+6x_{1}x_{2}+9}
+
 # End test
 gap> STOP_TEST( "polynomials.tst" );
