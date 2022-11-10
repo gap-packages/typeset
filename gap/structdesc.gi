@@ -22,6 +22,12 @@ InstallMethod(LatexStructureDescription, "for structure description strings", tr
 [ IsString ], 0 ,
 function( desc )
     local ret, sub, j, i, closed, op;
+
+    # Handle trivial group explicitly
+    if desc="1" then
+        return desc;
+    fi;
+
     # Handle possible operators {:, ., x, /, =}
     if ':' in desc then
         Info(InfoLatexgen, 2, "To use \\rtimes, add the amssymb package to your premable \\usepackage{amssymb}");

@@ -7,7 +7,7 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x, opts... )
-	local options, defaults, name, string;
+	local options, defaults, name, string, old;
 
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
@@ -37,7 +37,12 @@ function( x, opts... )
 	# Determine function to create output string (based on lang option).
 	string := TypesetString(x : options := options);
 	Add(string, '\n');
-	Print(string);
+
+	# Print to terminal (use SetPrintFormattingStatus to remove line breaks).
+	old := PrintFormattingStatus("*stdout*");
+	SetPrintFormattingStatus("*stdout*", false);
+	PrintFormattedString(string);
+	SetPrintFormattingStatus("*stdout*", old);
 end);
 
 #############################################################################
@@ -424,7 +429,7 @@ function( tbl )
 	od;
 
 	# Generate Legend.
-	# Print("\% For including legends, make sure to include the amsmath package in your preamble (\\usepackage{amsmath})\n");
+	Info(InfoLatexgen, 2, "To use \\align in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 	Add(ret, CtblLatexLegend(data));
 
 	return ret;
@@ -440,13 +445,24 @@ end);
 
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
 function ( g )
-	local lst, gens, rels, i, j;
+	local lst, gens, rels, i, s, e, j;
 	lst := [];
 	gens := GeneratorsOfGroup(g);
 	rels := RelatorsOfFpGroup(g);
 
+	# Sub-script notation for generators.
 	for i in [1..Length(gens)] do
-		Add(lst, String(gens[i]));
+		s := String(gens[i]);
+		e := Length(s);
+
+		while e>0 and s[e] in CHARS_DIGITS do
+			e := e-1;
+		od;
+		if e<Length(s) then
+			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+		fi;
+
+		Add(lst, String(s));
 	od;
 
 	for j in [1..Length(rels)] do
@@ -508,18 +524,14 @@ function( elm )
 			e := e-1;
 		od;
 		if e<Length(s) then
-			if e=Length(s)-1 then
-				s := Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
-			else
-				s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-			fi;
+			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
 			names[i] := s;
 		fi;
 	od;
 
 	# Factorise word as power of substrings
 	l := LetterRepAssocWord(elm);
-	substr := FactoriseAssocWordLatex(l, orig, []);
+	substr := FactoriseAssocWordLatex(l, names, []);
 
 	return [ substr ];
 end);
@@ -593,12 +605,6 @@ function ( l, names, tseed )
 	i := 1;
 	ret := "";
 	while i <= Length(substr) do
-		if i > 1 then
-			# More than one substring in word
-			# Only valid operator is *
-			Add(ret, '*');
-		fi;
-
 		exp := 1;
 		if substr[i] > n then
 			# Can extract the component IDs from the second entry in a

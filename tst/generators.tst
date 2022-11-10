@@ -40,22 +40,18 @@ gap> Typeset(g);
 \langle a,b \mid a^{5},b^{2} \rangle
 gap> g := f / [ f.1^5, f.2^2, (f.2 * f.1)^5 ];;
 gap> Typeset(g);
-\langle a,b \mid a^{5},b^{2},(b*a)^{5} \rangle
+\langle a,b \mid a^{5},b^{2},(ba)^{5} \rangle
 gap> g := f / [ f.1^5, f.2^2, f.1^f.2*f.1 ];;
 gap> Typeset(g);
-\langle a,b \mid a^{5},b^{2},b^{-1}*a*b*a \rangle
+\langle a,b \mid a^{5},b^{2},b^{-1}aba \rangle
 
 # Polycyclic (PC) Groups
 gap> G := Group( (1,2,3), (3,4,1) );; g := PcGroupWithPcgs( Pcgs(G) );;
 gap> Typeset(g);
-\langle f1,f2,f3 \mid f1^{3},f2^{-1}*f1^{-1}*f2*f1*f3^{-1},f3^{-1}*f1^{-1}*f3*\
-f1*f3^{-1}*f2^{-1},f2^{2},f3^{-1}*f2^{-1}*f3*f2,f3^{2} \rangle
+\langle f_{1},f_{2},f_{3} \mid f_{1}^{3},f_{2}^{-1}f_{1}^{-1}f_{2}f_{1}f_{3}^{-1},f_{3}^{-1}f_{1}^{-1}f_{3}f_{1}f_{3}^{-1}f_{2}^{-1},f_{2}^{2},f_{3}^{-1}f_{2}^{-1}f_{3}f_{2},f_{3}^{2} \rangle
 gap> g := SmallGroup( 24, 12 );;
 gap> Typeset(g);
-\langle f1,f2,f3,f4 \mid f1^{2},f2^{-1}*f1^{-1}*f2*f1*f2^{-1},f3^{-1}*f1^{-1}*\
-f3*f1*f4^{-1}*f3^{-1},f4^{-1}*f1^{-1}*f4*f1*f4^{-1}*f3^{-1},f2^{3},f3^{-1}*f2^\
-{-1}*f3*f2*f4^{-1}*f3^{-1},f4^{-1}*f2^{-1}*f4*f2*f3^{-1},f3^{2},f4^{-1}*f3^{-1\
-}*f4*f3,f4^{2} \rangle
+\langle f_{1},f_{2},f_{3},f_{4} \mid f_{1}^{2},f_{2}^{-1}f_{1}^{-1}f_{2}f_{1}f_{2}^{-1},f_{3}^{-1}f_{1}^{-1}f_{3}f_{1}f_{4}^{-1}f_{3}^{-1},f_{4}^{-1}f_{1}^{-1}f_{4}f_{1}f_{4}^{-1}f_{3}^{-1},f_{2}^{3},f_{3}^{-1}f_{2}^{-1}f_{3}f_{2}f_{4}^{-1}f_{3}^{-1},f_{4}^{-1}f_{2}^{-1}f_{4}f_{2}f_{3}^{-1},f_{3}^{2},f_{4}^{-1}f_{3}^{-1}f_{4}f_{3},f_{4}^{2} \rangle
 
 # End Test
 gap> STOP_TEST( "generators.tst" );
