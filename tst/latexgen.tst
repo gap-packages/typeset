@@ -27,7 +27,20 @@ Z(5)^{3}
 gap> x := [[0, 1], [1, 0]];;
 gap> Typeset(x);
 \left(\begin{array}{rr}
-'0'&'1'\\
-'1'&'0'\\
+0 & 1 \\
+1 & 0 \\
 \end{array}\right)
+
+# Matrix with FFEs
+gap> x := [ [ Z(3)^0, Z(3)^0,   Z(3) ],
+>            [   Z(3), 0*Z(3),   Z(3) ],
+>            [ 0*Z(3),   Z(3), 0*Z(3) ] ];;
+gap> Typeset(x);
+\left(\begin{array}{rrr}
+Z(3)^{0} & Z(3)^{0} & Z(3) \\
+Z(3) & 0*Z(3) & Z(3) \\
+0*Z(3) & Z(3) & 0*Z(3) \\
+\end{array}\right)
+
+# End Test
 gap> STOP_TEST( "latexgen.tst" );

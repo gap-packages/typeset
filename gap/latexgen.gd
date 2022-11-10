@@ -39,12 +39,12 @@ SetInfoLevel(InfoLatexgen, 2);
 DeclareOperation("Typeset", [ IsObject ]);
 
 #! @Description
-#!   LatexString generates a string representation of a passed mathematical object that
-#!   can be rendered by a LaTeX typesetter.
+#!   TypesetString generates a string representation of a passed mathematical object that
+#!   can be rendered by a typesetter.
 #!
 #! @Returns
-#!   String representation of objet in LaTeX.
-DeclareOperation("LatexString", [ IsObject ]);
+#!   Typesetable String representation of object.
+DeclareOperation("TypesetString", [ IsObject ]);
 
 #! @Description
 #!   GenLatexTmpl generates a format string that represents the structural definition
@@ -72,6 +72,14 @@ DeclareOperation("GenArgs", [ IsObject ]);
 #! @Returns
 #!  Strings that describe the calculated substitutions.
 DeclareOperation("CtblLatexLegend", [ IsRecord ]);
+
+#! @Description
+#!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word
+#!   in letter representation, based on the return value from FindSubstringPowers.
+#!
+#! @Returns
+#!  String describing the factorised assoc word.
+DeclareOperation("FactoriseAssocWordLatex", [ IsList, IsList, IsList ]);
 
 #! @Description
 #!   MergeSubOptions will merge the options records passed optionally within a function call to

@@ -7,7 +7,7 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x, opts... )
-	local options, defaults, name, t, f, string;
+	local options, defaults, name, string;
 
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
@@ -35,28 +35,31 @@ function( x, opts... )
 	fi;
 
 	# Determine function to create output string (based on lang option).
-	f := options.("Lang");
-	f[1] := UppercaseChar(f[1]);
-	t := EvalString(Concatenation(f, "String"));
-	string := t(x : options := options);
+	string := TypesetString(x : options := options);
 	Add(string, '\n');
 	Print(string);
 end);
 
 #############################################################################
 ##
-#M  LatexString( <object> ) . 
+#M  TypesetString( <object> ) . 
 ##  
-## produces a LaTeX-renderable string representing the provided object.
+## produces a typesetable string representing the provided object.
 ##
-InstallMethod(LatexString, "for all objects", true,
+InstallMethod(TypesetString, "for all objects", true,
 [ IsObject ],0,
 function( x )
-	local options, string, args, tmpl;
+	local options, lang, t, string, args, tmpl;
 	
+	# Determine template string generation function.
 	options := ValueOption("options");
+	lang := options.("Lang");
+	lang[1] := UppercaseChar(lang[1]);
+	t := EvalString(Concatenation("Gen", lang, "Tmpl"));
+
+	# Generate and populate template string.
+	tmpl := t(x : options := options);
 	args := GenArgs(x : options := options);
-	tmpl := GenLatexTmpl(x : options := options);
 	Add(args, tmpl, 1);
 	string := CallFuncList(StringFormatted, args);
 	return string;
@@ -111,9 +114,9 @@ function( m )
   	Append(s,"}}\n");
   	for i in [1..l] do
     	for j in [1..n] do
-      	Append(s,"{}");
+      	Append(s,"{} ");
       	if j<n then
-        	Add(s,'&');
+        	Append(s,"& ");
       	fi;
     	od;
     	Append(s,"\\\\\n");
@@ -124,7 +127,7 @@ end);
 
 InstallMethod(GenLatexTmpl, "for polynomials", true,
 [ IsPolynomial ], 0,
-function (poly)
+function ( poly )
 	local fam, ext, str, zero, one, mone, le, c, s, ind, i, j;
 
 	fam := FamilyObj(poly);
@@ -225,6 +228,69 @@ function (tbl )
 	return ret;
 end);
 
+InstallMethod(GenLatexTmpl, "for fp groups", true,
+[ IsFpGroup ], 0,
+function ( g )
+	local str, i, j;
+	str := "\\langle ";
+
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, " \\mid ");
+
+	for j in [1..Length(RelatorsOfFpGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl, "for pc groups", true,
+[ IsPcGroup ], 0,
+function ( g )
+	local str, iso, fp;
+	iso := IsomorphismFpGroupByPcgs( FamilyPcgs (g), "f");
+	fp := Image(iso);
+
+	return GenLatexTmpl(fp);
+end);
+
+InstallMethod(GenLatexTmpl, "for matrix groups", true,
+[ IsMatrixGroup ], 0,
+function ( g )
+	local str, i;
+	str := "\\langle ";
+
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl, "for permutation groups", true,
+[ IsPermGroup ], 0,
+function ( g )
+	local str, i;
+	str := "\\langle ";
+
+	for i in [1..Length(GeneratorsOfGroup(g))] do
+		str := Concatenation(str, "{},");
+	od;
+	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+
+	return str;
+end);
+
+InstallMethod(GenLatexTmpl,"assoc word in letter rep",true,
+[IsAssocWord and IsLetterAssocWordRep], 0,
+function( elm )
+	return "{}";
+end);
+
 #############################################################################
 ##
 #M  GenArgs( <object> ) . 
@@ -237,7 +303,7 @@ InstallMethod(GenArgs, "fallback default method", true,
 
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
-function (x)
+function ( x )
 	if IsInt(x) then
     	return [ String(x) ];
   	fi;
@@ -277,7 +343,7 @@ function ( m )
 
 	for i in [1..l] do
 		for j in [1..n] do
-			Append(r, LatexString(m[i][j] : options := subOptions));
+			Add(r, TypesetString(m[i][j] : options := subOptions));
 		od;
 	od;
 
@@ -286,7 +352,7 @@ end);
 
 InstallMethod(GenArgs, "polynomials", true,
 [ IsPolynomial ], 0, 
-function(poly)
+function( poly )
 	local i, j, fam, ext, zero, one, mone, c, le, r, subOptions;
 	subOptions := MergeSubOptions(ValueOption("options"));
 
@@ -301,19 +367,19 @@ function(poly)
 	for i in [ le-1, le-3..1 ] do
 		c := false;
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, LatexString(ext[i + 1] : options := subOptions));
+			Add(r, TypesetString(ext[i + 1] : options := subOptions));
 			c := true;
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, LatexString(ext[i][j + 1] : options := subOptions));
+					Add(r, TypesetString(ext[i][j + 1] : options := subOptions));
 				fi;
 			od;
 		else
 			if c=false then
-				Add(r, LatexString(ext[i + 1] : options := subOptions));
+				Add(r, TypesetString(ext[i + 1] : options := subOptions));
 			fi;
 		fi;
 	od;
@@ -348,6 +414,100 @@ function( tbl )
 	return ret;
 end);
 
+InstallMethod(GenArgs, "permutation", true,
+[ IsPerm ], 0,
+function ( x )
+	local list;
+	list := [ String(x) ];
+	return list;
+end);
+
+InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
+function ( g )
+	local lst, gens, rels, i, j;
+	lst := [];
+	gens := GeneratorsOfGroup(g);
+	rels := RelatorsOfFpGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, String(gens[i]));
+	od;
+
+	for j in [1..Length(rels)] do
+		Add(lst, TypesetString(rels[j]));
+	od;
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "pc groups", true, [ IsPcGroup ], 0,
+function ( g )
+	local lst, iso, fp;
+	iso := IsomorphismFpGroupByPcgs(FamilyPcgs(g), "f");
+	fp := Image(iso);
+
+	lst := GenArgs(fp);
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "matrix groups", true, [ IsMatrixGroup ], 0,
+function ( g )
+	local lst, gens, i;
+	lst := [];
+	gens := GeneratorsOfGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, TypesetString(gens[i]));
+	od;
+
+	return lst;
+end);
+
+InstallMethod(GenArgs, "permutation groups", true, [ IsPermGroup ], 0,
+function ( g )
+	local lst, gens, i;
+	lst := [];
+	gens := GeneratorsOfGroup(g);
+
+	for i in [1..Length(gens)] do
+		Add(lst, String(gens[i]));
+	od;
+
+	return lst;
+end);
+
+InstallMethod(GenArgs,"assoc word in letter rep",true,
+[IsAssocWord and IsLetterAssocWordRep],0,
+function( elm )
+	local orig,names,i,e,s,l,substr;
+
+	# Generate names using subscript over . notation
+	orig := FamilyObj(elm)!.names;
+	names := ShallowCopy(orig);
+	for i in [1..Length(names)] do
+		s := names[i];
+		e := Length(s);
+		while e>0 and s[e] in CHARS_DIGITS do
+			e := e-1;
+		od;
+		if e<Length(s) then
+			if e=Length(s)-1 then
+				s := Concatenation(s{[1..e]},"_",s{[e+1..Length(s)]});
+			else
+				s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+			fi;
+			names[i] := s;
+		fi;
+	od;
+
+	# Factorise word as power of substrings
+	l := LetterRepAssocWord(elm);
+	substr := FactoriseAssocWordLatex(l, orig, []);
+
+	return [ substr ];
+end);
+
 #############################################################################
 ##
 #M  CtblLatexLegend( <character table entry data> ) . 
@@ -357,7 +517,7 @@ end);
 ##
 InstallMethod(CtblLatexLegend, "for generating LaTeX representation of a character table legend", true,
 [ IsRecord ], 0,
-function (data) 
+function ( data ) 
 	local ret, irrstack, irrnames, i, q;
 	ret := "";
 
@@ -386,6 +546,94 @@ function (data)
 	if ret <> "" then
 		Append(ret, "\\end{align*}");
 	fi;
+
+	return ret;
+end);
+
+#############################################################################
+##
+#M  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
+##  
+## constructs a string based on the return values from FindSubstringPowers
+## and the names of the letters.
+##
+InstallMethod(FactoriseAssocWordLatex, "for factorising assoc word in letter rep for LaTeX", true,
+[ IsList, IsList, IsList ],
+function ( l, names, tseed )
+	local n, a, substr, i, ret, exp, t, word, j;
+
+	n := Length(names);
+	if Length(l)>0 and n=infinity then
+      n := 2*(Maximum(List(l,AbsInt))+1);
+    fi;
+    a := FindSubstringPowers(l,n + Length(tseed)); # tseed numbers are used already
+
+	# FindSubstringPowers returns 2 element list.
+	# Element 1: List of substring IDs which when concatenated will result in the original word.
+	# Element 2: IDs of substrings which are constructed from individual letters.
+	substr := a[1];
+	a[2] := Concatenation(tseed, a[2]);
+
+	i := 1;
+	ret := "";
+	while i <= Length(substr) do
+		if i > 1 then
+			# More than one substring in word
+			# Only valid operator is *
+			Add(ret, '*');
+		fi;
+
+		exp := 1;
+		if substr[i] > n then
+			# Can extract the component IDs from the second entry in a
+			t := a[2][substr[i] - n];
+			if t[1] = 0 then
+				# Single letter raised to a power
+				if t[2] < 0 then
+					Append(ret, names[ -t[2] ] );
+	  				Append(ret, "^{-" );
+	  				Append(ret, String(t[3]));
+					Append(ret, "}");
+				else
+					Append(ret, names[ -t[2] ] );
+	  				Append(ret, "^{" );
+	  				Append(ret, String(t[3]));
+					Append(ret, "}");
+				fi;
+			else
+				# Constructed substring from multiple letter names
+				Add(ret,'(');
+				Append(ret,FactoriseAssocWordLatex(t,names,Filtered(a[2],x->x[1]=0)));
+				Add(ret,')');
+			fi;
+		elif substr[i] < 0 then
+			Append(ret, names[-substr[i]]);
+			exp := -1;
+		else
+			Append(ret, names[substr[i]]);
+		fi;
+
+		if i < Length(substr) and substr[i]=substr[i+1] then
+			# Consume duplicates of substring
+      		j := i;
+      		i := i+1;
+
+      		while i <= Length(substr) and substr[j]=substr[i] do
+				i := i+1;
+      		od;
+      		Append(ret, "^{");
+      		Append(ret, String(exp*(i-j)));
+			Append(ret, "}");
+    	elif exp=-1 then
+			# Inverse power
+      		Append(ret,"^{-1}");
+      		i := i+1;
+    	else
+      		# No power given
+      		i := i+1;
+    	fi;
+	od;
+	ConvertToStringRep(ret);
 
 	return ret;
 end);
