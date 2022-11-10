@@ -2,11 +2,6 @@
   
   [1XIndex[101X
   
-  [2XGenArgs[102X, for IsObject 1.1-4 
-  [2XGenLatexTmpl[102X, for IsObject 1.1-3 
-  [2XLatexString[102X, for IsObject 1.1-2 
-  [2XMergeSubOptions[102X, for IsRecord 1.1-5 
-  [2XTypeset[102X, for IsObject 1.1-1  2.1-1 
   
   
   -------------------------------------------------------

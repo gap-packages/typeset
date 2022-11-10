@@ -25,16 +25,6 @@
   
   [1XContents (latexgen)[101X
   
-  1 [33X[0;0YIntroduction[133X
-    1.1 [33X[0;0YExample Methods[133X
-      1.1-1 Typeset
-      1.1-2 LatexString
-      1.1-3 GenLatexTmpl
-      1.1-4 GenArgs
-      1.1-5 MergeSubOptions
-  2 [33X[0;0YMethods[133X
-    2.1 [33X[0;0YMethod Definitions[133X
-      2.1-1 Typeset
   
   
   [32X

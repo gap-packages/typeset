@@ -28,6 +28,8 @@ abstract: |
 status: dev
 doc-html: doc/chap0_mj.html
 doc-pdf: doc/manual.pdf
+keywords: |
+    latex, typesetting, markdown.
 citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>New22</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
@@ -47,6 +49,7 @@ bibtex: |
       year =             {2022},
       note =             {GAP package},
       howpublished =     {\href {https://ZachNewbery.github.io/latexgen/} {\texttt{https://ZachNewbery.github.io/}\discretionary {}{}{}\texttt{latexgen/}}},
+      keywords =         {latex; typesetting; markdown},
       printedkey =       {New22}
     }
 
