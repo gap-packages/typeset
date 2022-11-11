@@ -1,0 +1,44 @@
+  
+  [1X2 [33X[0;0YStructure Descriptions[133X[101X
+  
+  [33X[0;0Ylatexgen is a package that implements an operation Typeset that can generate
+  LaTeX  string  representations  of  a  commonly  used subset of mathematical
+  objects within the GAP system.[133X
+  
+  [33X[0;0YTypeset  is  also  built  to  be  incredibly  extensible,  and can be easily
+  extended  to  also  support  the  generation  of  strings  for other mark-up
+  languages.[133X
+  
+  
+  [1X2.1 [33X[0;0YStructure Description of Groups[133X[101X
+  
+  [1X2.1-1 TypesetStructureDescription[101X
+  
+  [33X[1;0Y[29X[2XTypesetStructureDescription[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YTypesettable  representation of the given structure description of
+            a group.[133X
+  
+  [33X[0;0YTypesetStructureDescription    generates   a   typesettable   representation
+  equivalent  to  a  given  structure  description of a group. These structure
+  descriptions can be calculated via the method StructureDescription.[133X
+  
+  [1X2.1-2 LatexStructureDescription[101X
+  
+  [33X[1;0Y[29X[2XLatexStructureDescription[102X( [3Xarg[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YLaTeX renderable representation of the given structure description
+            of a group.[133X
+  
+  [33X[0;0YLatexStructureDescription  generates  a LaTeX representation equivalent to a
+  given  structure description of a group. These structure descriptions can be
+  calculated via the method StructureDescription.[133X
+  
+  [1X2.1-3 ConcatStructDescOperands[101X
+  
+  [33X[1;0Y[29X[2XConcatStructDescOperands[102X( [3Xarg1[103X, [3Xarg2[103X, [3Xarg3[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YConcatenated string of processed tokens with new separator.[133X
+  
+  [33X[0;0YConcatStructDescOperands  will  concatenate the tokens parsed from splitting
+  the first input string with the provided separator. It will then process the
+  tokens  with LatexStructureDescription, and concatenate the results with the
+  given new separator.[133X
+  

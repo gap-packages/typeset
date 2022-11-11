@@ -1,5 +1,5 @@
 name: latexgen
-version: "0.99"
+version: "1.0"
 license: "GPL-2.0-or-later"
 date: 2022-11-11
 description: |
@@ -21,7 +21,7 @@ packageinfo: https://ZachNewbery.github.io/latexgen/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/ZachNewbery/latexgen/releases/download/v0.99/latexgen-0.99.tar.gz
+      url: https://github.com/ZachNewbery/latexgen/releases/download/v1.0/latexgen-1.0.tar.gz
 
 abstract: |
 
@@ -34,7 +34,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>New22</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
      <i class='BibTitle'>latexgen, Automatic LaTeX string generation for common GAP objects,
-             Version 0.99</i>
+             Version 1.0</i>
      (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://ZachNewbery.github.io/latexgen/">https://ZachNewbery.github.io/latexgen/</a></span>.
@@ -42,10 +42,10 @@ citeas: |
     
 
 bibtex: |
-    @misc{ latexgen0.99,
+    @misc{ latexgen1.0,
       author =           {Newbery, Z.},
       title =            {{latexgen},  Automatic  LaTeX  string  generation  for
-                          common GAP objects, {V}ersion 0.99},
+                          common GAP objects, {V}ersion 1.0},
       month =            {Nov},
       year =             {2022},
       note =             {GAP package},
