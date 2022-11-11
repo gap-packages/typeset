@@ -9,7 +9,7 @@
     Automatic LaTeX string generation for common &GAP; objects
   </Subtitle>
   <Version>
-    0.99
+    1.0
   </Version>
   <Author>
     Zachariah Newbery<Alt Only="LaTeX"><Br/></Alt>

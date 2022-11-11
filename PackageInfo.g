@@ -10,7 +10,7 @@ SetPackageInfo( rec(
 
 PackageName := "latexgen",
 Subtitle := "Automatic LaTeX string generation for common GAP objects",
-Version := "0.99",
+Version := "1.0",
 Date := "11/11/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
