@@ -3,6 +3,5 @@
 #
 # Reading the declaration part of the package.
 #
-
 ReadPackage( "latexgen", "gap/latexgen.gd");
 ReadPackage( "latexgen", "gap/structdesc.gd");

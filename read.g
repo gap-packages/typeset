@@ -5,3 +5,6 @@
 #
 ReadPackage( "latexgen", "gap/latexgen.gi");
 ReadPackage( "latexgen", "gap/structdesc.gi");
+if IsPackageMarkedForLoading( "digraphs", "1.6.0" ) then
+    ReadPackage( "latexgen", "gap/digraphs.gi");
+fi;
