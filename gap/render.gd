@@ -18,3 +18,8 @@
 #!   providing a visual example of what the string would look like
 #!   in a paper.
 DeclareOperation("RenderLatex", [ IsString ]);
+
+#! @Description
+#!   MathJax renders a given LaTeX string in a LaTeX environment,
+#!   specifically via the MathJax script with HTML.
+DeclareOperation("MathJax", [ IsString ]);

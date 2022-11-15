@@ -65,6 +65,11 @@ function( x )
 	
 	# Determine template string generation function.
 	options := ValueOption("options");
+	if options=fail then
+		lang := "latex";
+		options := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+	fi;
+
 	lang := options.("Lang");
 	lang[1] := UppercaseChar(lang[1]);
 	t := EvalString(Concatenation("Gen", lang, "Tmpl"));
