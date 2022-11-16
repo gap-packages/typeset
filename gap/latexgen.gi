@@ -262,7 +262,7 @@ InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
 function ( g )
 	local str, gens, i, s, e, j;
-	str := "\\langle ";
+	str := "\\left\\langle ";
 
 	gens := GeneratorsOfGroup(g);
 	for i in [1..Length(gens)] do
@@ -284,7 +284,7 @@ function ( g )
 	for j in [1..Length(RelatorsOfFpGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\right\\rangle");
 
 	return str;
 end);
@@ -303,12 +303,12 @@ InstallMethod(GenLatexTmpl, "for matrix groups", true,
 [ IsMatrixGroup ], 0,
 function ( g )
 	local str, i;
-	str := "\\langle ";
+	str := "\\left\\langle ";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\right\\rangle");
 
 	return str;
 end);
@@ -317,12 +317,12 @@ InstallMethod(GenLatexTmpl, "for permutation groups", true,
 [ IsPermGroup ], 0,
 function ( g )
 	local str, i;
-	str := "\\langle ";
+	str := "\\left\\langle ";
 
 	for i in [1..Length(GeneratorsOfGroup(g))] do
 		str := Concatenation(str, "{},");
 	od;
-	str := Concatenation(str{[1..Length(str)-1]}, " \\rangle");
+	str := Concatenation(str{[1..Length(str)-1]}, " \\right\\rangle");
 
 	return str;
 end);
