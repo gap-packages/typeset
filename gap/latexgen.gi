@@ -225,7 +225,8 @@ InstallMethod(GenLatexTmpl, "for character tables", true,
 function (tbl )
 	local ret, cnr, classes, i, j, k, nCols, nRows, header;
 
-	ret := "\\begin{{tabular}}{{";
+	Info(InfoLatexgen, 2, "To use \\gather in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
+	ret := "\\begin{{gather}}\n\\begin{{array}}{{";
 	cnr := CharacterNames(tbl);
 	classes := ClassNames(tbl);
 
@@ -252,7 +253,7 @@ function (tbl )
 	od;
 
 	# Closing environment, with empty space for legend.
-	Append(ret, "\\end{{tabular}}{}");
+	Append(ret, "\\end{{array}}\\\\\\\\\n{}\n\\end{{gather}}");
 
 	return ret;
 end);
@@ -597,7 +598,7 @@ function ( data )
 	if not IsEmpty(irrstack) then
 		Info(InfoLatexgen, 2, "To use the align environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
-		Append(ret, "\n\\begin{align*}\n");
+		Append(ret, "\\begin{aligned}");
 	fi;
 
 	for i in [1..Length(irrstack)] do
@@ -617,7 +618,7 @@ function ( data )
 	od;
 
 	if ret <> "" then
-		Append(ret, "\\end{align*}");
+		Append(ret, "\\end{aligned}");
 	fi;
 
 	return ret;

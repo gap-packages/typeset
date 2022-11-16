@@ -27,9 +27,11 @@ function( str )
 
     PrintTo(f, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width\">\n<title>MathJax Output</title>\n<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>\n</head>");
     AppendTo(f, "<body><p>");
-    AppendTo(f, "\\begin{equation}\n");
+
+
+    AppendTo(f, "\\[\n");
     AppendTo(f, str);
-    AppendTo(f, "\\end{equation}\n</p></body>");
+    AppendTo(f, "\\]\n</p></body>");
 
     OpenExternal(f);
 end);
