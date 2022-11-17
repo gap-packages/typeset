@@ -20,6 +20,21 @@
 DeclareOperation("RenderLatex", [ IsString ]);
 
 #! @Description
+#!   Overleaf renders a given LaTeX string in a new PDF file,
+#!   specifically via the pdflatex bash tool.
+DeclareOperation("PDFLatex", [ IsString ]);
+
+#! @Description
 #!   MathJax renders a given LaTeX string in a LaTeX environment,
 #!   specifically via the MathJax script with HTML.
 DeclareOperation("MathJax", [ IsString ]);
+
+#! @Description
+#!   Overleaf renders a given LaTeX string in a new Overleaf project,
+#!   specifically via a URL-encoded snippet.
+DeclareOperation("Overleaf", [ IsString ]);
+
+#! @Description
+#!   URIEncodeComponent replaces reserved characters within a URI
+#!   component as per RFC-3986.
+DeclareOperation("URIEncodeComponent", [ IsString ]);
