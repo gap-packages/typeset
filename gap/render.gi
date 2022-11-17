@@ -20,12 +20,18 @@ end);
 InstallMethod(PDFLatex, "for all LaTeX strings renderable by pdflatex", true,
 [ IsString ], 0,
 function ( str )
-    local url;
+    local dir, f;
 
-    url := "https://www.overleaf.com/docs?snip=";
-    Append(url, URIEncodeComponent(str));
+    dir := DirectoryTemporary();
+    f := Filename(dir, "out.tex");
 
-    OpenExternal(url);
+    PrintTo(f, "\\documentclass[12pt]{article}\n\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}\n\\usepackage{tikz}\n\\begin{document}\n");
+    AppendTo(f, Concatenation("$", str, "$"));
+    AppendTo(f, "\n\\end{document}");
+
+    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex out.tex"));
+
+    OpenExternal(Filename(dir, "out.pdf"));
 end);
 
 #############################################################################
