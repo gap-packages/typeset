@@ -21,15 +21,14 @@ InstallMethod(GenArgs, "directed graphs", true,
 [ IsDigraph ], 0,
 function ( obj )
 	local dot, ret;
-	dot := DotDigraph(obj);
-
+	
 	# Simply makes use of the dot2texi LaTeX package to allow raw DOT to be input
 	# and converted during LaTeX compilation.
+	dot := DotDigraph(obj);
 	ret := "\\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]\n";
-	Add(ret, dot);
-	Add(ret, "\n\\end{dot2tex}");
-
-	return ret;
+	Append(ret, dot);
+	Append(ret, "\n\\end{dot2tex}");
+	return [ ret ];
 end);
 
 #############################################################################
@@ -42,20 +41,18 @@ end);
 InstallMethod(Dot2Tex, "directed graphs", true,
 [ IsDigraph ], 0,
 function ( obj )
-	local dot, dir, f, ret;
+	local dot, dir, f, ret, a, b;
 	dot := DotDigraph(obj);
+	a := InputTextString(dot);
 
-	# Construct temporary file to pass as command line argument.
+	# Construct temporary vars to pass as arguments to Process.
 	dir := DirectoryTemporary();
-    f := Filename(dir, "dot2tex.dot");
-	PrintTo(f, dot);
+    f := Filename(DirectoriesSystemPrograms(), "dot2tex");
 
-	# Call dot2tex on prepared dot file.
-	Exec(Concatenation("cd ", Filename(dir, ""), ";", "dot2tex --preproc dot2tex.dot | dot2tex --figonly --codeonly"));
-
-	# # Read output tex file.
-	# f := Filename(dir, "dot2tex.tex");
-	# ret := Read(f);
-
-	# return ret;
+	# Call dot2tex on prepared dot string.
+	ret := "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n";
+	b := OutputTextString(ret, true);
+	Process(dir, f, a, b, ["--figonly", "--codeonly"]);
+	Append(ret, "\\end{tikzpicture}\n\\end{center}");
+	Print(ret);
 end);
