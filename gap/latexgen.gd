@@ -66,12 +66,12 @@ DeclareOperation("GenLatexTmpl", [ IsObject ]);
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Description
-#!   CtblLatexLegend generates a string representation of the mathematical substitutions for entries
+#!   CtblLegendLatex generates a string representation of the mathematical substitutions for entries
 #!   within a character table.
 #!
 #! @Returns
 #!  Strings that describe the calculated substitutions.
-DeclareOperation("CtblLatexLegend", [ IsRecord ]);
+DeclareOperation("CtblLegendLatex", [ IsRecord ]);
 
 #! @Description
 #!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word

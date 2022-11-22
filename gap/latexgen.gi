@@ -7,19 +7,26 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x, opts... )
-	local options, defaults, name, string, old;
+	local options, defaults, name, val, string, old;
 
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
 			# Merge default options with user-passed optional parameters.
-			defaults := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", SubCallOpts := false);
 			options := rec();
 
 			for name in RecNames(defaults) do
 				if ValueOption(name) = fail then
 					options.(name) := defaults.(name);
 				else
-					options.(name) := ValueOption(name);
+					val := ValueOption(name);
+
+					# Explicitly convert characters to strings for easier handling later.
+					if IsChar(val) then
+						val := [val];
+					fi;
+
+					options.(name) := val;
 				fi;
 			od;
 		else
@@ -108,11 +115,16 @@ end );
 InstallMethod(GenLatexTmpl, "matrix", true,
 [ IsMatrix ], 0,
 function( m )
-	local i,j,l,n,s;
+	local i,j,l,n,s,opts,left,right;
+	opts := ValueOption("options");
+	left := opts.("LDelim");
+	right := opts.("RDelim");
 
-  	l:=Length(m);
-  	n:=Length(m[1]);
-  	s:="\\left(\\begin{{array}}{{";
+  	l := Length(m);
+  	n := Length(m[1]);
+  	s := Concatenation("\\left", left);
+	Append(s, "\\begin{{array}}{{");
+
   	for i in [1..n] do
     	Add(s,'r');
   	od;
@@ -126,7 +138,8 @@ function( m )
     	od;
     	Append(s,"\\\\\n");
   	od;
-  	Append(s,"\\end{{array}}\\right)");
+  	Append(s,"\\end{{array}}\\right");
+	Append(s, right);
   	return s;
 end);
 
@@ -411,7 +424,10 @@ end);
 InstallMethod(GenArgs, "character tables", true,
 [ IsCharacterTable ], 0,
 function( tbl )
-	local ret, chars, data, i, j, entry;
+	local opts, lang, ret, chars, data, i, j, entry, legend;
+	opts := ValueOption("options");
+	lang := opts.("Lang");
+
 	ret := [];
 	chars := List(Irr(tbl), ValuesOfClassFunction);
 	data := CharacterTableDisplayStringEntryDataDefault(tbl);
@@ -429,8 +445,8 @@ function( tbl )
 	od;
 
 	# Generate Legend.
-	Info(InfoLatexgen, 2, "To use \\align in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
-	Add(ret, CtblLatexLegend(data));
+	legend := EvalString(Concatenation("CtblLegend", lang));
+	Add(ret, legend(data));
 
 	return ret;
 end);
@@ -512,7 +528,9 @@ end);
 InstallMethod(GenArgs,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	local orig,names,i,e,s,l,substr;
+	local opts, lang, orig, names, i, e, s, l, substr, factorise;
+	opts := ValueOption("options");
+	lang := opts.("Lang");
 
 	# Generate names using subscript over . notation
 	orig := FamilyObj(elm)!.names;
@@ -531,19 +549,20 @@ function( elm )
 
 	# Factorise word as power of substrings
 	l := LetterRepAssocWord(elm);
-	substr := FactoriseAssocWordLatex(l, names, []);
+	factorise := EvalString(Concatenation("FactoriseAssocWord", lang));
+	substr := factorise(l, names, []);
 
 	return [ substr ];
 end);
 
 #############################################################################
 ##
-#M  CtblLatexLegend( <character table entry data> ) . 
+#M  CtblLegendLatex( <character table entry data> ) . 
 ##  
 ## generates a legend that specifies what substitutions have been used in a
 ## representation of the character table. Uses the align environment.
 ##
-InstallMethod(CtblLatexLegend, "for generating LaTeX representation of a character table legend", true,
+InstallMethod(CtblLegendLatex, "for generating LaTeX representation of a character table legend", true,
 [ IsRecord ], 0,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
@@ -551,6 +570,7 @@ function ( data )
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
+		Info(InfoLatexgen, 2, "To use the align environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
 		Append(ret, "\n\\begin{align*}\n");
 	fi;
