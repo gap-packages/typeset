@@ -7,7 +7,7 @@
 InstallMethod(GenLatexTmpl, "for directed graphs", true,
 [ IsDigraph ], 0,
 function( obj )
-	return "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n{}\n\\end{tikzpicture}\n\\end{center}";
+	return "\\begin{{center}}\n\\begin{{tikzpicture}}[>=latex',line join=bevel,]\n{}\n\\end{{tikzpicture}}\n\\end{{center}}";
 end);
 
 #############################################################################
@@ -26,8 +26,8 @@ function ( obj )
 	# Simply makes use of the dot2texi LaTeX package to allow raw DOT to be input
 	# and converted during LaTeX compilation.
 	ret := "\\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]\n";
-	Append(ret, dot);
-	Append(ret, "\n\\end{dot2tex}");
+	Add(ret, dot);
+	Add(ret, "\n\\end{dot2tex}");
 
 	return ret;
 end);
@@ -53,9 +53,9 @@ function ( obj )
 	# Call dot2tex on prepared dot file.
 	Exec(Concatenation("cd ", Filename(dir, ""), ";", "dot2tex --preproc dot2tex.dot | dot2tex --figonly --codeonly"));
 
-	# Read output tex file.
-	f := Filename(dir, "dot2tex.tex");
-	ret := Read(f);
+	# # Read output tex file.
+	# f := Filename(dir, "dot2tex.tex");
+	# ret := Read(f);
 
-	return ret;
+	# return ret;
 end);
