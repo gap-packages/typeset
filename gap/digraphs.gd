@@ -19,4 +19,4 @@
 #! 
 #! @Returns
 #!   Tikz string representation of digraph.
-DeclareOperation("Dot2Tikz", [ IsDigraph ]);
+DeclareOperation("Dot2Tex", [ IsDigraph ]);
