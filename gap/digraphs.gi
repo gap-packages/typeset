@@ -41,18 +41,24 @@ end);
 InstallMethod(Dot2Tex, "directed graphs", true,
 [ IsDigraph ], 0,
 function ( obj )
-	local dot, dir, f, ret, a, b;
+	local dot, dir, f, ret, inp, out, tmp, midI, midO;
 	dot := DotDigraph(obj);
-	a := InputTextString(dot);
+	inp := InputTextString(dot);
 
 	# Construct temporary vars to pass as arguments to Process.
 	dir := DirectoryTemporary();
     f := Filename(DirectoriesSystemPrograms(), "dot2tex");
 
-	# Call dot2tex on prepared dot string.
+	# Pre-process dot using graphviz.
+	tmp := "";
+	midI := OutputTextString(tmp, true);
+	Process(dir, f, inp, midI, ["--preproc"]);
+	midO := InputTextString(tmp);
+
+	# Call dot2tex on preprocessed dot string.
 	ret := "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n";
-	b := OutputTextString(ret, true);
-	Process(dir, f, a, b, ["--figonly", "--codeonly"]);
+	out := OutputTextString(ret, true);
+	Process(dir, f, midO, out, ["--figonly", "--codeonly"]);
 	Append(ret, "\\end{tikzpicture}\n\\end{center}");
 	Print(ret);
 end);
