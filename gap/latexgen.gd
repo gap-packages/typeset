@@ -66,6 +66,14 @@ DeclareOperation("GenLatexTmpl", [ IsObject ]);
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Description
+#!   CtblEntryLatex formats a string representation of an entry to include the LaTeX specific
+#!   environments for complex conjugates.
+#!
+#! @Returns
+#!  Strings that describe the character table entry in LaTeX.
+DeclareOperation("CtblEntryLatex", [ IsString ]);
+
+#! @Description
 #!   CtblLegendLatex generates a string representation of the mathematical substitutions for entries
 #!   within a character table.
 #!

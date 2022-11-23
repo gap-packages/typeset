@@ -436,7 +436,7 @@ end);
 InstallMethod(GenArgs, "character tables", true,
 [ IsCharacterTable ], 0,
 function( tbl )
-	local opts, lang, ret, chars, data, i, j, entry, legend;
+	local opts, lang, ret, chars, data, i, j, entry, entryfmt, legend;
 	opts := ValueOption("options");
 	lang := opts.("Lang");
 
@@ -448,11 +448,8 @@ function( tbl )
 	for i in [1..Length(chars)] do
 		for j in [1..Length(chars[i])] do
 			entry := CharacterTableDisplayStringEntryDefault(chars[i][j], data);
-			if '/' in entry then
-				# Use bar environment for complex conjugate.
-				entry := Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
-			fi;
-			Add(ret, entry);
+			entryfmt := EvalString(Concatenation("CtblEntry", lang));
+			Add(ret, entryfmt(entry));
 		od;
 	od;
 
@@ -560,6 +557,22 @@ function( elm )
 	substr := factorise(l, new, []);
 
 	return [ substr ];
+end);
+
+#############################################################################
+##
+#M  CtblEntryLatex( <character table entry data> ) . 
+##  
+## generates a string that specifies any specific environments to be used for
+## a character table entry.
+##
+InstallMethod(CtblEntryLatex, "for generating LaTeX representation of a character table legend", true,
+[ IsString ], 0,
+function ( entry )
+	if '/' in entry then
+		return Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
+	fi;
+	return entry;
 end);
 
 #############################################################################
