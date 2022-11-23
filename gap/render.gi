@@ -7,8 +7,20 @@
 InstallMethod(RenderLatex, "for all LaTeX strings", true,
 [ IsString ], 0,
 function( str )
-    # Default to rendering with MathJax HTML.
-    MathJax(str);
+    local render;
+    if ValueOption("output")<>fail then
+        render := ValueOption("output");
+        if render="pdflatex" then
+            PDFLatex(str);
+        elif render="overleaf" then
+            Overleaf(str);
+        else
+            MathJax(str);
+        fi;
+    else
+        # Default to rendering with MathJax HTML.
+        MathJax(str);
+    fi;
 end);
 
 #############################################################################

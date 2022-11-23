@@ -3,7 +3,7 @@
 #
 # Reading the declaration part of the package.
 #
-ReadPackage( "latexgen", "gap/typeset.gi" );
+ReadPackage( "latexgen", "gap/typeset.gd" );
 ReadPackage( "latexgen", "gap/latex.gd");
 ReadPackage( "latexgen", "gap/structdesc.gd");
 ReadPackage( "latexgen", "gap/render.gd");
