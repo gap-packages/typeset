@@ -1,5 +1,5 @@
 #
-# typeset: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 # Reading the declaration part of the package.
 #

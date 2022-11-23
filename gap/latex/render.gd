@@ -1,5 +1,5 @@
 #
-# typeset: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 #! @Chapter Rendering LaTeX Strings
 #!

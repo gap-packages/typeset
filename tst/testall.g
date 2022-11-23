@@ -1,5 +1,5 @@
 #
-# typeset: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 # This file runs package tests. It is also referenced in the package
 # metadata in PackageInfo.g.
