@@ -63,7 +63,7 @@ function ( obj )
 	SetPrintFormattingStatus(out, false);
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
-	Process(dir, f, inp, out, ["--debug", "--autosize", "--figonly", "--codeonly", "--format=tikz"]);
+	Process(dir, f, inp, out, ["--figonly", "--codeonly", "--format=tikz"]);
 
 	# Remove empty comment lines.
 	ret := ReplacedString(ret{[1..Length(ret)-3]}, "%%\n", "");

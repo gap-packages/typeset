@@ -47,16 +47,15 @@ node [shape=circle]
 \end{center}
 
 # Dot2Tex Command Line Invocation
-gap> g := Digraph([[1, 2]]);;
 gap> Typeset(g : DigraphOut:="dot2tex");
 \begin{center}
 \begin{tikzpicture}[>=latex',line join=bevel,]
-  \node (1) at (9.0bp,64.11bp) [draw,circle] {1};
-  \node (2) at (9.0bp,10.11bp) [draw,circle] {2};
-  \draw [->] (1) ..controls (24.793bp,77.009bp) and (36.0bp,74.762bp)  .. (36.0bp,64.11bp) .. controls (36.0bp,57.619bp) and (31.838bp,54.249bp)  .. (1);
-  \draw [->] (1) ..controls (2.4286bp,49.498bp) and (1.8464bp,38.71bp)  .. (2);
-  \draw [->] (2) ..controls (15.596bp,24.954bp) and (16.157bp,35.763bp)  .. (1);
-  \draw [->] (2) ..controls (24.793bp,23.009bp) and (36.0bp,20.762bp)  .. (36.0bp,10.11bp) .. controls (36.0bp,3.6189bp) and (31.838bp,0.24881bp)  .. (2);
+  \node (1) at (18.0bp,90.0bp) [draw,circle] {1};
+  \node (2) at (18.0bp,18.0bp) [draw,circle] {2};
+  \draw [->] (1) ..controls (42.913bp,106.15bp) and (54.0bp,102.23bp)  .. (54.0bp,90.0bp) .. controls (54.0bp,82.162bp) and (49.45bp,77.737bp)  .. (1);
+  \draw [->] (1) ..controls (11.327bp,64.99bp) and (11.056bp,55.461bp)  .. (2);
+  \draw [->] (2) ..controls (24.668bp,42.909bp) and (24.943bp,52.433bp)  .. (1);
+  \draw [->] (2) ..controls (42.913bp,34.153bp) and (54.0bp,30.234bp)  .. (54.0bp,18.0bp) .. controls (54.0bp,10.162bp) and (49.45bp,5.7374bp)  .. (2);
 \end{tikzpicture}
 \end{center}
 
