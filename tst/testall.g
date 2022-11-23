@@ -8,7 +8,8 @@ LoadPackage( "latexgen" );
 
 SetInfoLevel(InfoLatexgen, 0);
 
-TestDirectory(DirectoriesPackageLibrary( "latexgen", "tst" ),
+# LaTeX Generation Tests
+TestDirectory(DirectoriesPackageLibrary( "latexgen", "tst", "latex" ),
   rec(exitGAP := true));
 
 FORCE_QUIT_GAP(1); # if we ever get here, there was an error

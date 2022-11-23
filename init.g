@@ -3,7 +3,8 @@
 #
 # Reading the declaration part of the package.
 #
-ReadPackage( "latexgen", "gap/latexgen.gd");
+ReadPackage( "latexgen", "gap/typeset.gi" );
+ReadPackage( "latexgen", "gap/latex.gd");
 ReadPackage( "latexgen", "gap/structdesc.gd");
 ReadPackage( "latexgen", "gap/render.gd");
 if IsPackageMarkedForLoading( "digraphs", "1.5.0" ) then
