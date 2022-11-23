@@ -26,11 +26,21 @@ jobs:
         gap-branch:
           - master
           - stable-4.11
+        pkgs-to-clone:
+          - digraphs
 
     steps:
       - uses: actions/checkout@v2
+      - name: "Setup Python"
+        uses: actions/setup-python@v1
+      - name: "Install graphviz"
+        run: sudo apt install graphviz
+      - name: "Install dot2tex with pip"
+        run: pip install dot2tex
       - uses: gap-actions/setup-gap@v2
         with:
+          GAP_PKGS_TO_CLONE: "${{ matrix.pkgs-to-clone }}"
+          GAP_PKGS_TO_BUILD: "io orb profiling grape digraphs"
           GAPBRANCH: ${{ matrix.gap-branch }}
       - uses: gap-actions/build-pkg@v1
       - uses: gap-actions/run-pkg-tests@v2
