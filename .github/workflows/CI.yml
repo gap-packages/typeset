@@ -35,9 +35,7 @@ jobs:
       - name: "Setup Python"
         uses: actions/setup-python@v1
       - name: "Install dot2tex dependencies"
-        run: sudo apt install graphviz texlive preview-latex-style
-      - name: "Install dot2tex with pip"
-        run: pip install dot2tex
+        run: sudo apt install graphviz texlive preview-latex-style dot2tex
       - name: "Setup GAP"
         uses: gap-actions/setup-gap@v2
         with:
