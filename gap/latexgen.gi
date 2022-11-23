@@ -7,19 +7,26 @@
 InstallMethod(Typeset, "for all objects", true,
 [ IsObject ],0,
 function( x, opts... )
-	local options, defaults, name, string, old;
+	local options, defaults, name, val, string, old;
 
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
 			# Merge default options with user-passed optional parameters.
-			defaults := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false);
 			options := rec();
 
 			for name in RecNames(defaults) do
 				if ValueOption(name) = fail then
 					options.(name) := defaults.(name);
 				else
-					options.(name) := ValueOption(name);
+					val := ValueOption(name);
+
+					# Explicitly convert characters to strings for easier handling later.
+					if IsChar(val) then
+						val := [val];
+					fi;
+
+					options.(name) := val;
 				fi;
 			od;
 		else
@@ -94,7 +101,7 @@ end);
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
 [IsFFE and IsInternalRep], 0,
 function ( ffe )
-	local str, log,deg,char;
+	local str, log, deg, char;
   	char := Characteristic(ffe);
   	if IsZero( ffe ) then
     	str := "0*Z({})";
@@ -108,11 +115,16 @@ end );
 InstallMethod(GenLatexTmpl, "matrix", true,
 [ IsMatrix ], 0,
 function( m )
-	local i,j,l,n,s;
+	local i, j, l, n, s, opts, left, right;
+	opts := ValueOption("options");
+	left := opts.("LDelim");
+	right := opts.("RDelim");
 
-  	l:=Length(m);
-  	n:=Length(m[1]);
-  	s:="\\left(\\begin{{array}}{{";
+  	l := Length(m);
+  	n := Length(m[1]);
+  	s := Concatenation("\\left", left);
+	Append(s, "\\begin{{array}}{{");
+
   	for i in [1..n] do
     	Add(s,'r');
   	od;
@@ -126,7 +138,8 @@ function( m )
     	od;
     	Append(s,"\\\\\n");
   	od;
-  	Append(s,"\\end{{array}}\\right)");
+  	Append(s,"\\end{{array}}\\right");
+	Append(s, right);
   	return s;
 end);
 
@@ -242,11 +255,23 @@ end);
 InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
 function ( g )
-	local str, i, j;
+	local str, gens, i, s, e, j;
 	str := "\\langle ";
 
-	for i in [1..Length(GeneratorsOfGroup(g))] do
-		str := Concatenation(str, "{},");
+	gens := GeneratorsOfGroup(g);
+	for i in [1..Length(gens)] do
+		s := String(gens[i]);
+		e := Length(s);
+
+		while e>0 and s[e] in CHARS_DIGITS do
+			e := e-1;
+		od;
+
+		if e<Length(s) then
+			str := Concatenation(str,"{}_{{{}}},");
+		else
+			str := Concatenation(str, "{},");
+		fi;
 	od;
 	str := Concatenation(str{[1..Length(str)-1]}, " \\mid ");
 
@@ -411,7 +436,10 @@ end);
 InstallMethod(GenArgs, "character tables", true,
 [ IsCharacterTable ], 0,
 function( tbl )
-	local ret, chars, data, i, j, entry;
+	local opts, lang, ret, chars, data, i, j, entry, entryfmt, legend;
+	opts := ValueOption("options");
+	lang := opts.("Lang");
+
 	ret := [];
 	chars := List(Irr(tbl), ValuesOfClassFunction);
 	data := CharacterTableDisplayStringEntryDataDefault(tbl);
@@ -420,17 +448,14 @@ function( tbl )
 	for i in [1..Length(chars)] do
 		for j in [1..Length(chars[i])] do
 			entry := CharacterTableDisplayStringEntryDefault(chars[i][j], data);
-			if '/' in entry then
-				# Use bar environment for complex conjugate.
-				entry := Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
-			fi;
-			Add(ret, entry);
+			entryfmt := EvalString(Concatenation("CtblEntry", lang));
+			Add(ret, entryfmt(entry));
 		od;
 	od;
 
 	# Generate Legend.
-	Info(InfoLatexgen, 2, "To use \\align in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
-	Add(ret, CtblLatexLegend(data));
+	legend := EvalString(Concatenation("CtblLegend", lang));
+	Add(ret, legend(data));
 
 	return ret;
 end);
@@ -450,7 +475,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 	rels := RelatorsOfFpGroup(g);
 
-	# Sub-script notation for generators.
+	# Sub-powers for generators.
 	for i in [1..Length(gens)] do
 		s := String(gens[i]);
 		e := Length(s);
@@ -458,11 +483,13 @@ function ( g )
 		while e>0 and s[e] in CHARS_DIGITS do
 			e := e-1;
 		od;
-		if e<Length(s) then
-			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-		fi;
 
-		Add(lst, String(s));
+		if e<Length(s) then
+			Add(lst, s{[1..e]});
+			Add(lst, s{[e+1..Length(s)]});
+		else
+			Add(lst, String(s));
+		fi;
 	od;
 
 	for j in [1..Length(rels)] do
@@ -512,38 +539,50 @@ end);
 InstallMethod(GenArgs,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	local orig,names,i,e,s,l,substr;
+	local opts, lang, orig, names, new, i, e, s, l, substr, factorise;
+	opts := ValueOption("options");
+	lang := opts.("Lang");
 
 	# Generate names using subscript over . notation
 	orig := FamilyObj(elm)!.names;
-	names := ShallowCopy(orig);
-	for i in [1..Length(names)] do
-		s := names[i];
-		e := Length(s);
-		while e>0 and s[e] in CHARS_DIGITS do
-			e := e-1;
-		od;
-		if e<Length(s) then
-			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-			names[i] := s;
-		fi;
+	new := ShallowCopy(orig);
+	names := EvalString(Concatenation("GenNameAssocLetter", lang));
+	for i in [1..Length(new)] do
+		new[i] := names(new[i]);
 	od;
 
 	# Factorise word as power of substrings
 	l := LetterRepAssocWord(elm);
-	substr := FactoriseAssocWordLatex(l, names, []);
+	factorise := EvalString(Concatenation("FactoriseAssocWord", lang));
+	substr := factorise(l, new, []);
 
 	return [ substr ];
 end);
 
 #############################################################################
 ##
-#M  CtblLatexLegend( <character table entry data> ) . 
+#M  CtblEntryLatex( <character table entry data> ) . 
+##  
+## generates a string that specifies any specific environments to be used for
+## a character table entry.
+##
+InstallMethod(CtblEntryLatex, "for generating LaTeX representation of a character table legend", true,
+[ IsString ], 0,
+function ( entry )
+	if '/' in entry then
+		return Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
+	fi;
+	return entry;
+end);
+
+#############################################################################
+##
+#M  CtblLegendLatex( <character table entry data> ) . 
 ##  
 ## generates a legend that specifies what substitutions have been used in a
 ## representation of the character table. Uses the align environment.
 ##
-InstallMethod(CtblLatexLegend, "for generating LaTeX representation of a character table legend", true,
+InstallMethod(CtblLegendLatex, "for generating LaTeX representation of a character table legend", true,
 [ IsRecord ], 0,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
@@ -551,6 +590,7 @@ function ( data )
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
+		Info(InfoLatexgen, 2, "To use the align environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
 		Append(ret, "\n\\begin{align*}\n");
 	fi;
@@ -576,6 +616,28 @@ function ( data )
 	fi;
 
 	return ret;
+end);
+
+#############################################################################
+##
+#M  GenNameAssocLetterLatex( <assoc generator string> ) . 
+##  
+## constructs a string containing LaTeX specific subscript notation for names
+## used within associative words.
+##
+InstallMethod(GenNameAssocLetterLatex, "for reformatting names used within associative words", true,
+[ IsString ], 
+function ( s )
+	local e;
+	e := Length(s);
+	while e>0 and s[e] in CHARS_DIGITS do
+		e := e-1;
+	od;
+	if e<Length(s) then
+		s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+	fi;
+
+	return s;
 end);
 
 #############################################################################

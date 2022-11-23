@@ -66,12 +66,28 @@ DeclareOperation("GenLatexTmpl", [ IsObject ]);
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Description
-#!   CtblLatexLegend generates a string representation of the mathematical substitutions for entries
+#!   CtblEntryLatex formats a string representation of an entry to include the LaTeX specific
+#!   environments for complex conjugates.
+#!
+#! @Returns
+#!  Strings that describe the character table entry in LaTeX.
+DeclareOperation("CtblEntryLatex", [ IsString ]);
+
+#! @Description
+#!   CtblLegendLatex generates a string representation of the mathematical substitutions for entries
 #!   within a character table.
 #!
 #! @Returns
 #!  Strings that describe the calculated substitutions.
-DeclareOperation("CtblLatexLegend", [ IsRecord ]);
+DeclareOperation("CtblLegendLatex", [ IsRecord ]);
+
+#! @Description
+#!   GenNameAssocLetterLatex generates a string representation of the provided letter string
+#!   correctly subscripted with a LaTeX math-mode subscript environment.
+#!
+#! @Returns
+#!  Strings that describe the calculated substitutions.
+DeclareOperation("GenNameAssocLetterLatex", [ IsString ]);
 
 #! @Description
 #!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word
