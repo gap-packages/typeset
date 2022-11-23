@@ -255,11 +255,23 @@ end);
 InstallMethod(GenLatexTmpl, "for fp groups", true,
 [ IsFpGroup ], 0,
 function ( g )
-	local str, i, j;
+	local str, gens, i, s, e, j;
 	str := "\\langle ";
 
-	for i in [1..Length(GeneratorsOfGroup(g))] do
-		str := Concatenation(str, "{},");
+	gens := GeneratorsOfGroup(g);
+	for i in [1..Length(gens)] do
+		s := String(gens[i]);
+		e := Length(s);
+
+		while e>0 and s[e] in CHARS_DIGITS do
+			e := e-1;
+		od;
+
+		if e<Length(s) then
+			str := Concatenation(str,"{}_{{{}}},");
+		else
+			str := Concatenation(str, "{},");
+		fi;
 	od;
 	str := Concatenation(str{[1..Length(str)-1]}, " \\mid ");
 
@@ -466,7 +478,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 	rels := RelatorsOfFpGroup(g);
 
-	# Sub-script notation for generators.
+	# Sub-powers for generators.
 	for i in [1..Length(gens)] do
 		s := String(gens[i]);
 		e := Length(s);
@@ -474,11 +486,13 @@ function ( g )
 		while e>0 and s[e] in CHARS_DIGITS do
 			e := e-1;
 		od;
-		if e<Length(s) then
-			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-		fi;
 
-		Add(lst, String(s));
+		if e<Length(s) then
+			Add(lst, s{[1..e]});
+			Add(lst, s{[e+1..Length(s)]});
+		else
+			Add(lst, String(s));
+		fi;
 	od;
 
 	for j in [1..Length(rels)] do
@@ -528,29 +542,22 @@ end);
 InstallMethod(GenArgs,"assoc word in letter rep",true,
 [IsAssocWord and IsLetterAssocWordRep],0,
 function( elm )
-	local opts, lang, orig, names, i, e, s, l, substr, factorise;
+	local opts, lang, orig, names, new, i, e, s, l, substr, factorise;
 	opts := ValueOption("options");
 	lang := opts.("Lang");
 
 	# Generate names using subscript over . notation
 	orig := FamilyObj(elm)!.names;
-	names := ShallowCopy(orig);
-	for i in [1..Length(names)] do
-		s := names[i];
-		e := Length(s);
-		while e>0 and s[e] in CHARS_DIGITS do
-			e := e-1;
-		od;
-		if e<Length(s) then
-			s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
-			names[i] := s;
-		fi;
+	new := ShallowCopy(orig);
+	names := EvalString(Concatenation("GenNameAssocLetter", lang));
+	for i in [1..Length(new)] do
+		new[i] := names(new[i]);
 	od;
 
 	# Factorise word as power of substrings
 	l := LetterRepAssocWord(elm);
 	factorise := EvalString(Concatenation("FactoriseAssocWord", lang));
-	substr := factorise(l, names, []);
+	substr := factorise(l, new, []);
 
 	return [ substr ];
 end);
@@ -596,6 +603,28 @@ function ( data )
 	fi;
 
 	return ret;
+end);
+
+#############################################################################
+##
+#M  GenNameAssocLetterLatex( <assoc generator string> ) . 
+##  
+## constructs a string containing LaTeX specific subscript notation for names
+## used within associative words.
+##
+InstallMethod(GenNameAssocLetterLatex, "for reformatting names used within associative words", true,
+[ IsString ], 
+function ( s )
+	local e;
+	e := Length(s);
+	while e>0 and s[e] in CHARS_DIGITS do
+		e := e-1;
+	od;
+	if e<Length(s) then
+		s := Concatenation(s{[1..e]},"_{",s{[e+1..Length(s)]},"}");
+	fi;
+
+	return s;
 end);
 
 #############################################################################

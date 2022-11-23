@@ -74,6 +74,14 @@ DeclareOperation("GenArgs", [ IsObject ]);
 DeclareOperation("CtblLegendLatex", [ IsRecord ]);
 
 #! @Description
+#!   GenNameAssocLetterLatex generates a string representation of the provided letter string
+#!   correctly subscripted with a LaTeX math-mode subscript environment.
+#!
+#! @Returns
+#!  Strings that describe the calculated substitutions.
+DeclareOperation("GenNameAssocLetterLatex", [ IsString ]);
+
+#! @Description
 #!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word
 #!   in letter representation, based on the return value from FindSubstringPowers.
 #!
