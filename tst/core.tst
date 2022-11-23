@@ -1,5 +1,5 @@
 #@local x, y, z
-gap> START_TEST( "arbitrary identifier string" );
+gap> START_TEST( "testing basic concepts" );
 
 # Rationals
 gap> y := 5;;

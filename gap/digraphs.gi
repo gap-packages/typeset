@@ -20,15 +20,22 @@ end);
 InstallMethod(GenArgs, "directed graphs", true,
 [ IsDigraph ], 0,
 function ( obj )
-	local dot, ret;
-	
-	# Simply makes use of the dot2texi LaTeX package to allow raw DOT to be input
-	# and converted during LaTeX compilation.
-	Info(InfoLatexgen, 2, "To use the dot2tex environment, add the dot2texi package to your premable \\usepackage{dot2texi}");
-	dot := DotDigraph(obj);
-	ret := "\\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]\n";
-	Append(ret, dot{[7..Length(dot)-1]});
-	Append(ret, "\n\\end{dot2tex}");
+	local opts, ret, dot;
+	opts := ValueOption("options");
+	ret := "";
+
+	if opts.("DigraphOut")="dot2tex" then
+		Append(ret, Dot2Tex(obj));
+	else
+		# Simply makes use of the dot2texi LaTeX package to allow raw DOT to be input
+		# and converted during LaTeX compilation.
+		Info(InfoLatexgen, 2, "To use the dot2tex environment, add the dot2texi package to your premable \\usepackage{dot2texi}");
+		dot := DotDigraph(obj);
+		Append(ret, "\\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]\n");
+		Append(ret, dot{[7..Length(dot)-1]});
+		Append(ret, "\n\\end{dot2tex}");
+	fi;
+
 	return [ ret ];
 end);
 
@@ -42,7 +49,7 @@ end);
 InstallMethod(Dot2Tex, "directed graphs", true,
 [ IsDigraph ], 0,
 function ( obj )
-	local dot, dir, f, ret, inp, out;
+	local dot, inp, ret, out, dir, f;
 	dot := DotDigraph(obj);
 	inp := InputTextString(dot);
 
@@ -51,14 +58,13 @@ function ( obj )
     f := Filename(DirectoriesSystemPrograms(), "dot2tex");
 
 	# Prefix to put figure in tikzpicture.
-	ret := "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n  ";
+	ret := "  ";
 	out := OutputTextString(ret, true);
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
 	Process(dir, f, inp, out, ["--usepdflatex", "--autosize", "--figonly", "--codeonly", "--format=tikz"]);
-	ret := Concatenation(ret{[1..Length(ret)-3]}, "\n\\end{tikzpicture}\n\\end{center}");
 
 	# Remove empty comment lines.
-	ret := ReplacedString(ret, "%%\n", "");
-	Print(ret);
+	ret := ReplacedString(ret{[1..Length(ret)-3]}, "%%\n", "");
+	return ret;
 end);

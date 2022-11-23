@@ -12,7 +12,7 @@ function( x, opts... )
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
 			# Merge default options with user-passed optional parameters.
-			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", SubCallOpts := false);
+			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false);
 			options := rec();
 
 			for name in RecNames(defaults) do
@@ -101,7 +101,7 @@ end);
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
 [IsFFE and IsInternalRep], 0,
 function ( ffe )
-	local str, log,deg,char;
+	local str, log, deg, char;
   	char := Characteristic(ffe);
   	if IsZero( ffe ) then
     	str := "0*Z({})";
@@ -115,7 +115,7 @@ end );
 InstallMethod(GenLatexTmpl, "matrix", true,
 [ IsMatrix ], 0,
 function( m )
-	local i,j,l,n,s,opts,left,right;
+	local i, j, l, n, s, opts, left, right;
 	opts := ValueOption("options");
 	left := opts.("LDelim");
 	right := opts.("RDelim");
