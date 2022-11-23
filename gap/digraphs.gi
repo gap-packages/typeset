@@ -27,7 +27,7 @@ function ( obj )
 	Info(InfoLatexgen, 2, "To use the dot2tex environment, add the dot2texi package to your premable \\usepackage{dot2texi}");
 	dot := DotDigraph(obj);
 	ret := "\\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]\n";
-	Append(ret, dot);
+	Append(ret, dot{[7..Length(dot)-1]});
 	Append(ret, "\n\\end{dot2tex}");
 	return [ ret ];
 end);
@@ -60,6 +60,9 @@ function ( obj )
 	ret := "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n";
 	out := OutputTextString(ret, true);
 	Process(dir, f, midO, out, ["--figonly", "--codeonly"]);
-	Append(ret, "\\end{tikzpicture}\n\\end{center}");
+	ret := Concatenation(ret{[1..Length(ret)-3]}, "\n\\end{tikzpicture}\n\\end{center}");
+
+	# Remove empty comment lines.
+	ret := ReplacedString(ret, "%%\n", "");
 	Print(ret);
 end);
