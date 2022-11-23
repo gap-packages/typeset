@@ -1,9 +1,9 @@
 #
-# latexgen: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic LaTeX string generation for common GAP objects
 #
 #! @Chapter Digraphs
 #!
-#! latexgen is a package that implements an operation Typeset that can
+#! typeset is a package that implements an operation Typeset that can
 #! generate LaTeX string representations of a commonly used subset
 #! of mathematical objects within the GAP system.
 #!

@@ -1,5 +1,5 @@
 #
-# latexgen: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic LaTeX string generation for common GAP objects
 #
 # This file contains package meta data. For additional information on
 # the meaning and correct usage of these fields, please consult the
@@ -8,7 +8,7 @@
 #
 SetPackageInfo( rec(
 
-PackageName := "latexgen",
+PackageName := "typeset",
 Subtitle := "Automatic LaTeX string generation for common GAP objects",
 Version := "1.0",
 Date := "11/11/2022", # dd/mm/yyyy format
@@ -30,10 +30,10 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := "https://github.com/ZachNewbery/latexgen",
+    URL := "https://github.com/ZachNewbery/typeset",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://ZachNewbery.github.io/latexgen/",
+PackageWWWHome  := "https://ZachNewbery.github.io/typeset/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
@@ -55,7 +55,7 @@ Status := "dev",
 AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "latexgen",
+  BookName  := "typeset",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",

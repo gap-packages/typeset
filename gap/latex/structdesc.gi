@@ -30,7 +30,7 @@ function( desc )
 
     # Handle possible operators {:, ., x, /, =}
     if ':' in desc then
-        Info(InfoLatexgen, 2, "To use \\rtimes, add the amssymb package to your premable \\usepackage{amssymb}");
+        Info(InfoTypeset, 2, "To use \\rtimes, add the amssymb package to your premable \\usepackage{amssymb}");
         return ConcatStructDescOperands(desc, ":", "\\rtimes");
     elif '.' in desc then
         return ConcatStructDescOperands(desc, ".", "\\cdot");
