@@ -4,7 +4,6 @@
 # This file runs package tests. It is also referenced in the package
 # metadata in PackageInfo.g.
 #
-LoadPackage( "digraphs" );
 LoadPackage( "latexgen" );
 
 SetInfoLevel(InfoLatexgen, 0);
