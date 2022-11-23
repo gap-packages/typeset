@@ -31,6 +31,13 @@ gap> Typeset(x);
 1 & 0 \\
 \end{array}\right)
 
+# Matrix with alternate Delimiters
+gap> Typeset(x : RDelim:="]", LDelim:="[");
+\left[\begin{array}{rr}
+0 & 1 \\
+1 & 0 \\
+\end{array}\right]
+
 # Matrix with FFEs
 gap> x := [ [ Z(3)^0, Z(3)^0,   Z(3) ],
 >            [   Z(3), 0*Z(3),   Z(3) ],
