@@ -58,5 +58,6 @@ gap> Typeset(g : DigraphOut:="dot2tex");
   \draw [->] (2) ..controls (24.793bp,23.009bp) and (36.0bp,20.762bp)  .. (36.0bp,10.11bp) .. controls (36.0bp,3.6189bp) and (31.838bp,0.24881bp)  .. (2);
 \end{tikzpicture}
 \end{center}
+
 # End Test
 gap> STOP_TEST( "digraphs.tst" );

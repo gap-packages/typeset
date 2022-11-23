@@ -30,22 +30,28 @@ jobs:
           - datastructures NautyTracesInterface digraphs
 
     steps:
-      - uses: actions/checkout@v2
+      - name: "Checkout package repository"
+        uses: actions/checkout@v2
       - name: "Setup Python"
         uses: actions/setup-python@v1
       - name: "Install dot2tex dependencies"
         run: sudo apt install graphviz texlive preview-latex-style
       - name: "Install dot2tex with pip"
         run: pip install dot2tex
-      - uses: gap-actions/setup-gap@v2
+      - name: "Setup GAP"
+        uses: gap-actions/setup-gap@v2
         with:
           GAP_PKGS_TO_CLONE: "${{ matrix.pkgs-to-clone }}"
           GAP_PKGS_TO_BUILD: "io orb profiling grape NautyTracesInterface datastructures digraphs"
           GAPBRANCH: ${{ matrix.gap-branch }}
-      - uses: gap-actions/build-pkg@v1
-      - uses: gap-actions/run-pkg-tests@v2
-      - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v2
+      - name: "Build 'typeset' package"
+        uses: gap-actions/build-pkg@v1
+      - name: "Run 'typeset' package tests"
+        uses: gap-actions/run-pkg-tests@v2
+      - name: "Process test coverage"
+        uses: gap-actions/process-coverage@v2
+      - name: "Publish code coverage"
+        uses: codecov/codecov-action@v2
 
   # The documentation job
   manual:
