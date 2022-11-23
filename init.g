@@ -1,12 +1,12 @@
 #
-# latexgen: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 # Reading the declaration part of the package.
 #
-ReadPackage( "latexgen", "gap/typeset.gd" );
-ReadPackage( "latexgen", "gap/latex/latex.gd" );
-ReadPackage( "latexgen", "gap/latex/structdesc.gd" );
-ReadPackage( "latexgen", "gap/latex/render.gd" );
+ReadPackage( "typeset", "gap/typeset.gd" );
+ReadPackage( "typeset", "gap/latex/latex.gd" );
+ReadPackage( "typeset", "gap/latex/structdesc.gd" );
+ReadPackage( "typeset", "gap/latex/render.gd" );
 if IsPackageMarkedForLoading( "digraphs", "1.5.0" ) then
-    ReadPackage( "latexgen", "gap/latex/digraphs.gd");
+    ReadPackage( "typeset", "gap/latex/digraphs.gd");
 fi;

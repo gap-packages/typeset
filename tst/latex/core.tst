@@ -50,4 +50,4 @@ Z(3) & 0*Z(3) & Z(3) \\
 \end{array}\right)
 
 # End Test
-gap> STOP_TEST( "latexgen.tst" );
+gap> STOP_TEST( "typeset.tst" );

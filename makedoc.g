@@ -1,5 +1,5 @@
 #
-# latexgen: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 # This file is a script which compiles the package manual.
 #
@@ -7,4 +7,4 @@ if fail = LoadPackage("AutoDoc") then
     Error("AutoDoc required.");
 fi;
 
-AutoDoc("latexgen", rec( scaffold := true, autodoc := true ));
+AutoDoc("typeset", rec( scaffold := true, autodoc := true ));

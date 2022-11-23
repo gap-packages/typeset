@@ -6,7 +6,7 @@
     [<#Include SYSTEM "_entities.xml">
 ]
 >
-<Book Name="latexgen">
+<Book Name="typeset">
 <#Include SYSTEM "title.xml">
 <TableOfContents/>
 <Body>

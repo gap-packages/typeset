@@ -1,9 +1,9 @@
 #
-# latexgen: Automatic LaTeX string generation for common GAP objects
+# typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 #! @Chapter Introduction
 #!
-#! latexgen is a package that implements an operation Typeset that can
+#! typeset is a package that implements an operation Typeset that can
 #! generate LaTeX string representations of a commonly used subset
 #! of mathematical objects within the GAP system.
 #!
@@ -14,7 +14,7 @@
 #! @Section Core Methods
 
 #! @Description
-#!   Info class for the <Package>latexgen</Package> package.  Set this to the following
+#!   Info class for the <Package>typeset</Package> package.  Set this to the following
 #!   levels for different levels of information:
 #!     * 0 - No messages
 #!     * 1 - Problems only: messages describing what went wrong, with no
@@ -23,10 +23,10 @@
 #!           LaTeX packages that need to be added to the preamble to be rendered.
 #!     * 3 - Progress: also shows step-by-step progress of operations
 #!
-#!   Set this using, for example `SetInfoLevel(InfoLatexgen, 1)`.
+#!   Set this using, for example `SetInfoLevel(InfoTypeset, 1)`.
 #!   Default value is 2.
-DeclareInfoClass("InfoLatexgen");
-SetInfoLevel(InfoLatexgen, 2);
+DeclareInfoClass("InfoTypeset");
+SetInfoLevel(InfoTypeset, 2);
 
 #! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
