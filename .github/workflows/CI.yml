@@ -27,9 +27,7 @@ jobs:
           - master
           - stable-4.11
         pkgs-to-clone: 
-          - datastructures
-          - NautyTracesInterface
-          - digraphs
+          - datastructures NautyTracesInterface digraphs
 
     steps:
       - uses: actions/checkout@v2
