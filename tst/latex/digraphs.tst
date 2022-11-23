@@ -47,6 +47,7 @@ node [shape=circle]
 \end{center}
 
 # Dot2Tex Command Line Invocation
+gap> g := Digraph([[1, 2]]);;
 gap> Typeset(g : DigraphOut:="dot2tex");
 \begin{center}
 \begin{tikzpicture}[>=latex',line join=bevel,]
