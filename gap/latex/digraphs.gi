@@ -60,6 +60,7 @@ function ( obj )
 	# Prefix to put figure in tikzpicture.
 	ret := "  ";
 	out := OutputTextString(ret, true);
+	SetPrintFormattingStatus(out, false);
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
 	Process(dir, f, inp, out, ["--debug", "--autosize", "--figonly", "--codeonly", "--format=tikz"]);
