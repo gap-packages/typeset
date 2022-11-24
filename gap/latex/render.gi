@@ -59,7 +59,7 @@ function ( str )
     AppendTo(out, str);
     AppendTo(out, "\n\\end{document}");
 
-    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex out.tex"));
+    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex --shell-escape out.tex"));
 
     OpenExternal(Filename(dir, "out.pdf"));
 end);
