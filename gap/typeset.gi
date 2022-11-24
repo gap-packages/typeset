@@ -1,3 +1,5 @@
+InstallValue(DefaultTypesetOptions, rec(ReturnStr := false, LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false));
+
 #############################################################################
 ##
 #M  Typeset( <object> ) . 
@@ -12,12 +14,11 @@ function( x, opts... )
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
 			# Merge default options with user-passed optional parameters.
-			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false);
 			options := rec();
 
-			for name in RecNames(defaults) do
+			for name in RecNames(DefaultTypesetOptions) do
 				if ValueOption(name) = fail then
-					options.(name) := defaults.(name);
+					options.(name) := DefaultTypesetOptions.(name);
 				else
 					val := ValueOption(name);
 
@@ -42,34 +43,38 @@ function( x, opts... )
 	fi;
 
 	# Determine function to create output string (based on lang option).
-	string := TypesetString(x : options := options);
+	string := TypesetInternal(x : options := options);
 	Add(string, '\n');
 
-	# Print to terminal (use SetPrintFormattingStatus to remove line breaks).
-	old := PrintFormattingStatus("*stdout*");
-	SetPrintFormattingStatus("*stdout*", false);
-	PrintFormattedString(string);
-	SetPrintFormattingStatus("*stdout*", old);
+	if options.("ReturnStr")=false then
+		# Print to terminal (use SetPrintFormattingStatus to remove line breaks).
+		old := PrintFormattingStatus("*stdout*");
+		SetPrintFormattingStatus("*stdout*", false);
+		PrintFormattedString(string);
+		SetPrintFormattingStatus("*stdout*", old);
+	else
+		return string;
+	fi;
 end);
 
 #############################################################################
 ##
-#M  TypesetString( <object> ) . 
+#M  TypesetInternal( <object> ) . 
 ##  
 ## produces a typesetable string representing the provided object.
 ##
-InstallMethod(TypesetString, "for all objects", true,
+InstallMethod(TypesetInternal, "for all objects", true,
 [ IsObject ],0,
 function( x )
 	local options, lang, t, string, args, tmpl;
 	
-	# Determine template string generation function.
+	# Backup default options setting for users who use TypesetInternal directly.
 	options := ValueOption("options");
 	if options=fail then
-		lang := "latex";
-		options := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+		options := ShallowCopy(DefaultTypesetOptions);
 	fi;
 
+	# Determine template string generation function.
 	lang := options.("Lang");
 	lang[1] := UppercaseChar(lang[1]);
 	t := EvalString(Concatenation("Gen", lang, "Tmpl"));
@@ -134,7 +139,7 @@ function ( m )
 
 	for i in [1..l] do
 		for j in [1..n] do
-			Add(r, TypesetString(m[i][j] : options := subOptions));
+			Add(r, TypesetInternal(m[i][j] : options := subOptions));
 		od;
 	od;
 
@@ -158,19 +163,19 @@ function( poly )
 	for i in [ le-1, le-3..1 ] do
 		c := false;
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, TypesetString(ext[i + 1] : options := subOptions));
+			Add(r, TypesetInternal(ext[i + 1] : options := subOptions));
 			c := true;
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, TypesetString(ext[i][j + 1] : options := subOptions));
+					Add(r, TypesetInternal(ext[i][j + 1] : options := subOptions));
 				fi;
 			od;
 		else
 			if c=false then
-				Add(r, TypesetString(ext[i + 1] : options := subOptions));
+				Add(r, TypesetInternal(ext[i + 1] : options := subOptions));
 			fi;
 		fi;
 	od;
@@ -185,7 +190,7 @@ function( ratf )
 	num := NumeratorOfRationalFunction(ratf);
 	den := DenominatorOfRationalFunction(ratf);
 
-	return [ TypesetString(num), TypesetString(den) ];
+	return [ TypesetInternal(num), TypesetInternal(den) ];
 end);
 
 InstallMethod(GenArgs, "character tables", true,
@@ -248,7 +253,7 @@ function ( g )
 	od;
 
 	for j in [1..Length(rels)] do
-		Add(lst, TypesetString(rels[j]));
+		Add(lst, TypesetInternal(rels[j]));
 	od;
 
 	return lst;
@@ -272,7 +277,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, TypesetString(gens[i]));
+		Add(lst, TypesetInternal(gens[i]));
 	od;
 
 	return lst;

@@ -6,7 +6,7 @@ gap> g := Digraph([[1, 2], [2, 1]]);;
 gap> Typeset(g);
 \begin{center}
 \begin{tikzpicture}[>=latex',line join=bevel,]
-\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]
+\begin{dot2tex}[dot,tikz,codeonly,styleonly]
 digraph hgn{
 node [shape=circle]
 1
@@ -23,7 +23,7 @@ gap> g2 := Digraph([[1, 2], [2, 3], [3, 4], [4, 2], [4, 1]]);;
 gap> Typeset(g2);
 \begin{center}
 \begin{tikzpicture}[>=latex',line join=bevel,]
-\begin{dot2tex}[dot,tikz,codeonly,styleonly,options=-s -tmath]
+\begin{dot2tex}[dot,tikz,codeonly,styleonly]
 digraph hgn{
 node [shape=circle]
 1
@@ -51,7 +51,7 @@ node [shape=circle]
 # it is difficult to create a positive test case that works
 # both locally and in the repo. Therefore, a simple check
 # for a non-empty populated templated string should suffice.
-gap> s := TypesetString(g : options:= rec(LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot2tex", SubCallOpts := false));;
+gap> s := Typeset(g : ReturnStr := true, DigraphOut := "dot2tex");;
 gap> s <> "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n\n\\end{tikzpicture}\n\\end{center}";
 true
 

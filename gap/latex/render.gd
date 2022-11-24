@@ -11,6 +11,13 @@
 #! extended to also support the generation of strings for other mark-up
 #! languages.
 #!
+#! @Section Constants
+DeclareGlobalVariable("DefaultLaTeXPreamble");
+
+DeclareGlobalVariable("AlwaysUnescapedChars");
+
+DeclareGlobalVariable("DefaultMathJaxTags");
+
 #! @Section Methods
 
 #! @Description

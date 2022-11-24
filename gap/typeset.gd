@@ -28,6 +28,8 @@
 DeclareInfoClass("InfoTypeset");
 SetInfoLevel(InfoTypeset, 2);
 
+DeclareGlobalVariable("DefaultTypesetOptions");
+
 #! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
 #!   that object in the given mark-up language (default: LaTeX). Optional records can
@@ -39,12 +41,12 @@ SetInfoLevel(InfoTypeset, 2);
 DeclareOperation("Typeset", [ IsObject ]);
 
 #! @Description
-#!   TypesetString generates a string representation of a passed mathematical object that
+#!   TypesetInternal generates a string representation of a passed mathematical object that
 #!   can be rendered by a typesetter.
 #!
 #! @Returns
 #!   Typesetable String representation of object.
-DeclareOperation("TypesetString", [ IsObject ]);
+DeclareOperation("TypesetInternal", [ IsObject ]);
 
 #! @Description
 #!   GenArgs generates the arguments describing the semantic definition of the passed mathematical
