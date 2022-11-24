@@ -14,6 +14,7 @@ function( x, opts... )
 	if IsEmpty(opts) then
 		if ValueOption("options") = fail then
 			# Merge default options with user-passed optional parameters.
+			Info(InfoTypeset, 3, "Generating options record from default parameters");
 			options := rec();
 
 			for name in RecNames(DefaultTypesetOptions) do
@@ -71,6 +72,7 @@ function( x )
 	# Backup default options setting for users who use TypesetInternal directly.
 	options := ValueOption("options");
 	if options=fail then
+		Info(InfoTypeset, 3, "No options provided to method, using defaults");
 		options := ShallowCopy(DefaultTypesetOptions);
 	fi;
 
@@ -83,6 +85,7 @@ function( x )
 	tmpl := t(x : options := options);
 	args := GenArgs(x : options := options);
 	Add(args, tmpl, 1);
+
 	string := CallFuncList(StringFormatted, args);
 	return string;
 end);

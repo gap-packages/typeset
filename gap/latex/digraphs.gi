@@ -63,6 +63,7 @@ function ( obj )
 	SetPrintFormattingStatus(out, false);
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
+	Info(InfoTypeset, 3, "Running dot2tex on provided dot string");
 	Process(dir, f, inp, out, ["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
 
 	# Remove empty comment lines.

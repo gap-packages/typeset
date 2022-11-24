@@ -47,6 +47,7 @@ InstallMethod(PDFLatex, "for all LaTeX strings renderable by pdflatex", true,
 function ( str )
     local dir, f, out;
 
+    Info(InfoTypeset, 3, "Creating temporary .tex file");
     dir := DirectoryTemporary();
     f := Filename(dir, "out.tex");
     out := OutputTextFile(f, true);
@@ -58,7 +59,9 @@ function ( str )
     fi;
     AppendTo(out, str);
     AppendTo(out, "\n\\end{document}");
+    Info(InfoTypeset, 3, "Successfully created .tex file for compilation");
 
+    Info(InfoTypeset, 3, "Running pdflatex on created .tex file");
     Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex --shell-escape out.tex"));
 
     OpenExternal(Filename(dir, "out.pdf"));
@@ -74,6 +77,8 @@ InstallMethod(MathJax, "for all LaTeX strings renderable by MathJax", true,
 [ IsString ], 0,
 function ( str )
     local dir, f, out;
+
+    Info(InfoTypeset, 3, "Creating temporary .html file");
     dir := DirectoryTemporary();
     f := Filename(dir, "out.html");
     out := OutputTextFile(f, true);
@@ -96,6 +101,7 @@ function ( str )
 
     AppendTo(out, str);
     AppendTo(out, "\n</p></body>");
+    Info(InfoTypeset, 3, "Successfully created .html file for viewing");
 
     OpenExternal(f);
 end);
@@ -110,8 +116,8 @@ InstallMethod(Overleaf, "for all LaTeX strings renderable by Overleaf", true,
 [ IsString ], 0,
 function ( str )
     local url;
-
     if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        # Assume all non-tikz strings are to be processed in math mode.
         str := Concatenation("$", str, "$");
     fi;
 
@@ -119,6 +125,7 @@ function ( str )
 
     url := "https://www.overleaf.com/docs?snip=";
     Append(url, URIEncodeComponent(str));
+    Info(InfoTypeset, 3, "Successfully created URL for Overleaf, navigating there now");
 
     OpenExternal(url);
 end);
