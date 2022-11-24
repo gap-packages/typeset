@@ -84,7 +84,7 @@ function ( str )
     if StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
         if StartsWith(str{[63..Length(str) - 1]}, "\\begin{dot2tex}") then
             # Throw Error
-			Error("Importing the package dot2texi is not allowed in MathJax, please try a different rendering method.");
+			Error("Importing LaTeX packages is not implemented in MathJax and required for dot2texi, please try a different rendering method.");
             return;
         else
             str := ReplacedString(str{[16..Length(str)-13]}, ">=latex',", "");
