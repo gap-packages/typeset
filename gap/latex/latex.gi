@@ -25,7 +25,7 @@ InstallMethod(GenLatexTmpl, "for an internal FFE", true,
 function ( ffe )
 	local str, log, deg, char;
   	char := Characteristic(ffe);
-  	if IsZero( ffe ) then
+  	if IsZero(ffe) then
     	str := "0*Z({})";
   	else
     	str := "Z({}{}){}";
@@ -238,7 +238,7 @@ InstallMethod(GenLatexTmpl, "for pc groups", true,
 [ IsPcGroup ], 0,
 function ( g )
 	local str, iso, fp;
-	iso := IsomorphismFpGroupByPcgs( FamilyPcgs (g), "f");
+	iso := IsomorphismFpGroupByPcgs(FamilyPcgs (g), "f");
 	fp := Image(iso);
 
 	return GenLatexTmpl(fp);
@@ -372,12 +372,12 @@ function ( l, names, tseed )
 	local n, a, substr, i, ret, exp, t, word, j;
 
 	n := Length(names);
-	if Length(l)>0 and n=infinity then
-      n := 2*(Maximum(List(l,AbsInt))+1);
+	if Length(l) > 0 and n=infinity then
+      n := 2 * (Maximum(List(l, AbsInt))+1);
     fi;
-    a := FindSubstringPowers(l,n + Length(tseed)); # tseed numbers are used already
+    a := FindSubstringPowers(l, n + Length(tseed)); # tseed numbers are used already
 
-	# FindSubstringPowers returns 2 element list.
+	# FindSubstringPowers returns a 2 element list.
 	# Element 1: List of substring IDs which when concatenated will result in the original word.
 	# Element 2: IDs of substrings which are constructed from individual letters.
 	substr := a[1];
@@ -393,21 +393,21 @@ function ( l, names, tseed )
 			if t[1] = 0 then
 				# Single letter raised to a power
 				if t[2] < 0 then
-					Append(ret, names[ -t[2] ] );
+					Append(ret, names[-t[2]]);
 	  				Append(ret, "^{-" );
-	  				Append(ret, String(t[3]));
+	  				Append(ret, TypesetInternal(t[3]));
 					Append(ret, "}");
 				else
-					Append(ret, names[ -t[2] ] );
+					Append(ret, names[-t[2]]);
 	  				Append(ret, "^{" );
-	  				Append(ret, String(t[3]));
+	  				Append(ret, TypesetInternal(t[3]));
 					Append(ret, "}");
 				fi;
 			else
 				# Constructed substring from multiple letter names
-				Add(ret,'(');
-				Append(ret,FactoriseAssocWordLatex(t,names,Filtered(a[2],x->x[1]=0)));
-				Add(ret,')');
+				Add(ret, '(');
+				Append(ret, FactoriseAssocWordLatex(t, names, Filtered(a[2],x->x[1]=0)));
+				Add(ret, ')');
 			fi;
 		elif substr[i] < 0 then
 			Append(ret, names[-substr[i]]);
@@ -425,11 +425,11 @@ function ( l, names, tseed )
 				i := i+1;
       		od;
       		Append(ret, "^{");
-      		Append(ret, String(exp*(i-j)));
+      		Append(ret, TypesetInternal(exp*(i-j)));
 			Append(ret, "}");
     	elif exp=-1 then
 			# Inverse power
-      		Append(ret,"^{-1}");
+      		Append(ret, "^{-1}");
       		i := i+1;
     	else
       		# No power given
