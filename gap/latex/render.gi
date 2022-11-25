@@ -1,14 +1,34 @@
 
 InstallValue(DefaultLaTeXPreamble,
-"\\documentclass[12pt]{article}\n\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}\n\\usepackage{dot2texi}\n\\usepackage[x11names, svgnames, rgb]{xcolor}\n\\usepackage[utf8]{inputenc}\n\\usepackage{tikz}\n\\usetikzlibrary{snakes,arrows,shapes}\n\\begin{document}\n\\pagestyle{empty}\n"
+    Concatenation(["\\documentclass[12pt]{article}\n",
+    "\\usepackage[english]{babel}\n",
+    "\\usepackage{amsmath}\n",
+    "\\usepackage{amssymb}\n",
+    "\\usepackage{dot2texi}\n",
+    "\\usepackage[x11names, svgnames, rgb]{xcolor}\n",
+    "\\usepackage[utf8]{inputenc}\n",
+    "\\usepackage{tikz}\n",
+    "\\usetikzlibrary{decorations,arrows,shapes}\n",
+    "\\begin{document}\n",
+    "\\pagestyle{empty}\n"])
 );
 
 InstallValue(DefaultMathJaxTags,
-"<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width\">\n<title>MathJax Output</title>\n<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"https://tikzjax.com/v1/fonts.css\">\n<script src=\"https://tikzjax.com/v1/tikzjax.js\"></script>\n</head>"
+    Concatenation(["<!DOCTYPE html>\n",
+    "<html>\n",
+    "<head>\n",
+    "<meta charset=\"utf-8\">\n",
+    "<meta name=\"viewport\" content=\"width=device-width\">\n",
+    "<title>MathJax Output</title>\n",
+    "<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n",
+    "<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>\n",
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://tikzjax.com/v1/fonts.css\">\n",
+    "<script src=\"https://tikzjax.com/v1/tikzjax.js\"></script>\n",
+    "</head>"])
 );
 
 InstallValue(AlwaysUnescapedChars,
-"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
 );
 
 #############################################################################
