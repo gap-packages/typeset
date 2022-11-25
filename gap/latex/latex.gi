@@ -15,8 +15,9 @@ InstallMethod(GenLatexTmpl, "for rationals", true,
 function( x )
 	if IsInt(x) then
 		return "{}";
+	else
+		return "\\frac{{{}}}{{{}}}";
 	fi;
-	return "\\frac{{{}}}{{{}}}";
 end);
 
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
@@ -80,10 +81,10 @@ function( m )
   	Append(s,"}}\n");
   	for i in [1..l] do
     	for j in [1..n] do
-      	Append(s,"{} ");
-      	if j<n then
-        	Append(s,"& ");
-      	fi;
+      		Append(s,"{} ");
+      		if j<n then
+        		Append(s,"& ");
+      		fi;
     	od;
     	Append(s,"\\\\\n");
   	od;
