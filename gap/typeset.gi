@@ -77,7 +77,7 @@ function( x )
 	# Backup default options setting for users who use TypesetInternal directly.
 	options := ValueOption("options");
 	if options=fail then
-		Info(InfoTypeset, 3, "No options provided to method, using defaults");
+		Info(InfoTypeset, 3, "No options provided to TypesetInternal method, using defaults");
 		options := ShallowCopy(DefaultTypesetOptions);
 	fi;
 
@@ -106,7 +106,7 @@ InstallMethod(GenArgs, "fallback default method", true,
 [ IsObject ], 0, 
 function ( obj )
 	# For some objects, simply calling String(obj) may already be typesettable
-	Info(InfoTypeset, 3, "Could not find argument method for type, falling back to String()");
+	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to String()");
 	return String(obj);
 end);
 
