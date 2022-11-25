@@ -103,7 +103,11 @@ end);
 ## used to populate the template string.
 ##
 InstallMethod(GenArgs, "fallback default method", true,
-[ IsObject ], 0, String);
+[ IsObject ], 0, 
+function (obj) 
+	Info(InfoTypeset, 3, "Could not find argument method for type, falling back to String()");
+	return String(obj);
+end);
 
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
@@ -134,6 +138,33 @@ function ( ffe )
 
 	return ret;
 end);
+
+InstallMethod(GenArgs, "permutation", true,
+[ IsPerm ], 0,
+function( perm )
+	local ret, i, j, maxpnt, blist, subOptions;
+	ret := [];
+	subOptions := MergeSubOptions(ValueOption("options"));
+
+  	if not IsOne( perm ) then
+      	maxpnt := LargestMovedPoint(perm);
+      	blist := BlistList([1..maxpnt], []);
+      	for i  in [1 .. LargestMovedPoint(perm)] do
+      		if not blist[i] and i ^ perm <> i  then
+          		blist[i] := true;
+          		Add(ret, TypesetInternal(i : options := subOptions));
+          		j := i ^ perm;
+          		while j > i do
+          			blist[j] := true;
+          			Add(ret, TypesetInternal(j : options := subOptions));
+          			j := j ^ perm;
+          		od;
+      		fi;
+      	od;
+  	fi;
+	
+  	return ret;
+end );
 
 InstallMethod(GenArgs, "matrix", true,
 [ IsMatrix ], 0,
@@ -226,14 +257,6 @@ function( tbl )
 	Add(ret, legend(data));
 
 	return ret;
-end);
-
-InstallMethod(GenArgs, "permutation", true,
-[ IsPerm ], 0,
-function ( x )
-	local list;
-	list := [ String(x) ];
-	return list;
 end);
 
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,

@@ -20,7 +20,7 @@ function( x )
 end);
 
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
-[IsFFE and IsInternalRep], 0,
+[ IsFFE and IsInternalRep ], 0,
 function ( ffe )
 	local str, log, deg, char;
   	char := Characteristic(ffe);
@@ -33,7 +33,35 @@ function ( ffe )
   	return str;
 end );
 
-InstallMethod(GenLatexTmpl, "matrix", true,
+InstallMethod(GenLatexTmpl, "for permutations", true,
+[ IsPerm ], 0,
+function( perm )
+	local str, i, j, maxpnt, blist;
+  	if IsOne(perm) then
+      	str := "\\left(\\right)";
+  	else
+      	str := "";
+      	maxpnt := LargestMovedPoint(perm);
+      	blist := BlistList([1..maxpnt], []);
+      	for i in [1 .. LargestMovedPoint(perm)] do
+      		if not blist[i] and i ^ perm <> i  then
+          		blist[i] := true;
+          		Append(str, "\\left({}");
+          		j := i ^ perm;
+          		while j > i do
+          			blist[j] := true;
+          			Append(str, ",{}");
+          			j := j ^ perm;
+          		od;
+          		Append(str, "\\right)");
+      		fi;
+      	od;
+  	fi;
+
+  	return str;
+end );
+
+InstallMethod(GenLatexTmpl, "for matrices", true,
 [ IsMatrix ], 0,
 function( m )
 	local i, j, l, n, s, opts, left, right;
