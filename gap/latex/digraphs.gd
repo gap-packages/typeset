@@ -13,8 +13,8 @@
 #!
 #! @Section External Integration
 
-
-DeclareGlobalVariable("Dot2TexDefaultOptions");
+DeclareGlobalVariable("Dot2TexDefaultOptions",
+    "List of default command-line options passed to dot2tex when converting dot snippets.");
 
 #! @Description
 #!   Dot2Tex executes dot2tex on the dot string representing a

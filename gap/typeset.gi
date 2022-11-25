@@ -1,4 +1,9 @@
-InstallValue(DefaultTypesetOptions, rec(ReturnStr := false, LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false));
+InstallValue(DefaultTypesetOptions,
+	rec(
+		ReturnStr := false, LDelim := "(", RDelim :=")",
+		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
+	)
+);
 
 #############################################################################
 ##

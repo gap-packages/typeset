@@ -1,4 +1,11 @@
-InstallValue(Dot2TexDefaultOptions, ["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
+#############################################################################
+##
+#V  Dot2TexDefaultOptions . 
+##  
+## 	List of default command-line options passed to dot2tex when converting dot snippets.
+##
+InstallValue(Dot2TexDefaultOptions,
+	["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
 
 #############################################################################
 ##
@@ -48,8 +55,8 @@ end);
 ##
 #M  Dot2Tex( <digraph> ) . 
 ##  
-## produces a list of strings representing the semantics of the provided digraph.
-## used to populate the template string.
+## produces a list of strings representing the semantics of the provided digraph
+## used to populate the template string, via dot2tex invocation.
 ##
 InstallMethod(Dot2Tex, "directed graphs", true,
 [ IsDigraph ], 0,

@@ -12,11 +12,14 @@
 #! languages.
 #!
 #! @Section Constants
-DeclareGlobalVariable("DefaultLaTeXPreamble");
+DeclareGlobalVariable("DefaultLaTeXPreamble",
+    "Default LaTeX preamble used for creating compilable TeX files from snippets.");
 
-DeclareGlobalVariable("AlwaysUnescapedChars");
+DeclareGlobalVariable("DefaultMathJaxTags",
+    "Default HTML tags used to created HTML files using MathJax to render LaTeX snippets.");
 
-DeclareGlobalVariable("DefaultMathJaxTags");
+DeclareGlobalVariable("AlwaysUnescapedChars",
+    "Reserved characters in URIs that do not need to be percent encoded.");
 
 #! @Section Methods
 

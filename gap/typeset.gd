@@ -13,6 +13,9 @@
 #!
 #! @Section Core Methods
 
+DeclareGlobalVariable("DefaultTypesetOptions",
+    "Default options record for the Typeset method.");
+
 #! @Description
 #!   Info class for the <Package>typeset</Package> package.  Set this to the following
 #!   levels for different levels of information:
@@ -28,13 +31,16 @@
 DeclareInfoClass("InfoTypeset");
 SetInfoLevel(InfoTypeset, 2);
 
-DeclareGlobalVariable("DefaultTypesetOptions");
-
 #! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
-#!   that object in the given mark-up language (default: LaTeX). Optional records can
+#!   that object in the given mark-up language. Optional records can
 #!   be added to modify the result:
-#!      TODO: list of optional parameters
+#!      - ReturnStr : Whether the method should return a string (default - false)
+#!      - LDelim : Left Delimiter for matrices                  (default - "(")
+#!      - RDelim : Right Delimiter for matrices                 (default - ")")
+#!		- Lang   : Markup language of output                    (default - "latex")
+#!      - DigraphOut : Typesetting method for Digraphs          (default - "dot")
+#!      - SubCallOpts : Alternate options for nested structures (default - false)
 #! 
 #! @Returns
 #!   String representation of object in given mark-up language.
