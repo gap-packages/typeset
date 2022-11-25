@@ -13,6 +13,9 @@
 #!
 #! @Section External Integration
 
+
+DeclareGlobalVariable("Dot2TexDefaultOptions");
+
 #! @Description
 #!   Dot2Tex executes dot2tex on the dot string representing a
 #!   given digraph object.

@@ -1,3 +1,5 @@
+InstallValue(Dot2TexDefaultOptions, ["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
+
 #############################################################################
 ##
 #M  GenLatexTmpl( <digraph> ) . 
@@ -32,7 +34,10 @@ function ( obj )
 		Info(InfoTypeset, 2, "To use the dot2tex environment, add the dot2texi package to your premable \\usepackage{dot2texi}");
 		dot := DotDigraph(obj);
 		Append(ret, "\\begin{dot2tex}[dot,tikz,codeonly,styleonly]\n");
+
+		# Remove prepended '\\dot' from string as it is not required.
 		Append(ret, dot{[7..Length(dot)-1]});
+
 		Append(ret, "\n\\end{dot2tex}");
 	fi;
 
@@ -64,7 +69,7 @@ function ( obj )
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
 	Info(InfoTypeset, 3, "Running dot2tex on provided dot string");
-	Process(dir, f, inp, out, ["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
+	Process(dir, f, inp, out, Dot2TexDefaultOptions);
 
 	# Remove empty comment lines.
 	ret := ReplacedString(ret{[1..Length(ret)-3]}, "%%\n", "");
