@@ -4,10 +4,10 @@ gap> START_TEST( "group generator notation Latex string generation ");
 # Permutation Groups
 gap> g := Group( (3, 4) );;
 gap> Typeset(g);
-\left\langle (3,4) \right\rangle
+\left\langle \left(3,4\right) \right\rangle
 gap> g := Group( (1,2)(4,5), (1,2,3)(4,5,6), (3, 4) );;
 gap> Typeset(g);
-\left\langle (1,2)(4,5),(1,2,3)(4,5,6),(3,4) \right\rangle
+\left\langle \left(1,2\right)\left(4,5\right),\left(1,2,3\right)\left(4,5,6\right),\left(3,4\right) \right\rangle
 
 # Matrix Groups
 gap> g := Group( [[0,-1],[1,0]] );;

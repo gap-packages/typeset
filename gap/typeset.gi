@@ -127,12 +127,12 @@ function ( ffe )
 	if not IsZero(ffe) then
 		deg := DegreeFFE(ffe);
 		if deg <> 1  then
-			ret[2] := Concatenation("^{", String(deg), "}");
+			ret[2] := Concatenation("^{", TypesetInternal(deg), "}");
 		fi;
 
 		log := LogFFE(ffe,Z( char ^ deg ));
 		if log <> 1 then
-			ret[3] := Concatenation("^{", String(log), "}");
+			ret[3] := Concatenation("^{", TypesetInternal(log), "}");
 		fi;
 	fi;
 
@@ -321,7 +321,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, String(gens[i]));
+		Add(lst, TypesetInternal(gens[i]));
 	od;
 
 	return lst;
