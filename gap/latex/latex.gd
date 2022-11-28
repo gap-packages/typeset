@@ -15,8 +15,8 @@
 #! @Description
 #!   Generates a format string that represents the structural definition of the given &GAP;
 #!   object in &LaTeX;. It contains no parameter values, and will need to be populated with
-#!   the arguments representing the semantic values of the object, generated via <Ref Oper="GenArgs"/>,
-#!   before it can be rendered in a &LaTeX; environment.
+#!   the arguments representing the semantic values of the object, generated via
+#!   <Ref Oper="GenArgs" BookName="typeset"/>, before it can be rendered in a &LaTeX; environment.
 #!
 #! @Arguments obj
 #!

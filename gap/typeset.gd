@@ -98,7 +98,7 @@ DeclareOperation("GenArgs", [ IsObject ]);
 #! @Section Constants and Utility Functions
 #! @Description
 #!   Merges the passed options records passed optionally within a function call to
-#!   <Ref Oper="GenArgs"/>. It allows for the `SubCallOpts` record value to specify any
+#!   <Ref Oper="GenArgs" BookName="typeset"/>. It allows for the `SubCallOpts` record value to specify any
 #!   option values that should be altered on nested sub-calls when generating typesetting strings.
 #!
 #! @Arguments currOptions
@@ -108,7 +108,7 @@ DeclareOperation("GenArgs", [ IsObject ]);
 DeclareGlobalFunction("MergeSubOptions");
 
 #! @Description
-#!   Default options record passed to Typeset. Merged with user-provided
+#!   Default options record passed to <Ref Func="Typeset" />. Merged with user-provided
 #!   options to ensure correct construction of options for sub-calls,
 #!   whilst also allowing option-less calls to the method.
 DeclareGlobalVariable("DEFAULT_TYPESET_OPTIONS",
