@@ -1,4 +1,10 @@
-
+#############################################################################
+##
+#V  DEFAULT_LATEX_PREAMBLE . 
+##  
+## 	Default Preamble for a .tex document to load all of the possible packages
+##  that may be required by a generated LaTeX snippet by this package.
+##
 InstallValue(DEFAULT_LATEX_PREAMBLE,
     Concatenation(["\\documentclass[12pt]{article}\n",
     "\\usepackage[english]{babel}\n",
@@ -13,6 +19,12 @@ InstallValue(DEFAULT_LATEX_PREAMBLE,
     "\\pagestyle{empty}\n"])
 );
 
+#############################################################################
+##
+#V  DEFAULT_MATHJAX_TAGS . 
+##  
+## 	Default HTML document and head tags used to render MathJax snippets.
+##
 InstallValue(DEFAULT_MATHJAX_TAGS,
     Concatenation(["<!DOCTYPE html>\n",
     "<html>\n",
@@ -27,6 +39,13 @@ InstallValue(DEFAULT_MATHJAX_TAGS,
     "</head>"])
 );
 
+#############################################################################
+##
+#V  ALWAYS_UNESCAPED_CHARS . 
+##  
+## 	String containing all of the characters that do not need to be percent
+##  encoded within URI components as per RFC-3986.
+##
 InstallValue(ALWAYS_UNESCAPED_CHARS,
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
 );

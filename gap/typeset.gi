@@ -1,3 +1,9 @@
+#############################################################################
+##
+#V  DEFAULT_TYPESET_OPTIONS . 
+##  
+## 	List of default optional arguments passed to the Typeset method.
+##
 InstallValue(DEFAULT_TYPESET_OPTIONS,
 	rec(
 		ReturnStr := false, LDelim := "(", RDelim :=")",
