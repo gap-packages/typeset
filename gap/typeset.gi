@@ -353,7 +353,7 @@ end);
 
 #############################################################################
 ##
-#F  MergeSubOptions( <options record> ) . 
+#F  MergeSubOptions( <current options record> ) . 
 ##  
 ## generates a new options record that can be passed to sub-calls from a parent.
 ## used to allow users to set options that may differ between recursive calls

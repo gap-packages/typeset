@@ -358,7 +358,7 @@ end);
 
 #############################################################################
 ##
-#F  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
+#F  FactoriseAssocWordLatex( <assoc word in letter rep>, <letter names>, <used numbers> ) . 
 ##  
 ## constructs a string based on the return values from FindSubstringPowers
 ## and the names of the letters.

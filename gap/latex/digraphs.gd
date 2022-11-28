@@ -11,8 +11,7 @@
 #! extended to also support the generation of strings for other mark-up
 #! languages.
 #!
-#! @Section Added Constants and Methods
-
+#! @Section Added Constants and Utility Functions
 #! @Description
 #!   Default command-line options passed to the `dot2tex` executable
 #!   to convert dot strings.
@@ -22,6 +21,8 @@ DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS",
 #! @Description
 #!   Executes `dot2tex` on the dot string representing a
 #!   given digraph object.
+#!
+#! @Arguments obj
 #! 
 #! @Returns
 #!   Tikz string representation of digraph.
