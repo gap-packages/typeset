@@ -20,7 +20,7 @@
 DeclareGlobalFunction("RenderLatex");
 
 #! @Description
-#!   Overleaf renders a given LaTeX string in a new PDF file,
+#!   PDFLatex renders a given LaTeX string in a new PDF file,
 #!   specifically via the pdflatex bash tool.
 DeclareGlobalFunction("PDFLatex");
 
@@ -44,22 +44,20 @@ DeclareGlobalFunction("URIEncodeComponent");
 #! @Section Constants
 
 #! @Description
-#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
-#!   providing a visual example of what the string would look like
-#!   in a paper.
+#!   Default LaTeX preamble string used for creating
+#!   compilable TeX files from LaTeX snippets.
 DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
     "Default LaTeX preamble used for creating compilable TeX files from snippets.");
 
 #! @Description
-#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
-#!   providing a visual example of what the string would look like
-#!   in a paper.
+#!   Default HTML document and head tags used to create
+#!   HTML files using MathJax to render LaTeX snippets.
 DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
     "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
 
 #! @Description
-#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
-#!   providing a visual example of what the string would look like
-#!   in a paper.
+#!   String containing all of the characters that do not
+#!   need to be percent-encoded within URI components,
+#!   as per RFC-3986.
 DeclareGlobalVariable("ALWAYS_UNESCAPED_CHARS",
     "Reserved characters in URIs that do not need to be percent encoded.");

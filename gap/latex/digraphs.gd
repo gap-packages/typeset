@@ -13,8 +13,8 @@
 #!
 #! @Section External Integration
 #! @Description
-#!   Dot2Tex executes dot2tex on the dot string representing a
-#!   given digraph object.
+#!   Default command-line options passed to the dot2tex executable
+#!   to convert dot strings.
 DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS",
     "List of default command-line options passed to dot2tex when converting dot snippets.");
 

@@ -359,7 +359,7 @@ end);
 ## used to allow users to set options that may differ between recursive calls
 ## of a single method (e.g. Matrix delimitors).
 ##
-InstallGlobalFunction(MergeSubOptions
+InstallGlobalFunction(MergeSubOptions,
 function ( opts )
 	local subOptions, tempSub, name;
 

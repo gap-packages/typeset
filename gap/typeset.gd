@@ -86,6 +86,8 @@ DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Section Constants
 #! @Description
-#!   
+#!   Default options record passed to Typeset. Merged with user-provided
+#!   options to ensure correct construction of options for sub-calls,
+#!   whilst also allowing option-less calls to the method.
 DeclareGlobalVariable("DEFAULT_TYPESET_OPTIONS",
     "Default options record for the Typeset method.");
