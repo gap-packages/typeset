@@ -24,7 +24,7 @@ DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
 #!   providing a visual example of what the string would look like
 #!   in a paper.
 DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
-    "Default HTML tags used to created HTML files using MathJax to render LaTeX snippets.");
+    "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
 
 #! @Description
 #!   RenderLatex renders a given LaTeX string in a LaTeX environment,
