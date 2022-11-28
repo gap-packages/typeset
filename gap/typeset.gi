@@ -1,4 +1,4 @@
-InstallValue(DefaultTypesetOptions,
+InstallValue(DEFAULT_TYPESET_OPTIONS,
 	rec(
 		ReturnStr := false, LDelim := "(", RDelim :=")",
 		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
@@ -22,9 +22,9 @@ function( x, opts... )
 			Info(InfoTypeset, 3, "Generating options record from default parameters");
 			options := rec();
 
-			for name in RecNames(DefaultTypesetOptions) do
+			for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
 				if ValueOption(name) = fail then
-					options.(name) := DefaultTypesetOptions.(name);
+					options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
 				else
 					val := ValueOption(name);
 
@@ -78,7 +78,7 @@ function( x )
 	options := ValueOption("options");
 	if options=fail then
 		Info(InfoTypeset, 3, "No options provided to TypesetInternal method, using defaults");
-		options := ShallowCopy(DefaultTypesetOptions);
+		options := ShallowCopy(DEFAULT_TYPESET_OPTIONS);
 	fi;
 
 	# Determine template string generation function.

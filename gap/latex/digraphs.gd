@@ -12,8 +12,10 @@
 #! languages.
 #!
 #! @Section External Integration
-
-DeclareGlobalVariable("Dot2TexDefaultOptions",
+#! @Description
+#!   Dot2Tex executes dot2tex on the dot string representing a
+#!   given digraph object.
+DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS",
     "List of default command-line options passed to dot2tex when converting dot snippets.");
 
 #! @Description

@@ -12,8 +12,9 @@
 #! languages.
 #!
 #! @Section Core Methods
-
-DeclareGlobalVariable("DefaultTypesetOptions",
+#! @Description
+#!   
+DeclareGlobalVariable("DEFAULT_TYPESET_OPTIONS",
     "Default options record for the Typeset method.");
 
 #! @Description

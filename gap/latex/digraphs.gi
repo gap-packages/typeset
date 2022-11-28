@@ -1,10 +1,10 @@
 #############################################################################
 ##
-#V  Dot2TexDefaultOptions . 
+#V  DEFAULT_DOT2TEX_OPTIONS . 
 ##  
 ## 	List of default command-line options passed to dot2tex when converting dot snippets.
 ##
-InstallValue(Dot2TexDefaultOptions,
+InstallValue(DEFAULT_DOT2TEX_OPTIONS,
 	["--autosize", "--figonly", "--codeonly", "--format=tikz"]);
 
 #############################################################################
@@ -76,7 +76,7 @@ function ( obj )
 
 	# Call dot2tex on preprocessed dot string. --codeonly allows removal of empty comments.
 	Info(InfoTypeset, 3, "Running dot2tex on provided dot string");
-	Process(dir, f, inp, out, Dot2TexDefaultOptions);
+	Process(dir, f, inp, out, DEFAULT_DOT2TEX_OPTIONS);
 
 	# Remove empty comment lines.
 	ret := ReplacedString(ret{[1..Length(ret)-3]}, "%%\n", "");

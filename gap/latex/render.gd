@@ -12,13 +12,25 @@
 #! languages.
 #!
 #! @Section Constants
-DeclareGlobalVariable("DefaultLaTeXPreamble",
+#! @Description
+#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
+#!   providing a visual example of what the string would look like
+#!   in a paper.
+DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
     "Default LaTeX preamble used for creating compilable TeX files from snippets.");
 
-DeclareGlobalVariable("DefaultMathJaxTags",
+#! @Description
+#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
+#!   providing a visual example of what the string would look like
+#!   in a paper.
+DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
     "Default HTML tags used to created HTML files using MathJax to render LaTeX snippets.");
 
-DeclareGlobalVariable("AlwaysUnescapedChars",
+#! @Description
+#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
+#!   providing a visual example of what the string would look like
+#!   in a paper.
+DeclareGlobalVariable("ALWAYS_UNESCAPED_CHARS",
     "Reserved characters in URIs that do not need to be percent encoded.");
 
 #! @Section Methods

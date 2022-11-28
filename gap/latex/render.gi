@@ -1,5 +1,5 @@
 
-InstallValue(DefaultLaTeXPreamble,
+InstallValue(DEFAULT_LATEX_PREAMBLE,
     Concatenation(["\\documentclass[12pt]{article}\n",
     "\\usepackage[english]{babel}\n",
     "\\usepackage{amsmath}\n",
@@ -13,7 +13,7 @@ InstallValue(DefaultLaTeXPreamble,
     "\\pagestyle{empty}\n"])
 );
 
-InstallValue(DefaultMathJaxTags,
+InstallValue(DEFAULT_MATHJAX_TAGS,
     Concatenation(["<!DOCTYPE html>\n",
     "<html>\n",
     "<head>\n",
@@ -27,7 +27,7 @@ InstallValue(DefaultMathJaxTags,
     "</head>"])
 );
 
-InstallValue(AlwaysUnescapedChars,
+InstallValue(ALWAYS_UNESCAPED_CHARS,
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
 );
 
@@ -73,7 +73,7 @@ function ( str )
     out := OutputTextFile(f, true);
     SetPrintFormattingStatus(out, false);
 
-    PrintTo(out, DefaultLaTeXPreamble);
+    PrintTo(out, DEFAULT_LATEX_PREAMBLE);
     if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
         str := Concatenation("$", str, "$");
     fi;
@@ -104,7 +104,7 @@ function ( str )
     out := OutputTextFile(f, true);
     SetPrintFormattingStatus(out, false);
 
-    PrintTo(out, DefaultMathJaxTags);
+    PrintTo(out, DEFAULT_MATHJAX_TAGS);
     AppendTo(out, "<body><p>");
     if StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
         if StartsWith(str{[63..Length(str) - 1]}, "\\begin{dot2tex}") then
@@ -141,7 +141,7 @@ function ( str )
         str := Concatenation("$", str, "$");
     fi;
 
-    str := Concatenation(DefaultLaTeXPreamble, str, "\n\\end{document}");
+    str := Concatenation(DEFAULT_LATEX_PREAMBLE, str, "\n\\end{document}");
 
     url := "https://www.overleaf.com/docs?snip=";
     Append(url, URIEncodeComponent(str));
@@ -163,7 +163,7 @@ function ( raw )
     uriComp := "";
 
     for i in [1..Length(raw)] do
-        if raw[i] in AlwaysUnescapedChars then
+        if raw[i] in ALWAYS_UNESCAPED_CHARS then
             Add(uriComp, raw[i]);
         else
             new := HexStringInt(IntChar(raw[i]));
