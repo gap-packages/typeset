@@ -17,7 +17,6 @@
 /doc/*.six
 /doc/*.tex
 /doc/*.toc
-/doc/manual.pdf
 /doc/_*.xml
 
 /bin/
