@@ -14,28 +14,28 @@
 #! @Section Structure Description of Groups
 
 #! @Description
-#!   TypesetStructureDescription generates a typesettable representation equivalent to a given
+#!   Generates a typesettable representation equivalent to a given
 #!   structure description of a group. These structure descriptions can be calculated
-#!   via the method StructureDescription.
+#!   via the function <Ref BookName="ref" Func="StructureDescription"/>.
 #!
 #! @Returns
 #!  Typesettable representation of the given structure description of a group.
 DeclareGlobalFunction("TypesetStructureDescription");
 
 #! @Description
-#!   LatexStructureDescription generates a LaTeX representation equivalent to a given
+#!   Generates a &LaTeX; representation equivalent to a given
 #!   structure description of a group. These structure descriptions can be calculated
 #!   via the method StructureDescription.
 #!
 #! @Returns
-#!  LaTeX renderable representation of the given structure description of a group.
+#!  &LaTeX; renderable representation of the given structure description of a group.
 DeclareGlobalFunction("LatexStructureDescription");
 
 #! @Description
 #!   ConcatStructDescOperands will concatenate the tokens parsed from splitting
 #!   the first input string with the provided separator. It will then process
-#!   the tokens with LatexStructureDescription, and concatenate the results
-#!   with the given new separator.
+#!   the tokens with <Ref Func="LatexStructureDescription"/>, and concatenate
+#!   the results with the given new separator.
 #!
 #! @Returns
 #!  Concatenated string of processed tokens with new separator.

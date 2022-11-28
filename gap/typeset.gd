@@ -19,7 +19,7 @@
 #!     * 1 - Problems only: messages describing what went wrong, with no
 #!           messages if an operation is successful
 #!     * 2 - Required preamble packages: displays informations about any required
-#!           LaTeX packages that need to be added to the preamble to be rendered.
+#!           &LaTeX; packages that need to be added to the preamble to be rendered.
 #!     * 3 - Progress: also shows step-by-step progress of operations
 #!
 #!   Set this using, for example `SetInfoLevel(InfoTypeset, 1)`.
@@ -29,7 +29,7 @@ SetInfoLevel(InfoTypeset, 2);
 
 #! @Description
 #!   Typeset takes a mathematical object and generates a mark-up string representing
-#!   that object in the given mark-up language. GAP options can also
+#!   that object in the given mark-up language. &GAP; options can also
 #!   be added to modify the result:
 #!      * `ReturnStr`     : Whether the method should return a string     (default - `false`)
 #!      * `LDelim`        : Left Delimiter for matrices                   (default - `"("`)
@@ -51,14 +51,21 @@ SetInfoLevel(InfoTypeset, 2);
 #! "\\left[\\begin{array}{rr}\n1 & 2 \\\\\n2 & 1 \\\\\n\\end{array}\\right)\n"
 #! @EndExampleSession
 #!
-#! @Arguments obj : options
+#! or even simply passing a record object as the optional second argument:
+#!
+#! @BeginExampleSession
+#! gap> Typeset([[1, 2], [2, 1]], rec(LDelim := "[", ReturnStr := true));
+#! "\\left[\\begin{array}{rr}\n1 & 2 \\\\\n2 & 1 \\\\\n\\end{array}\\right)\n"
+#! @EndExampleSession
+#!
+#! @Arguments obj : opts
 #! 
 #! @Returns
 #!   String representation of object in given mark-up language.
 DeclareGlobalFunction("Typeset");
 
 #! @Description
-#!   TypesetInternal generates a string representation of a passed mathematical object that
+#!   Generates a string representation of a passed &GAP; object that
 #!   can be rendered by a typesetter.
 #!
 #! @Returns
@@ -66,17 +73,18 @@ DeclareGlobalFunction("Typeset");
 DeclareGlobalFunction("TypesetInternal");
 
 #! @Description
-#!   MergeSubOptions will merge the options records passed optionally within a function call to
-#!   GenArgs. It allows for the subOpts record value to specify any option values that should
-#!   be altered on nested subcalls when generating typesetting strings.
+#!   Merges the passed options records passed optionally within a function call to
+#!   <Ref Func="GenArgs"/>. It allows for the `SubCallOpts` record value to specify any
+#!   option values that should be altered on nested subcalls when generating typesetting strings.
 #!
 #! @Returns
 #!  Records representing the options that should be passed to any sub calls within the current method.
 DeclareGlobalFunction("MergeSubOptions");
 
 #! @Section Core Operations
+
 #! @Description
-#!   GenArgs generates the arguments describing the semantic definition of the passed mathematical
+#!   Generates the arguments describing the semantic definition of the passed mathematical
 #!   object. This should result in a list that can be used to populate a format string in any
 #!   mark-up language.
 #!
@@ -85,6 +93,7 @@ DeclareGlobalFunction("MergeSubOptions");
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Section Constants
+
 #! @Description
 #!   Default options record passed to Typeset. Merged with user-provided
 #!   options to ensure correct construction of options for sub-calls,

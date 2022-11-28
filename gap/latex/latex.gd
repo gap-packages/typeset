@@ -1,7 +1,7 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter LaTeX Generation
+#! @Chapter &LaTeX; Generation
 #!
 #! typeset is a package that implements an operation Typeset that can
 #! generate LaTeX string representations of a commonly used subset
@@ -14,21 +14,21 @@
 #! @Section LaTeX-Specific Methods
 
 #! @Description
-#!   GenLatexTmpl generates a format string that represents the structural definition
-#!   of the given mathematical object in LaTeX. It contains no parameter values, and will
-#!   need to be populated with the arguments representing the semantic values of the object
-#!   before it can be rendered in a LaTeX environment.
+#!   Generates a format string that represents the structural definition of the given &GAP;
+#!   object in &LaTeX;. It contains no parameter values, and will need to be populated with
+#!   the arguments representing the semantic values of the object, generated via <Ref Func="GenArgs"/>,
+#!   before it can be rendered in a &LaTeX; environment.
 #!
 #! @Returns
-#!   Unpopulated LaTeX format string representing the structural description of the passed object.
+#!   Unpopulated &LaTeX; format string representing the structural description of the passed object.
 DeclareOperation("GenLatexTmpl", [ IsObject ]);
 
 #! @Description
-#!   CtblEntryLatex formats a string representation of an entry to include the LaTeX specific
+#!   CtblEntryLatex formats a string representation of an entry to include the &LaTeX; specific
 #!   environments for complex conjugates.
 #!
 #! @Returns
-#!  Strings that describe the character table entry in LaTeX.
+#!  Strings that describe the character table entry in &LaTeX;.
 DeclareGlobalFunction("CtblEntryLatex");
 
 #! @Description
@@ -41,7 +41,7 @@ DeclareGlobalFunction("CtblLegendLatex");
 
 #! @Description
 #!   GenNameAssocLetterLatex generates a string representation of the provided letter string
-#!   correctly subscripted with a LaTeX math-mode subscript environment.
+#!   correctly subscripted with a &LaTeX; math-mode subscript environment.
 #!
 #! @Returns
 #!  Strings that describe the calculated substitutions.

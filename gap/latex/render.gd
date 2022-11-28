@@ -14,23 +14,23 @@
 #! @Section Core Functions
 
 #! @Description
-#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
+#!   RenderLatex renders a given &LaTeX; string in a &LaTeX; environment,
 #!   providing a visual example of what the string would look like
 #!   in a paper.
 DeclareGlobalFunction("RenderLatex");
 
 #! @Description
-#!   PDFLatex renders a given LaTeX string in a new PDF file,
+#!   PDFLatex renders a given &LaTeX; string in a new PDF file,
 #!   specifically via the pdflatex bash tool.
 DeclareGlobalFunction("PDFLatex");
 
 #! @Description
-#!   MathJax renders a given LaTeX string in a LaTeX environment,
-#!   specifically via the MathJax script with HTML.
+#!   MathJax renders a given &LaTeX; string in a HTML file,
+#!   making use of the MathJax and TikzJax scripts.
 DeclareGlobalFunction("MathJax");
 
 #! @Description
-#!   Overleaf renders a given LaTeX string in a new Overleaf project,
+#!   Overleaf renders a given &LaTeX; string in a new Overleaf project,
 #!   specifically via a URL-encoded snippet.
 DeclareGlobalFunction("Overleaf");
 
@@ -44,14 +44,14 @@ DeclareGlobalFunction("URIEncodeComponent");
 #! @Section Constants
 
 #! @Description
-#!   Default LaTeX preamble string used for creating
-#!   compilable TeX files from LaTeX snippets.
+#!   Default &LaTeX; preamble string used for creating
+#!   compilable `.tex` files from &LaTeX; snippets.
 DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
     "Default LaTeX preamble used for creating compilable TeX files from snippets.");
 
 #! @Description
 #!   Default HTML document and head tags used to create
-#!   HTML files using MathJax to render LaTeX snippets.
+#!   HTML files using MathJax to render &LaTeX; snippets.
 DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
     "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
 
