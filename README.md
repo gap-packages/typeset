@@ -14,13 +14,13 @@ for the details.
 
 ## Installation
 The installation of the package is standard: for details, see GAP reference
-manual, chapter "GAP Packages" (and if you don't have write access to the
-Gap installation, type in GAP "?GAP root directory" to see another relevant
-part of the manual).
+manual, chapter [GAP Packages](https://docs.gap-system.org/doc/ref/chap76_mj.html) 
+(and if you don't have write access to the Gap installation, type "?GAP root directory"
+within GAP to see another relevant part of the manual).
 
 ## Documentation
 Full information and documentation can be found in the manual, available
-as a PDF at `doc/manual.pdf` or as HTML at `doc/chap0.html`, or on the package
+as a [PDF](doc/manual.pdf) or as [HTML](doc/chap0.html), or on the package
 homepage at
 
 <https://zachnewbery.com/typeset>
@@ -36,5 +36,5 @@ it under the terms of the GNU General Public License as published by the
 Free Software Foundation; either version 2 of the License, or (at your
 option) any later version.
 
-For details see the LICENSE file.
+For details see the [LICENSE](LICENSE) file.
 
