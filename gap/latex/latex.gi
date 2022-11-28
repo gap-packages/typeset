@@ -280,13 +280,12 @@ end);
 
 #############################################################################
 ##
-#M  CtblEntryLatex( <character table entry data> ) . 
+#F  CtblEntryLatex( <character table entry data string> ) . 
 ##  
 ## generates a string that specifies any specific environments to be used for
 ## a character table entry.
 ##
-InstallMethod(CtblEntryLatex, "for generating LaTeX representation of a character table legend", true,
-[ IsString ], 0,
+InstallGlobalFunction(CtblEntryLatex,
 function ( entry )
 	if '/' in entry then
 		return Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
@@ -296,13 +295,12 @@ end);
 
 #############################################################################
 ##
-#M  CtblLegendLatex( <character table entry data> ) . 
+#F  CtblLegendLatex( <character table entry data record> ) . 
 ##  
 ## generates a legend that specifies what substitutions have been used in a
 ## representation of the character table. Uses the align environment.
 ##
-InstallMethod(CtblLegendLatex, "for generating LaTeX representation of a character table legend", true,
-[ IsRecord ], 0,
+InstallGlobalFunction(CtblLegendLatex,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
 	ret := "\n";
@@ -339,13 +337,12 @@ end);
 
 #############################################################################
 ##
-#M  GenNameAssocLetterLatex( <assoc generator string> ) . 
+#F  GenNameAssocLetterLatex( <assoc generator string> ) . 
 ##  
 ## constructs a string containing LaTeX specific subscript notation for names
 ## used within associative words.
 ##
-InstallMethod(GenNameAssocLetterLatex, "for reformatting names used within associative words", true,
-[ IsString ], 
+InstallGlobalFunction(GenNameAssocLetterLatex,
 function ( s )
 	local e;
 	e := Length(s);
@@ -361,13 +358,12 @@ end);
 
 #############################################################################
 ##
-#M  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
+#F  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
 ##  
 ## constructs a string based on the return values from FindSubstringPowers
 ## and the names of the letters.
 ##
-InstallMethod(FactoriseAssocWordLatex, "for factorising assoc word in letter rep for LaTeX", true,
-[ IsList, IsList, IsList ],
+InstallGlobalFunction(FactoriseAssocWordLatex,
 function ( l, names, tseed )
 	local n, a, substr, i, ret, exp, t, word, j;
 

@@ -1,5 +1,150 @@
 #############################################################################
 ##
+#F  RenderLatex( <string> ) . 
+##  
+## renders a given string in a LaTeX environment.
+##
+InstallGlobalFunction(RenderLatex,
+function( str )
+    local render;
+    if ValueOption("output")<>fail then
+        render := ValueOption("output");
+        if render="pdflatex" then
+            PDFLatex(str);
+        elif render="overleaf" then
+            Overleaf(str);
+        else
+            MathJax(str);
+        fi;
+    else
+        # Default to rendering with MathJax HTML.
+        MathJax(str);
+    fi;
+end);
+
+#############################################################################
+##
+#F  PDFLatex( <string> ) . 
+##  
+## renders a given LaTeX string in a PDF file using the pdflatex bash command.
+##
+InstallGlobalFunction(PDFLatex,
+function ( str )
+    local dir, f, out;
+
+    Info(InfoTypeset, 3, "Creating temporary .tex file");
+    dir := DirectoryTemporary();
+    f := Filename(dir, "out.tex");
+    out := OutputTextFile(f, true);
+    SetPrintFormattingStatus(out, false);
+
+    PrintTo(out, DEFAULT_LATEX_PREAMBLE);
+    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        str := Concatenation("$", str, "$");
+    fi;
+    AppendTo(out, str);
+    AppendTo(out, "\n\\end{document}");
+    Info(InfoTypeset, 3, "Successfully created .tex file for compilation");
+
+    Info(InfoTypeset, 3, "Running pdflatex on created .tex file");
+    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex --shell-escape out.tex"));
+
+    OpenExternal(Filename(dir, "out.pdf"));
+end);
+
+#############################################################################
+##
+#F  MathJax( <string> ) . 
+##  
+## renders a given LaTeX string in a HTML file using the MathJax library.
+##
+InstallGlobalFunction(MathJax,
+function ( str )
+    local dir, f, out;
+
+    Info(InfoTypeset, 3, "Creating temporary .html file");
+    dir := DirectoryTemporary();
+    f := Filename(dir, "out.html");
+    out := OutputTextFile(f, true);
+    SetPrintFormattingStatus(out, false);
+
+    PrintTo(out, DEFAULT_MATHJAX_TAGS);
+    AppendTo(out, "<body><p>");
+    if StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        if StartsWith(str{[63..Length(str) - 1]}, "\\begin{dot2tex}") then
+            # Throw Error
+			Error("Importing LaTeX packages is not implemented in MathJax and required for dot2texi, please try a different rendering method.");
+            return;
+        else
+            str := ReplacedString(str{[16..Length(str)-13]}, ">=latex',", "");
+            str := Concatenation("\n<script type=\"text/tikz\">\n", str, "</script>");
+        fi;
+    else
+        str := Concatenation("\\[\n", str, "\\]");
+    fi;
+
+    AppendTo(out, str);
+    AppendTo(out, "\n</p></body>");
+    Info(InfoTypeset, 3, "Successfully created .html file for viewing");
+
+    OpenExternal(f);
+end);
+
+#############################################################################
+##
+#F  Overleaf( <string> ) . 
+##  
+## renders a given LaTeX string in a HTML file using the Overleaf API.
+##
+InstallGlobalFunction(Overleaf,
+function ( str )
+    local url;
+    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        # Assume all non-tikz strings are to be processed in math mode.
+        str := Concatenation("$", str, "$");
+    fi;
+
+    str := Concatenation(DEFAULT_LATEX_PREAMBLE, str, "\n\\end{document}");
+
+    url := "https://www.overleaf.com/docs?snip=";
+    Append(url, URIEncodeComponent(str));
+    Info(InfoTypeset, 3, "Successfully created URL for Overleaf, navigating there now");
+
+    OpenExternal(url);
+end);
+
+#############################################################################
+##
+#F  URIEncodeComponent( <string> ) . 
+##  
+## replaces reserved characters in a URI component according to RFC-3986.
+##
+InstallGlobalFunction(URIEncodeComponent,
+function ( raw )
+    local uriComp, old, new, i;
+    uriComp := "";
+
+    for i in [1..Length(raw)] do
+        if raw[i] in ALWAYS_UNESCAPED_CHARS then
+            Add(uriComp, raw[i]);
+        else
+            new := HexStringInt(IntChar(raw[i]));
+            if Length(new) = 1 then
+                # HexStringInt does not return leading zeroes,
+                # so need to manually add them.
+                new := Concatenation("0", new);
+            fi;
+
+            new := Concatenation("%", new);
+            Append(uriComp, new);
+        fi;
+    od;
+
+    return uriComp;
+end);
+
+#############################################################################
+##
 #V  DEFAULT_LATEX_PREAMBLE . 
 ##  
 ## 	Default Preamble for a .tex document to load all of the possible packages
@@ -49,153 +194,3 @@ InstallValue(DEFAULT_MATHJAX_TAGS,
 InstallValue(ALWAYS_UNESCAPED_CHARS,
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
 );
-
-#############################################################################
-##
-#M  RenderLatex( <string> ) . 
-##  
-## renders a given string in a LaTeX environment.
-##
-InstallMethod(RenderLatex, "for all LaTeX strings", true,
-[ IsString ], 0,
-function( str )
-    local render;
-    if ValueOption("output")<>fail then
-        render := ValueOption("output");
-        if render="pdflatex" then
-            PDFLatex(str);
-        elif render="overleaf" then
-            Overleaf(str);
-        else
-            MathJax(str);
-        fi;
-    else
-        # Default to rendering with MathJax HTML.
-        MathJax(str);
-    fi;
-end);
-
-#############################################################################
-##
-#M  PDFLatex( <string> ) . 
-##  
-## renders a given LaTeX string in a PDF file using the pdflatex bash command.
-##
-InstallMethod(PDFLatex, "for all LaTeX strings renderable by pdflatex", true,
-[ IsString ], 0,
-function ( str )
-    local dir, f, out;
-
-    Info(InfoTypeset, 3, "Creating temporary .tex file");
-    dir := DirectoryTemporary();
-    f := Filename(dir, "out.tex");
-    out := OutputTextFile(f, true);
-    SetPrintFormattingStatus(out, false);
-
-    PrintTo(out, DEFAULT_LATEX_PREAMBLE);
-    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
-        str := Concatenation("$", str, "$");
-    fi;
-    AppendTo(out, str);
-    AppendTo(out, "\n\\end{document}");
-    Info(InfoTypeset, 3, "Successfully created .tex file for compilation");
-
-    Info(InfoTypeset, 3, "Running pdflatex on created .tex file");
-    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex --shell-escape out.tex"));
-
-    OpenExternal(Filename(dir, "out.pdf"));
-end);
-
-#############################################################################
-##
-#M  MathJax( <string> ) . 
-##  
-## renders a given LaTeX string in a HTML file using the MathJax library.
-##
-InstallMethod(MathJax, "for all LaTeX strings renderable by MathJax", true,
-[ IsString ], 0,
-function ( str )
-    local dir, f, out;
-
-    Info(InfoTypeset, 3, "Creating temporary .html file");
-    dir := DirectoryTemporary();
-    f := Filename(dir, "out.html");
-    out := OutputTextFile(f, true);
-    SetPrintFormattingStatus(out, false);
-
-    PrintTo(out, DEFAULT_MATHJAX_TAGS);
-    AppendTo(out, "<body><p>");
-    if StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
-        if StartsWith(str{[63..Length(str) - 1]}, "\\begin{dot2tex}") then
-            # Throw Error
-			Error("Importing LaTeX packages is not implemented in MathJax and required for dot2texi, please try a different rendering method.");
-            return;
-        else
-            str := ReplacedString(str{[16..Length(str)-13]}, ">=latex',", "");
-            str := Concatenation("\n<script type=\"text/tikz\">\n", str, "</script>");
-        fi;
-    else
-        str := Concatenation("\\[\n", str, "\\]");
-    fi;
-
-    AppendTo(out, str);
-    AppendTo(out, "\n</p></body>");
-    Info(InfoTypeset, 3, "Successfully created .html file for viewing");
-
-    OpenExternal(f);
-end);
-
-#############################################################################
-##
-#M  Overleaf( <string> ) . 
-##  
-## renders a given LaTeX string in a HTML file using the Overleaf API.
-##
-InstallMethod(Overleaf, "for all LaTeX strings renderable by Overleaf", true,
-[ IsString ], 0,
-function ( str )
-    local url;
-    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
-        # Assume all non-tikz strings are to be processed in math mode.
-        str := Concatenation("$", str, "$");
-    fi;
-
-    str := Concatenation(DEFAULT_LATEX_PREAMBLE, str, "\n\\end{document}");
-
-    url := "https://www.overleaf.com/docs?snip=";
-    Append(url, URIEncodeComponent(str));
-    Info(InfoTypeset, 3, "Successfully created URL for Overleaf, navigating there now");
-
-    OpenExternal(url);
-end);
-
-#############################################################################
-##
-#M  URIEncodeComponent( <string> ) . 
-##  
-## replaces reserved characters in a URI component according to RFC-3986.
-##
-InstallMethod(URIEncodeComponent, "to encode URLS to avoid unprocessable characters", true,
-[ IsString ], 0,
-function ( raw )
-    local uriComp, old, new, i;
-    uriComp := "";
-
-    for i in [1..Length(raw)] do
-        if raw[i] in ALWAYS_UNESCAPED_CHARS then
-            Add(uriComp, raw[i]);
-        else
-            new := HexStringInt(IntChar(raw[i]));
-            if Length(new) = 1 then
-                # HexStringInt does not return leading zeroes,
-                # so need to manually add them.
-                new := Concatenation("0", new);
-            fi;
-
-            new := Concatenation("%", new);
-            Append(uriComp, new);
-        fi;
-    od;
-
-    return uriComp;
-end);

@@ -29,7 +29,7 @@ DeclareOperation("GenLatexTmpl", [ IsObject ]);
 #!
 #! @Returns
 #!  Strings that describe the character table entry in LaTeX.
-DeclareOperation("CtblEntryLatex", [ IsString ]);
+DeclareGlobalFunction("CtblEntryLatex");
 
 #! @Description
 #!   CtblLegendLatex generates a string representation of the mathematical substitutions for entries
@@ -37,7 +37,7 @@ DeclareOperation("CtblEntryLatex", [ IsString ]);
 #!
 #! @Returns
 #!  Strings that describe the calculated substitutions.
-DeclareOperation("CtblLegendLatex", [ IsRecord ]);
+DeclareGlobalFunction("CtblLegendLatex");
 
 #! @Description
 #!   GenNameAssocLetterLatex generates a string representation of the provided letter string
@@ -45,7 +45,7 @@ DeclareOperation("CtblLegendLatex", [ IsRecord ]);
 #!
 #! @Returns
 #!  Strings that describe the calculated substitutions.
-DeclareOperation("GenNameAssocLetterLatex", [ IsString ]);
+DeclareGlobalFunction("GenNameAssocLetterLatex");
 
 #! @Description
 #!   FactoriseAssocWordLatex generates a factorised string representation of an assoc word
@@ -53,4 +53,4 @@ DeclareOperation("GenNameAssocLetterLatex", [ IsString ]);
 #!
 #! @Returns
 #!  String describing the factorised assoc word.
-DeclareOperation("FactoriseAssocWordLatex", [ IsList, IsList, IsList ]);
+DeclareGlobalFunction("FactoriseAssocWordLatex");

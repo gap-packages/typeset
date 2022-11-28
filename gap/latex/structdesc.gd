@@ -20,7 +20,7 @@
 #!
 #! @Returns
 #!  Typesettable representation of the given structure description of a group.
-DeclareOperation("TypesetStructureDescription", [ IsString ]);
+DeclareGlobalFunction("TypesetStructureDescription");
 
 #! @Description
 #!   LatexStructureDescription generates a LaTeX representation equivalent to a given
@@ -29,7 +29,7 @@ DeclareOperation("TypesetStructureDescription", [ IsString ]);
 #!
 #! @Returns
 #!  LaTeX renderable representation of the given structure description of a group.
-DeclareOperation("LatexStructureDescription", [ IsString ]);
+DeclareGlobalFunction("LatexStructureDescription");
 
 #! @Description
 #!   ConcatStructDescOperands will concatenate the tokens parsed from splitting
@@ -39,4 +39,4 @@ DeclareOperation("LatexStructureDescription", [ IsString ]);
 #!
 #! @Returns
 #!  Concatenated string of processed tokens with new separator.
-DeclareOperation("ConcatStructDescOperands", [ IsString, IsString, IsString ]);
+DeclareGlobalFunction("ConcatStructDescOperands");

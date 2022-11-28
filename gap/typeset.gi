@@ -1,57 +1,51 @@
 #############################################################################
 ##
-#V  DEFAULT_TYPESET_OPTIONS . 
-##  
-## 	List of default optional arguments passed to the Typeset method.
-##
-InstallValue(DEFAULT_TYPESET_OPTIONS,
-	rec(
-		ReturnStr := false, LDelim := "(", RDelim :=")",
-		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
-	)
-);
-
-#############################################################################
-##
-#M  Typeset( <object> ) . 
+#F  Typeset( <object> ) . 
 ##  
 ## produces a typesettable string representing the provided object.
 ##
-InstallMethod(Typeset, "for all objects", true,
-[ IsObject ],0,
+InstallGlobalFunction(Typeset,
 function( x, opts... )
 	local options, defaults, name, val, string, old;
 
-	if IsEmpty(opts) then
-		if ValueOption("options") = fail then
-			# Merge default options with user-passed optional parameters.
-			Info(InfoTypeset, 3, "Generating options record from default parameters");
-			options := rec();
+	options := rec();
+	if IsEmpty(opts) and ValueOption("options") = fail then
+		Info(InfoTypeset, 3, "Generating options record from default parameters");
+		
+		# Merge default options with user-passed GAP options (if any).
+		for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
+			if ValueOption(name) = fail then
+				options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
+			else
+				val := ValueOption(name);
 
-			for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
-				if ValueOption(name) = fail then
-					options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
-				else
-					val := ValueOption(name);
-
-					# Explicitly convert characters to strings for easier handling later.
-					if IsChar(val) then
-						val := [val];
-					fi;
-
-					options.(name) := val;
+				# Explicitly convert characters to strings for easier handling later.
+				if IsChar(val) then
+					val := [val];
 				fi;
-			od;
-		else
-			# Handling where options struct has already been constructed.
+
+				options.(name) := val;
+			fi;
+		od;
+	else
+		if Length(opts)>=1 then
+			# User passed optional argument, assume first is options record.
+			options := opts[1];
+			if Length(opts) > 1 then
+				# Throw error
+				Error("More than one optional argument passed.");
+			fi;
+		elif ValueOption("options") <> fail then
+			# User passed GAP option 'options' record
 			options := ValueOption("options");
 		fi;
-	elif Length(opts)>=1 then
-		options := opts[1];
-		if Length(opts) > 1 then
-			# Throw error
-			Error("More than one optional argument passed.");
-		fi;
+
+		# Pre-constructed options records may not be perfectly populated, so merge with defaults.
+		for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
+			if not IsBound(options.(name)) then
+				options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
+			fi;
+		od;
 	fi;
 
 	# Determine function to create output string (based on lang option).
@@ -71,12 +65,11 @@ end);
 
 #############################################################################
 ##
-#M  TypesetInternal( <object> ) . 
+#F  TypesetInternal( <object> ) . 
 ##  
 ## produces a typesetable string representing the provided object.
 ##
-InstallMethod(TypesetInternal, "for all objects", true,
-[ IsObject ],0,
+InstallGlobalFunction(TypesetInternal,
 function( x )
 	local options, lang, t, string, args, tmpl;
 	
@@ -360,14 +353,13 @@ end);
 
 #############################################################################
 ##
-#M  MergeSubOptions( <options record> ) . 
+#F  MergeSubOptions( <options record> ) . 
 ##  
 ## generates a new options record that can be passed to sub-calls from a parent.
 ## used to allow users to set options that may differ between recursive calls
 ## of a single method (e.g. Matrix delimitors).
 ##
-InstallMethod(MergeSubOptions, "for generating alternative sub-call options", true,
-[ IsRecord ], 0,
+InstallGlobalFunction(MergeSubOptions
 function ( opts )
 	local subOptions, tempSub, name;
 
@@ -382,3 +374,16 @@ function ( opts )
 
 	return subOptions;
 end);
+
+#############################################################################
+##
+#V  DEFAULT_TYPESET_OPTIONS . 
+##  
+## 	List of default optional arguments passed to the Typeset method.
+##
+InstallValue(DEFAULT_TYPESET_OPTIONS,
+	rec(
+		ReturnStr := false, LDelim := "(", RDelim :=")",
+		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
+	)
+);

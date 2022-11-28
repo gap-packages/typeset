@@ -53,13 +53,12 @@ end);
 
 #############################################################################
 ##
-#M  Dot2Tex( <digraph> ) . 
+#F  Dot2Tex( <digraph> ) . 
 ##  
 ## produces a list of strings representing the semantics of the provided digraph
 ## used to populate the template string, via dot2tex invocation.
 ##
-InstallMethod(Dot2Tex, "directed graphs", true,
-[ IsDigraph ], 0,
+InstallMethod(Dot2Tex,
 function ( obj )
 	local dot, inp, ret, out, dir, f;
 	dot := DotDigraph(obj);

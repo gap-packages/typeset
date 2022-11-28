@@ -24,4 +24,4 @@ DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS",
 #! 
 #! @Returns
 #!   Tikz string representation of digraph.
-DeclareOperation("Dot2Tex", [ IsDigraph ]);
+DeclareGlobalFunction("Dot2Tex");
