@@ -36,12 +36,12 @@ SetInfoLevel(InfoTypeset, 2);
 #!   Typeset takes a mathematical object and generates a mark-up string representing
 #!   that object in the given mark-up language. Optional records can
 #!   be added to modify the result:
-#!      - ReturnStr : Whether the method should return a string (default - false)
-#!      - LDelim : Left Delimiter for matrices                  (default - "(")
-#!      - RDelim : Right Delimiter for matrices                 (default - ")")
-#!		- Lang   : Markup language of output                    (default - "latex")
-#!      - DigraphOut : Typesetting method for Digraphs          (default - "dot")
-#!      - SubCallOpts : Alternate options for nested structures (default - false)
+#!      * ReturnStr     : Whether the method should return a string     (default - false)
+#!      * LDelim        : Left Delimiter for matrices                   (default - "(")
+#!      * RDelim        : Right Delimiter for matrices                  (default - ")")
+#!		* Lang          : Markup language of output                     (default - "latex")
+#!      * DigraphOut    : Typesetting method for Digraphs               (default - "dot")
+#!      * SubCallOpts   : Alternate options for nested structures       (default - false)
 #! 
 #! @Returns
 #!   String representation of object in given mark-up language.
