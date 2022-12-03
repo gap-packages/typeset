@@ -39,10 +39,11 @@ SetInfoLevel(InfoTypeset, 2);
 #!      * `DigraphOut`    : Typesetting method for Digraphs, one of
 #!                          `"dot"` to use raw dot within TeX, or `"dot2tex"`
 #!                          to convert the dot to native TeX.             (default - `"dot"`)
-#!      * `SubCallOpts`   : Alternate options for nested structures, passed
-#!                          as a record with the same options as the parent
-#!                          (but different values), or `false` if options are
-#!                          to stay the same between sub-calls.           (default - `false`)
+#!      * `SubCallOpts`   : Alternate &GAP; options for nested sub-objects, via
+#!                          a record with the same options as the parent
+#!                          (but different values), or `false` if all options are
+#!                          to stay the same between sub-calls. Option merging is
+#!                          handled by <Ref Func="MergeSubOpts" />.       (default - `false`)
 #!  either by specifying each options as an individual GAP options like below:
 #!
 #! @BeginExampleSession
@@ -67,7 +68,7 @@ SetInfoLevel(InfoTypeset, 2);
 #! @Arguments obj[, options]
 #! 
 #! @Returns
-#!   A String, if `ReturnStr` option is set to `true`.
+#!   A String, if `ReturnStr` option is set to `true`
 DeclareGlobalFunction("Typeset");
 
 #! @Description
@@ -96,11 +97,23 @@ DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Section Constants and Utility Functions
 #! @Description
-#!   Merges the passed options records passed optionally within a function call to
-#!   <Ref Oper="GenArgs" />. It allows for the `SubCallOpts` record value to specify any
-#!   option values that should be altered on nested sub-calls when generating typesetting strings.
+#!   Merges the passed options record <A>opts</A> to change any values that are set in the &GAP; option
+#!   `SubCallOpts`. If this option is not false (default), it can contain a record of any &GAP; options
+#!   that can be passed to <Ref Func="Typeset" /> which should differ for sub-calls.
 #!
-#! @Arguments currOptions
+#!   For example, to alter the delimiters for nested objects so that the outer object is delimited by
+#!   square braces and the inner object by parentheses, the following can be set:
+#!
+#! @BeginExampleSession
+#! gap> MergeSubOptions(rec(ReturnStr := false, Lang := "latex", DigraphOut := "dot", RDelim := "]", LDelim := "[", SubCallOpts := rec(RDelim := ")", LDelim := "(")));
+#! rec(ReturnStr := false, Lang := "latex", DigraphOut := "dot", RDelim := ")", LDelim := "(", SubCallOpts := false)
+#! @EndExampleSession
+#!
+#!  It should be noted that `SubCallOpts` only changes the options for one level of recursion (i.e. it is set back
+#!  to the default of `false` once this function is called). To change options for more recursion levels, the
+#!  `SubCallOpts` option can be nested as many times as necessary.
+#!
+#! @Arguments opts
 #!
 #! @Returns
 #!  A Record
