@@ -28,9 +28,8 @@ DeclareInfoClass("InfoTypeset");
 SetInfoLevel(InfoTypeset, 2);
 
 #! @Description
-#!   Typeset takes a mathematical object and generates a mark-up string representing
-#!   that object in the given mark-up language. &GAP; options can also
-#!   be added to modify the result:
+#!   Generates a mark-up string representing the object <A>obj</A> in the given mark-up language. 
+#!   &GAP; options can also be added to modify the result:
 #!      * `ReturnStr`     : Whether the method should return a string (`true`),
 #!                          or simply print the result (`false`).         (default - `false`)
 #!      * `LDelim`        : Left Delimiter for matrices.                  (default - `"("`)
@@ -68,11 +67,11 @@ SetInfoLevel(InfoTypeset, 2);
 #! @Arguments obj[, options]
 #! 
 #! @Returns
-#!   String representation of object in given mark-up language, if `ReturnStr` option is set to `true`.
+#!   A String, if `ReturnStr` option is set to `true`.
 DeclareGlobalFunction("Typeset");
 
 #! @Description
-#!   Generates a string representation of a passed &GAP; object that
+#!   Generates a string representation of a passed &GAP; object <A>obj</A> that
 #!   can be rendered by a typesetter. Called from the top-level method
 #!   <Ref Func="Typeset" />, which also passes a constructed options
 #!   record as the `options` &GAP; option.
@@ -80,31 +79,31 @@ DeclareGlobalFunction("Typeset");
 #! @Arguments obj
 #!
 #! @Returns
-#!   Typesetable String representation of object.
+#!   A String
 DeclareGlobalFunction("TypesetInternal");
 
 #! @Section Core Operations
 #! @Description
-#!   Generates the arguments describing the semantic definition of the passed mathematical
-#!   object. This should result in a list that can be used to populate a format string in any
+#!   Generates the arguments describing the semantic definition of the passed &GAP;
+#!   object <A>obj</A>. This returns a list that can be used to populate a format string in any
 #!   mark-up language.
 #!
 #! @Arguments obj
 #!
 #! @Returns
-#!  List of strings that describe the semantic structure of an object.
+#!  A List of Strings
 DeclareOperation("GenArgs", [ IsObject ]);
 
 #! @Section Constants and Utility Functions
 #! @Description
 #!   Merges the passed options records passed optionally within a function call to
-#!   <Ref Oper="GenArgs" BookName="typeset"/>. It allows for the `SubCallOpts` record value to specify any
+#!   <Ref Oper="GenArgs" />. It allows for the `SubCallOpts` record value to specify any
 #!   option values that should be altered on nested sub-calls when generating typesetting strings.
 #!
 #! @Arguments currOptions
 #!
 #! @Returns
-#!  Record representing the options that should be passed to any sub-calls within the current method.
+#!  A Record
 DeclareGlobalFunction("MergeSubOptions");
 
 #! @Description
