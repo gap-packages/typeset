@@ -59,7 +59,11 @@ DeclareGlobalFunction("GenNameAssocLetterLatex");
 #! @Description
 #!   Factorises the string representation of an assoc word in letter representation <A>l</A>,
 #!   based on the return value from <Ref BookName="ref" Func="FindSubstringPowers" />, using the
-#!   passed list of letters <A>names</A>, and the reserved numbers <A>tseed</A>.
+#!   passed list of letters <A>names</A>, and a list of reserved numbers <A>tseed</A> (typically
+#!   empty for initial calls).
+#!
+#!   This method is essentially a LaTeX-specific implementation of the function
+#!   <Ref BookName="ref" Func="NiceStringAssocWord" />.
 #!
 #! @Arguments l, names, tseed
 #!
