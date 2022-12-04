@@ -52,7 +52,11 @@ With this, you should now have a working implementation of the `typeset` framewo
 
 Now, before you can get all your changes committed, make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. 
 
-Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected.
+Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files.
+
+Make sure to add any new directories to [makedoc.g](makedoc.g) under the `scan_dirs` record value or else it won't get picked up. Any new chapters and sections should also be added to [order_info.g](order_info.g) for documentation ordering purposes.
+
+Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected.
 
 #### Extending support for new GAP types
 
@@ -71,6 +75,8 @@ Of course, it may not always be possible to make this method perfectly generic, 
 Beyond this, writing a new method for the operation `GenLatexTmpl` within the file latex.gi would provide a way for you to test if your `GenArgs` methods would integrate nicely, as well as provide an example for other developers. As LaTeX was the original focus of this package, this should be done before writing methods for other languages if possible.
 
 Finally, before you can get all your changes committed make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. 
+
+Make sure to add any new directories to [makedoc.g](makedoc.g) under the `scan_dirs` record value or else it won't get picked up. Any new chapters and sections should also be added to [order_info.g](order_info.g) for documentation ordering purposes.
 
 Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected. Feel free to also write tests for the contents of `GenArgs`, there's no such thing as too many tests!
 

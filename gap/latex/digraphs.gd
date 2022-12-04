@@ -1,7 +1,8 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter Digraphs Integration
+#! @Chapter LaTeX Generation
+#! @Section Digraphs Integration
 #!
 #! <Package>digraphs</Package> is a powerful, widely-used packages, implementing
 #! helpful functionality to work with directed graphs amongst other objects. Due to
@@ -22,7 +23,6 @@
 #! and may present numerous problems with edge positioning. Therefore, relying on dot2tex was chosen
 #! as the best approach.
 #!
-#! @Section Added Constants and Utility Functions
 #! @Description
 #!   Default command-line options passed to the `dot2tex` executable
 #!   to convert dot strings.

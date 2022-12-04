@@ -7,4 +7,4 @@ if fail = LoadPackage("AutoDoc") then
     Error("AutoDoc required.");
 fi;
 
-AutoDoc("typeset", rec( scaffold := true, autodoc := true ));
+AutoDoc("typeset", rec( scaffold := true, autodoc := rec( scan_dirs := [ ".", "gap", "lib", "examples", "examples/doc", "gap/latex" ] )));

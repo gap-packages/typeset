@@ -1,14 +1,15 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter Rendering LaTeX Strings
+#! @Chapter LaTeX Generation
+#!
+#! @Section Rendering LaTeX Strings
 #!
 #! To aid users using <Ref Func="Typeset"/>, being able to view the results quickly in a
 #! variety of widely-used formats would help streamline the usage of the package. As such,
 #! a number of functions described below have been written to enable users to render the output
 #! LaTeX-renderable snippets in different fashions.
 #!
-#! @Section Core Functions
 #! @Description
 #!   Renders a given LaTeX string <A>str</A> in a LaTeX environment,
 #!   providing a visual example of what the string would look like
@@ -48,7 +49,7 @@ DeclareGlobalFunction("MathJax");
 #! @Arguments str
 DeclareGlobalFunction("Overleaf");
 
-#! @Section Constants and Utility Functions
+#! @Subsection Constants and Helper Functions
 #! @Description
 #!   Replaces reserved characters within a URI
 #!   component <A>raw</A> as per RFC-3986.

@@ -2,26 +2,25 @@
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
 #! @Chapter Introduction
+#! @Section Core Framework Functions
 #!
-#! typeset is a package that implements a typesetting framework that can
-#! be implemented for numerous typesetting languages as a standardised
+#! <Package>typeset</Package> is a package that implements a typesetting framework
+#! that can be implemented for numerous typesetting languages as a standardised
 #! way to generate renderable strings.
 #!
 #! At it's core, it implements the function <Ref Func="Typeset" /> which
 #! makes use of typesetting language-specific functions to generate format
 #! strings. These strings are then populated with a list of the semantic
 #! features of the &GAP; objects they represent, which is obtained from the
-#! operation <Ref Func="GenArgs" />.
+#! operation <Ref Oper="GenArgs" Label="for IsObject" />.
 #!
 #! An example implementation of this framework is also provided by this
-#! package, for LaTeX typesetting under the chapter <Ref Chapter="LaTeX Generation" />.
+#! package for LaTeX typesetting within chapter <Ref Chap="Chapter_LaTeX_Generation" />.
 #!
 #! Guidelines for extending the framework to support more types, or for
 #! implementing the framework for another typesetting language can
-#! be found within the contributing guidelines in the Github repository,
-#! <URL Link="https://github.com/ZachNewbery/typeset/" LinkText="link" />.
+#! be found within the contributing guidelines in the Github repository.
 #!
-#! @Section Core Framework Functions
 #! @Description
 #!   Info class for the <Package>typeset</Package> package.  Set this to the following
 #!   levels for different levels of information:
@@ -52,8 +51,8 @@ SetInfoLevel(InfoTypeset, 2);
 #!      * `SubCallOpts`   : Alternate &GAP; options for nested sub-objects, via
 #!                          a record with the same options as the parent
 #!                          (but different values), or `false` if all options are
-#!                          to stay the same between sub-calls. Option merging is
-#!                          handled by <Ref Func="MergeSubOpts" />.       (default - `false`)
+#!                          to stay the same between sub-calls. Options merging is
+#!                          handled by <Ref Func="MergeSubOptions" />.       (default - `false`)
 #!  either by specifying each options as an individual GAP options like below:
 #!
 #! @BeginExampleSession
