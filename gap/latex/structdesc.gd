@@ -24,7 +24,7 @@
 DeclareGlobalFunction("TypesetStructureDescription");
 
 #! @Description
-#!   Generates a &LaTeX; representation equivalent to a given structure description
+#!   Generates a LaTeX representation equivalent to a given structure description
 #!   <A>desc</A>. Called by <Ref Func="TypesetStructureDescription"/> as the
 #!   default markup language for structure description typesetting.
 #!

@@ -1,16 +1,16 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter Rendering &LaTeX; Strings
+#! @Chapter Rendering LaTeX Strings
 #!
 #! To aid users using <Ref Func="Typeset"/>, being able to view the results quickly in a
 #! variety of widely-used formats would help streamline the usage of the package. As such,
 #! a number of functions described below have been written to enable users to render the output
-#! &LaTeX;-renderable snippets in different fashions.
+#! LaTeX-renderable snippets in different fashions.
 #!
 #! @Section Core Functions
 #! @Description
-#!   Renders a given &LaTeX; string <A>str</A> in a &LaTeX; environment,
+#!   Renders a given LaTeX string <A>str</A> in a LaTeX environment,
 #!   providing a visual example of what the string would look like
 #!   in a paper. By default, this involved creating a HTML file that
 #!   includes the MathJax script, but the &GAP; option <A>output</A> can be
@@ -28,21 +28,21 @@
 DeclareGlobalFunction("RenderLatex");
 
 #! @Description
-#!   Renders a given &LaTeX; string <A>str</A> in a new PDF file,
+#!   Renders a given LaTeX string <A>str</A> in a new PDF file,
 #!   specifically via the pdflatex bash tool.
 #!
 #! @Arguments str
 DeclareGlobalFunction("PDFLatex");
 
 #! @Description
-#!   Renders a given &LaTeX; string <A>str</A> in a HTML file,
+#!   Renders a given LaTeX string <A>str</A> in a HTML file,
 #!   making use of the MathJax and TikzJax scripts.
 #!
 #! @Arguments str
 DeclareGlobalFunction("MathJax");
 
 #! @Description
-#!   Renders a given &LaTeX; string <A>str</A> in a new Overleaf project,
+#!   Renders a given LaTeX string <A>str</A> in a new Overleaf project,
 #!   specifically via a URL-encoded snippet.
 #!
 #! @Arguments str
@@ -60,14 +60,14 @@ DeclareGlobalFunction("Overleaf");
 DeclareGlobalFunction("URIEncodeComponent");
 
 #! @Description
-#!   Default &LaTeX; preamble string used for creating
-#!   compilable `.tex` files from &LaTeX; snippets.
+#!   Default LaTeX preamble string used for creating
+#!   compilable `.tex` files from LaTeX snippets.
 DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
     "Default LaTeX preamble used for creating compilable TeX files from snippets.");
 
 #! @Description
 #!   Default HTML document and head tags used to create
-#!   HTML files using MathJax to render &LaTeX; snippets.
+#!   HTML files using MathJax to render LaTeX snippets.
 DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
     "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
 

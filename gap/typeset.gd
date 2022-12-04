@@ -14,7 +14,7 @@
 #! operation <Ref Func="GenArgs" />.
 #!
 #! An example implementation of this framework is also provided by this
-#! package, for LaTeX typesetting under the chapter <Ref Chapter="&LaTeX; Generation" />.
+#! package, for LaTeX typesetting under the chapter <Ref Chapter="LaTeX Generation" />.
 #!
 #! Guidelines for extending the framework to support more types, or for
 #! implementing the framework for another typesetting language can
@@ -29,7 +29,7 @@
 #!     * 1 - Problems only: messages describing what went wrong, with no
 #!           messages if an operation is successful
 #!     * 2 - Required preamble packages: displays informations about any required
-#!           &LaTeX; packages that need to be added to the preamble to be rendered.
+#!           LaTeX packages that need to be added to the preamble to be rendered.
 #!     * 3 - Progress: also shows step-by-step progress of operations
 #!
 #!   Set this using, for example `SetInfoLevel(InfoTypeset, 1)`.
