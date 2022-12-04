@@ -19,7 +19,7 @@
 #!
 #! Guidelines for extending the framework to support more types, or for
 #! implementing the framework for another typesetting language can
-#! be found within the contributing guidelines in the Github repository.
+#! be found within the contributing guidelines in the GitHub repository.
 #!
 #! @Description
 #!   Info class for the <Package>typeset</Package> package.  Set this to the following

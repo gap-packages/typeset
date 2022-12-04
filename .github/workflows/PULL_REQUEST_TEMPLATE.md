@@ -16,5 +16,5 @@ If there's _not_ an existing issue, please open one first to make it more likely
 ### Check off the following:
 
 - [ ] I have added the necessary functions to implement my fix in a structured, readable way.
-- [ ] I have documented my added code to the codebase so that future developers will not be lost.
+- [ ] I have documented my added code to the codebase, added new directories to `makedoc.g` and new chapters/sections to `order_info.g`.
 - [ ] I have tested my additions, and included the tests within the `tst` directory.
