@@ -18,7 +18,7 @@ Persons := [
   rec(
     FirstNames := "Zachariah",
     LastName := "Newbery",
-    WWWHome := "https://zachnewbery.com",
+    WWWHome := "https://gap-packages.github.io",
     Email := "zn6@st-andrews.ac.uk",
     IsAuthor := true,
     IsMaintainer := true,
@@ -30,7 +30,7 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := "https://github.com/ZachNewbery/typeset",
+    URL := "https://github.com/gap-packages/typeset",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome  := "https://ZachNewbery.github.io/typeset/",
