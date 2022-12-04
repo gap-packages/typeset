@@ -1,11 +1,10 @@
 #############################################################################
 ##
-#M  TypesetStructureDescription( <structure description string> ) . 
+#F  TypesetStructureDescription( <structure description string> ) . 
 ##  
 ## converts a structure description string into a typesettable format.
 ##
-InstallMethod(TypesetStructureDescription, "typesetting structure description strings", true,
-[ IsString ], 0, 
+InstallGlobalFunction(TypesetStructureDescription,
 function( desc )
     local str;
     str := Concatenation("\\rm ", LatexStructureDescription(desc), "\n");
@@ -14,12 +13,11 @@ end);
 
 #############################################################################
 ##
-#M  LatexStructureDescription( <structure description string> ) . 
+#F  LatexStructureDescription( <structure description string> ) . 
 ##  
 ## converts a structure description string into a LaTeX-renderable format.
 ##
-InstallMethod(LatexStructureDescription, "for structure description strings", true,
-[ IsString ], 0 ,
+InstallGlobalFunction(LatexStructureDescription,
 function( desc )
     local ret, sub, j, i, closed, op;
 
@@ -30,7 +28,7 @@ function( desc )
 
     # Handle possible operators {:, ., x, /, =}
     if ':' in desc then
-        Info(InfoTypeset, 2, "To use \\rtimes, add the amssymb package to your premable \\usepackage{amssymb}");
+        Info(InfoTypeset, 2, "To use the rtimes LaTeX command, add the amssymb package to your premable \\usepackage{amssymb}");
         return ConcatStructDescOperands(desc, ":", "\\rtimes");
     elif '.' in desc then
         return ConcatStructDescOperands(desc, ".", "\\cdot");
@@ -89,13 +87,12 @@ end);
 
 #############################################################################
 ##
-#M  ConcatStructDescOperands( <structure description string>, <separator>, <new separator> ) . 
+#F  ConcatStructDescOperands( <structure description string>, <separator>, <new separator> ) . 
 ##  
 ## splits and concatenates operands for binary operators within structure descriptions
 ## based on the provided separators.
 ##
-InstallMethod(ConcatStructDescOperands, "for structure description operands", true,
-[ IsString, IsString, IsString ], 0,
+InstallGlobalFunction(ConcatStructDescOperands,
 function( desc, sep, newsep )
     local sub, i, tokens, ret;
 

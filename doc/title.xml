@@ -6,7 +6,7 @@
     typeset
   </Title>
   <Subtitle>
-    Automatic LaTeX string generation for common &GAP; objects
+    Automatic typesetting framework for common &GAP; objects, with LaTeX generation
   </Subtitle>
   <Version>
     1.0

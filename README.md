@@ -14,16 +14,29 @@ for the details.
 
 ## Installation
 The installation of the package is standard: for details, see GAP reference
-manual, chapter "GAP Packages" (and if you don't have write access to the
-Gap installation, type in GAP "?GAP root directory" to see another relevant
-part of the manual).
+manual, chapter [GAP Packages](https://docs.gap-system.org/doc/ref/chap76_mj.html) 
+(and if you don't have write access to the Gap installation, type "?GAP root directory"
+within GAP to see another relevant part of the manual).
 
 ## Documentation
 Full information and documentation can be found in the manual, available
-as a PDF at `doc/manual.pdf` or as HTML at `doc/chap0.html`, or on the package
-homepage at
+as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 <https://zachnewbery.com/typeset>
+
+## Contributing
+If you'd like to contribute to the development of this project, feel free to read
+the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
+
+## Discussions
+If you have any questions, or just want some off-topic discussion, check out the
+discussions area of the repository:
+
+  <https://github.com/ZachNewbery/typeset/discussions>
+
+This is the place to go if you have any new ideas you want to flesh out before
+committing to writing out an issue, or are having any problems you think might not 
+be a bug!
 
 ## Bug Reports and Feature Requests
 Please submit bug reports and feature requests via the GitHub issue tracker:
@@ -36,5 +49,5 @@ it under the terms of the GNU General Public License as published by the
 Free Software Foundation; either version 2 of the License, or (at your
 option) any later version.
 
-For details see the LICENSE file.
+For details see the [LICENSE](LICENSE) file.
 

@@ -1,40 +1,80 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter Rendering LaTeX Strings
+#! @Chapter LaTeX Generation
 #!
-#! typeset is a package that implements an operation Typeset that can
-#! generate LaTeX string representations of a commonly used subset
-#! of mathematical objects within the GAP system.
+#! @Section Rendering LaTeX Strings
 #!
-#! Typeset is also built to be incredibly extensible, and can be easily
-#! extended to also support the generation of strings for other mark-up
-#! languages.
+#! To aid users using <Ref Func="Typeset"/>, being able to view the results quickly in a
+#! variety of widely-used formats would help streamline the usage of the package. As such,
+#! a number of functions described below have been written to enable users to render the output
+#! LaTeX-renderable snippets in different fashions.
 #!
-#! @Section Methods
-
 #! @Description
-#!   RenderLatex renders a given LaTeX string in a LaTeX environment,
+#!   Renders a given LaTeX string <A>str</A> in a LaTeX environment,
 #!   providing a visual example of what the string would look like
-#!   in a paper.
-DeclareOperation("RenderLatex", [ IsString ]);
+#!   in a paper. By default, this involved creating a HTML file that
+#!   includes the MathJax script, but the &GAP; option <A>output</A> can be
+#!   passed to change the rendering method.
+#!
+#!   Currently implemented rendering methods are:
+#!      * `"mathjax"`, calling <Ref Func="MathJax" />
+#!      * `"pdflatex"`, calling <Ref Func="PDFLatex" />
+#!      * `"overleaf"`, calling <Ref Func="Overleaf" />
+#!
+#!   These functions can be called independently of <Ref Func="RenderLatex"/>,
+#!   which serves only to be a more centralised rendering method for users.
+#!
+#! @Arguments str[, options]
+DeclareGlobalFunction("RenderLatex");
 
 #! @Description
-#!   Overleaf renders a given LaTeX string in a new PDF file,
+#!   Renders a given LaTeX string <A>str</A> in a new PDF file,
 #!   specifically via the pdflatex bash tool.
-DeclareOperation("PDFLatex", [ IsString ]);
+#!
+#! @Arguments str
+DeclareGlobalFunction("PDFLatex");
 
 #! @Description
-#!   MathJax renders a given LaTeX string in a LaTeX environment,
-#!   specifically via the MathJax script with HTML.
-DeclareOperation("MathJax", [ IsString ]);
+#!   Renders a given LaTeX string <A>str</A> in a HTML file,
+#!   making use of the MathJax and TikzJax scripts.
+#!
+#! @Arguments str
+DeclareGlobalFunction("MathJax");
 
 #! @Description
-#!   Overleaf renders a given LaTeX string in a new Overleaf project,
+#!   Renders a given LaTeX string <A>str</A> in a new Overleaf project,
 #!   specifically via a URL-encoded snippet.
-DeclareOperation("Overleaf", [ IsString ]);
+#!
+#! @Arguments str
+DeclareGlobalFunction("Overleaf");
+
+#! @Subsection Constants and Helper Functions
+#! @Description
+#!   Replaces reserved characters within a URI
+#!   component <A>raw</A> as per RFC-3986.
+#!
+#! @Arguments raw
+#!
+#! @Returns
+#!  A Percent-Encoded String
+DeclareGlobalFunction("URIEncodeComponent");
 
 #! @Description
-#!   URIEncodeComponent replaces reserved characters within a URI
-#!   component as per RFC-3986.
-DeclareOperation("URIEncodeComponent", [ IsString ]);
+#!   Default LaTeX preamble string used for creating
+#!   compilable `.tex` files from LaTeX snippets.
+DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
+    "Default LaTeX preamble used for creating compilable TeX files from snippets.");
+
+#! @Description
+#!   Default HTML document and head tags used to create
+#!   HTML files using MathJax to render LaTeX snippets.
+DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
+    "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
+
+#! @Description
+#!   String containing all of the characters that do not
+#!   need to be percent-encoded within URI components,
+#!   as per RFC-3986.
+DeclareGlobalVariable("ALWAYS_UNESCAPED_CHARS",
+    "Reserved characters in URIs that do not need to be percent encoded.");

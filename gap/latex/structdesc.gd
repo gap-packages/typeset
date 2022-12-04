@@ -3,40 +3,45 @@
 #
 #! @Chapter Structure Descriptions
 #!
-#! typeset is a package that implements an operation Typeset that can
-#! generate LaTeX string representations of a commonly used subset
-#! of mathematical objects within the GAP system.
+#! While <Ref BookName="ref" Func="StructureDescription"/> provides powerful functionality
+#! in calculating the structure description of an input group, the returned string is simply
+#! raw text, and does not look good when rendered in typical typesetting environment.
 #!
-#! Typeset is also built to be incredibly extensible, and can be easily
-#! extended to also support the generation of strings for other mark-up
-#! languages.
+#! To improve this, the following functions have been written to help convert the structure
+#! description strings into typesettable representations, that use language-specific features
+#! to ensure that displaying structure descriptions aesthetically is easy and efficient.
 #!
-#! @Section Structure Description of Groups
-
+#! @Section Typesetting Structure Descriptions of Groups
 #! @Description
-#!   TypesetStructureDescription generates a typesettable representation equivalent to a given
-#!   structure description of a group. These structure descriptions can be calculated
-#!   via the method StructureDescription.
+#!   Generates a typesettable representation equivalent to a given
+#!   structure description <A>desc</A> of a group. Said structure descriptions
+#!   can be calculated via <Ref BookName="ref" Func="StructureDescription"/>.
+#!
+#! @Arguments desc
 #!
 #! @Returns
-#!  Typesettable representation of the given structure description of a group.
-DeclareOperation("TypesetStructureDescription", [ IsString ]);
+#!  A String
+DeclareGlobalFunction("TypesetStructureDescription");
 
 #! @Description
-#!   LatexStructureDescription generates a LaTeX representation equivalent to a given
-#!   structure description of a group. These structure descriptions can be calculated
-#!   via the method StructureDescription.
+#!   Generates a LaTeX representation equivalent to a given structure description
+#!   <A>desc</A>. Called by <Ref Func="TypesetStructureDescription"/> as the
+#!   default markup language for structure description typesetting.
+#!
+#! @Arguments desc
 #!
 #! @Returns
-#!  LaTeX renderable representation of the given structure description of a group.
-DeclareOperation("LatexStructureDescription", [ IsString ]);
+#!  A String
+DeclareGlobalFunction("LatexStructureDescription");
 
 #! @Description
-#!   ConcatStructDescOperands will concatenate the tokens parsed from splitting
-#!   the first input string with the provided separator. It will then process
-#!   the tokens with LatexStructureDescription, and concatenate the results
-#!   with the given new separator.
+#!   Concatenates the tokens parsed from splitting the string <A>desc</A> with the
+#!   provided separator string <A>sep</A>. It will then process the tokens
+#!   with <Ref Func="LatexStructureDescription"/>, and concatenate the
+#!   results with the given new separator <A>newsep</A>.
+#!
+#! @Arguments desc, sep, newsep
 #!
 #! @Returns
-#!  Concatenated string of processed tokens with new separator.
-DeclareOperation("ConcatStructDescOperands", [ IsString, IsString, IsString ]);
+#!  A String
+DeclareGlobalFunction("ConcatStructDescOperands");

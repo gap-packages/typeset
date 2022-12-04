@@ -15,16 +15,17 @@ InstallMethod(GenLatexTmpl, "for rationals", true,
 function( x )
 	if IsInt(x) then
 		return "{}";
+	else
+		return "\\frac{{{}}}{{{}}}";
 	fi;
-	return "\\frac{{{}}}{{{}}}";
 end);
 
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
-[IsFFE and IsInternalRep], 0,
+[ IsFFE and IsInternalRep ], 0,
 function ( ffe )
 	local str, log, deg, char;
   	char := Characteristic(ffe);
-  	if IsZero( ffe ) then
+  	if IsZero(ffe) then
     	str := "0*Z({})";
   	else
     	str := "Z({}{}){}";
@@ -33,7 +34,35 @@ function ( ffe )
   	return str;
 end );
 
-InstallMethod(GenLatexTmpl, "matrix", true,
+InstallMethod(GenLatexTmpl, "for permutations", true,
+[ IsPerm ], 0,
+function( perm )
+	local str, i, j, maxpnt, blist;
+  	if IsOne(perm) then
+      	str := "\\left(\\right)";
+  	else
+      	str := "";
+      	maxpnt := LargestMovedPoint(perm);
+      	blist := BlistList([1..maxpnt], []);
+      	for i in [1 .. LargestMovedPoint(perm)] do
+      		if not blist[i] and i ^ perm <> i  then
+          		blist[i] := true;
+          		Append(str, "\\left({}");
+          		j := i ^ perm;
+          		while j > i do
+          			blist[j] := true;
+          			Append(str, ",{}");
+          			j := j ^ perm;
+          		od;
+          		Append(str, "\\right)");
+      		fi;
+      	od;
+  	fi;
+
+  	return str;
+end );
+
+InstallMethod(GenLatexTmpl, "for matrices", true,
 [ IsMatrix ], 0,
 function( m )
 	local i, j, l, n, s, opts, left, right;
@@ -52,10 +81,10 @@ function( m )
   	Append(s,"}}\n");
   	for i in [1..l] do
     	for j in [1..n] do
-      	Append(s,"{} ");
-      	if j<n then
-        	Append(s,"& ");
-      	fi;
+      		Append(s,"{} ");
+      		if j<n then
+        		Append(s,"& ");
+      		fi;
     	od;
     	Append(s,"\\\\\n");
   	od;
@@ -141,7 +170,7 @@ InstallMethod(GenLatexTmpl, "for character tables", true,
 function (tbl )
 	local ret, cnr, classes, i, j, k, nCols, nRows, header;
 
-	Info(InfoTypeset, 2, "To use \\gather in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
+	Info(InfoTypeset, 2, "To use the gather LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
 	ret := "\\begin{{gather}}\n\\begin{{array}}{{";
 	cnr := CharacterNames(tbl);
 	classes := ClassNames(tbl);
@@ -209,7 +238,7 @@ InstallMethod(GenLatexTmpl, "for pc groups", true,
 [ IsPcGroup ], 0,
 function ( g )
 	local str, iso, fp;
-	iso := IsomorphismFpGroupByPcgs( FamilyPcgs (g), "f");
+	iso := IsomorphismFpGroupByPcgs(FamilyPcgs (g), "f");
 	fp := Image(iso);
 
 	return GenLatexTmpl(fp);
@@ -251,13 +280,12 @@ end);
 
 #############################################################################
 ##
-#M  CtblEntryLatex( <character table entry data> ) . 
+#F  CtblEntryLatex( <character table entry data string> ) . 
 ##  
 ## generates a string that specifies any specific environments to be used for
 ## a character table entry.
 ##
-InstallMethod(CtblEntryLatex, "for generating LaTeX representation of a character table legend", true,
-[ IsString ], 0,
+InstallGlobalFunction(CtblEntryLatex,
 function ( entry )
 	if '/' in entry then
 		return Concatenation(ReplacedString(entry, "/", "\\bar{"), "}");
@@ -267,20 +295,19 @@ end);
 
 #############################################################################
 ##
-#M  CtblLegendLatex( <character table entry data> ) . 
+#F  CtblLegendLatex( <character table entry data record> ) . 
 ##  
 ## generates a legend that specifies what substitutions have been used in a
 ## representation of the character table. Uses the align environment.
 ##
-InstallMethod(CtblLegendLatex, "for generating LaTeX representation of a character table legend", true,
-[ IsRecord ], 0,
+InstallGlobalFunction(CtblLegendLatex,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
 	ret := "\n";
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
-		Info(InfoTypeset, 2, "To use the align environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
+		Info(InfoTypeset, 2, "To use the align LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
 		Append(ret, "\\begin{aligned}\n");
 	fi;
@@ -310,13 +337,12 @@ end);
 
 #############################################################################
 ##
-#M  GenNameAssocLetterLatex( <assoc generator string> ) . 
+#F  GenNameAssocLetterLatex( <assoc generator string> ) . 
 ##  
 ## constructs a string containing LaTeX specific subscript notation for names
 ## used within associative words.
 ##
-InstallMethod(GenNameAssocLetterLatex, "for reformatting names used within associative words", true,
-[ IsString ], 
+InstallGlobalFunction(GenNameAssocLetterLatex,
 function ( s )
 	local e;
 	e := Length(s);
@@ -332,23 +358,22 @@ end);
 
 #############################################################################
 ##
-#M  FactoriseAssocWordLatex( <assoc word in letter rep> ) . 
+#F  FactoriseAssocWordLatex( <assoc word in letter rep>, <letter names>, <used numbers> ) . 
 ##  
 ## constructs a string based on the return values from FindSubstringPowers
 ## and the names of the letters.
 ##
-InstallMethod(FactoriseAssocWordLatex, "for factorising assoc word in letter rep for LaTeX", true,
-[ IsList, IsList, IsList ],
+InstallGlobalFunction(FactoriseAssocWordLatex,
 function ( l, names, tseed )
 	local n, a, substr, i, ret, exp, t, word, j;
 
 	n := Length(names);
-	if Length(l)>0 and n=infinity then
-      n := 2*(Maximum(List(l,AbsInt))+1);
+	if Length(l) > 0 and n=infinity then
+      n := 2 * (Maximum(List(l, AbsInt))+1);
     fi;
-    a := FindSubstringPowers(l,n + Length(tseed)); # tseed numbers are used already
+    a := FindSubstringPowers(l, n + Length(tseed)); # tseed numbers are used already
 
-	# FindSubstringPowers returns 2 element list.
+	# FindSubstringPowers returns a 2 element list.
 	# Element 1: List of substring IDs which when concatenated will result in the original word.
 	# Element 2: IDs of substrings which are constructed from individual letters.
 	substr := a[1];
@@ -364,21 +389,21 @@ function ( l, names, tseed )
 			if t[1] = 0 then
 				# Single letter raised to a power
 				if t[2] < 0 then
-					Append(ret, names[ -t[2] ] );
+					Append(ret, names[-t[2]]);
 	  				Append(ret, "^{-" );
-	  				Append(ret, String(t[3]));
+	  				Append(ret, TypesetInternal(t[3]));
 					Append(ret, "}");
 				else
-					Append(ret, names[ -t[2] ] );
+					Append(ret, names[-t[2]]);
 	  				Append(ret, "^{" );
-	  				Append(ret, String(t[3]));
+	  				Append(ret, TypesetInternal(t[3]));
 					Append(ret, "}");
 				fi;
 			else
 				# Constructed substring from multiple letter names
-				Add(ret,'(');
-				Append(ret,FactoriseAssocWordLatex(t,names,Filtered(a[2],x->x[1]=0)));
-				Add(ret,')');
+				Add(ret, '(');
+				Append(ret, FactoriseAssocWordLatex(t, names, Filtered(a[2],x->x[1]=0)));
+				Add(ret, ')');
 			fi;
 		elif substr[i] < 0 then
 			Append(ret, names[-substr[i]]);
@@ -396,11 +421,11 @@ function ( l, names, tseed )
 				i := i+1;
       		od;
       		Append(ret, "^{");
-      		Append(ret, String(exp*(i-j)));
+      		Append(ret, TypesetInternal(exp*(i-j)));
 			Append(ret, "}");
     	elif exp=-1 then
 			# Inverse power
-      		Append(ret,"^{-1}");
+      		Append(ret, "^{-1}");
       		i := i+1;
     	else
       		# No power given

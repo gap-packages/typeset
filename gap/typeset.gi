@@ -1,75 +1,86 @@
 #############################################################################
 ##
-#M  Typeset( <object> ) . 
+#F  Typeset( <object> ) . 
 ##  
 ## produces a typesettable string representing the provided object.
 ##
-InstallMethod(Typeset, "for all objects", true,
-[ IsObject ],0,
+InstallGlobalFunction(Typeset,
 function( x, opts... )
 	local options, defaults, name, val, string, old;
 
-	if IsEmpty(opts) then
-		if ValueOption("options") = fail then
-			# Merge default options with user-passed optional parameters.
-			defaults := rec(LDelim := "(", RDelim :=")", Lang := "latex", DigraphOut := "dot", SubCallOpts := false);
-			options := rec();
+	options := rec();
+	if IsEmpty(opts) and ValueOption("options") = fail then
+		Info(InfoTypeset, 3, "Generating options record from default parameters");
+		
+		# Merge default options with user-passed GAP options (if any).
+		for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
+			if ValueOption(name) = fail then
+				options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
+			else
+				val := ValueOption(name);
 
-			for name in RecNames(defaults) do
-				if ValueOption(name) = fail then
-					options.(name) := defaults.(name);
-				else
-					val := ValueOption(name);
-
-					# Explicitly convert characters to strings for easier handling later.
-					if IsChar(val) then
-						val := [val];
-					fi;
-
-					options.(name) := val;
+				# Explicitly convert characters to strings for easier handling later.
+				if IsChar(val) then
+					val := [val];
 				fi;
-			od;
-		else
-			# Handling where options struct has already been constructed.
+
+				options.(name) := val;
+			fi;
+		od;
+	else
+		if Length(opts)>=1 then
+			# User passed optional argument, assume first is options record.
+			options := opts[1];
+			if Length(opts) > 1 then
+				# Throw error
+				Error("More than one optional argument passed.");
+			fi;
+		elif ValueOption("options") <> fail then
+			# User passed GAP option 'options' record
 			options := ValueOption("options");
 		fi;
-	elif Length(opts)>=1 then
-		options := opts[1];
-		if Length(opts) > 1 then
-			# Throw error
-			Error("More than one optional argument passed.");
-		fi;
+
+		# Pre-constructed options records may not be perfectly populated, so merge with defaults.
+		for name in RecNames(DEFAULT_TYPESET_OPTIONS) do
+			if not IsBound(options.(name)) then
+				options.(name) := DEFAULT_TYPESET_OPTIONS.(name);
+			fi;
+		od;
 	fi;
 
 	# Determine function to create output string (based on lang option).
-	string := TypesetString(x : options := options);
+	string := TypesetInternal(x : options := options);
 	Add(string, '\n');
 
-	# Print to terminal (use SetPrintFormattingStatus to remove line breaks).
-	old := PrintFormattingStatus("*stdout*");
-	SetPrintFormattingStatus("*stdout*", false);
-	PrintFormattedString(string);
-	SetPrintFormattingStatus("*stdout*", old);
+	if options.("ReturnStr")=false then
+		# Print to terminal (use SetPrintFormattingStatus to remove line breaks).
+		old := PrintFormattingStatus("*stdout*");
+		SetPrintFormattingStatus("*stdout*", false);
+		PrintFormattedString(string);
+		SetPrintFormattingStatus("*stdout*", old);
+	else
+		return string;
+	fi;
 end);
 
 #############################################################################
 ##
-#M  TypesetString( <object> ) . 
+#F  TypesetInternal( <object> ) . 
 ##  
 ## produces a typesetable string representing the provided object.
 ##
-InstallMethod(TypesetString, "for all objects", true,
-[ IsObject ],0,
+InstallGlobalFunction(TypesetInternal,
 function( x )
 	local options, lang, t, string, args, tmpl;
 	
-	# Determine template string generation function.
+	# Backup default options setting for users who use TypesetInternal directly.
 	options := ValueOption("options");
 	if options=fail then
-		lang := "latex";
-		options := rec(MatrixDelim := "[]", Lang := "latex", SubCallOpts := false);
+		Info(InfoTypeset, 3, "No options provided to TypesetInternal method, using defaults");
+		options := ShallowCopy(DEFAULT_TYPESET_OPTIONS);
 	fi;
 
+	# Determine template string generation function.
 	lang := options.("Lang");
 	lang[1] := UppercaseChar(lang[1]);
 	t := EvalString(Concatenation("Gen", lang, "Tmpl"));
@@ -78,6 +89,7 @@ function( x )
 	tmpl := t(x : options := options);
 	args := GenArgs(x : options := options);
 	Add(args, tmpl, 1);
+
 	string := CallFuncList(StringFormatted, args);
 	return string;
 end);
@@ -90,15 +102,21 @@ end);
 ## used to populate the template string.
 ##
 InstallMethod(GenArgs, "fallback default method", true,
-[ IsObject ], 0, String);
+[ IsObject ], 0, 
+function ( obj )
+	# For some objects, simply calling String(obj) may already be typesettable
+	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to String()");
+	return String(obj);
+end);
 
 InstallMethod(GenArgs, "rational", true,
 [ IsRat ], 0,
 function ( x )
 	if IsInt(x) then
     	return [ String(x) ];
-  	fi;
-	return [ NumeratorRat(x), DenominatorRat(x) ];
+  	else
+		return [ NumeratorRat(x), DenominatorRat(x) ];
+	fi;
 end);
 
 InstallMethod(GenArgs, "internal ffe", true,
@@ -110,17 +128,44 @@ function ( ffe )
 	if not IsZero(ffe) then
 		deg := DegreeFFE(ffe);
 		if deg <> 1  then
-			ret[2] := Concatenation("^{", String(deg), "}");
+			ret[2] := Concatenation("^{", TypesetInternal(deg), "}");
 		fi;
 
 		log := LogFFE(ffe,Z( char ^ deg ));
 		if log <> 1 then
-			ret[3] := Concatenation("^{", String(log), "}");
+			ret[3] := Concatenation("^{", TypesetInternal(log), "}");
 		fi;
 	fi;
 
 	return ret;
 end);
+
+InstallMethod(GenArgs, "permutation", true,
+[ IsPerm ], 0,
+function( perm )
+	local ret, i, j, maxpnt, blist, subOptions;
+	ret := [];
+	subOptions := MergeSubOptions(ValueOption("options"));
+
+  	if not IsOne( perm ) then
+      	maxpnt := LargestMovedPoint(perm);
+      	blist := BlistList([1..maxpnt], []);
+      	for i  in [1 .. LargestMovedPoint(perm)] do
+      		if not blist[i] and i ^ perm <> i  then
+          		blist[i] := true;
+          		Add(ret, TypesetInternal(i : options := subOptions));
+          		j := i ^ perm;
+          		while j > i do
+          			blist[j] := true;
+          			Add(ret, TypesetInternal(j : options := subOptions));
+          			j := j ^ perm;
+          		od;
+      		fi;
+      	od;
+  	fi;
+	
+  	return ret;
+end );
 
 InstallMethod(GenArgs, "matrix", true,
 [ IsMatrix ], 0,
@@ -134,7 +179,7 @@ function ( m )
 
 	for i in [1..l] do
 		for j in [1..n] do
-			Add(r, TypesetString(m[i][j] : options := subOptions));
+			Add(r, TypesetInternal(m[i][j] : options := subOptions));
 		od;
 	od;
 
@@ -158,19 +203,19 @@ function( poly )
 	for i in [ le-1, le-3..1 ] do
 		c := false;
 		if ext[i + 1] <> one and ext[i + 1] <> mone then
-			Add(r, TypesetString(ext[i + 1] : options := subOptions));
+			Add(r, TypesetInternal(ext[i + 1] : options := subOptions));
 			c := true;
 		fi;
 
 		if Length(ext[i]) > 1 then
 			for j in [ 1, 3 .. Length(ext[i]) - 1] do
 				if 1 <> ext[i][j + 1] then
-					Add(r, TypesetString(ext[i][j + 1] : options := subOptions));
+					Add(r, TypesetInternal(ext[i][j + 1] : options := subOptions));
 				fi;
 			od;
 		else
 			if c=false then
-				Add(r, TypesetString(ext[i + 1] : options := subOptions));
+				Add(r, TypesetInternal(ext[i + 1] : options := subOptions));
 			fi;
 		fi;
 	od;
@@ -185,7 +230,7 @@ function( ratf )
 	num := NumeratorOfRationalFunction(ratf);
 	den := DenominatorOfRationalFunction(ratf);
 
-	return [ TypesetString(num), TypesetString(den) ];
+	return [ TypesetInternal(num), TypesetInternal(den) ];
 end);
 
 InstallMethod(GenArgs, "character tables", true,
@@ -215,14 +260,6 @@ function( tbl )
 	return ret;
 end);
 
-InstallMethod(GenArgs, "permutation", true,
-[ IsPerm ], 0,
-function ( x )
-	local list;
-	list := [ String(x) ];
-	return list;
-end);
-
 InstallMethod(GenArgs, "fp groups", true, [ IsFpGroup ], 0,
 function ( g )
 	local lst, gens, rels, i, s, e, j;
@@ -248,7 +285,7 @@ function ( g )
 	od;
 
 	for j in [1..Length(rels)] do
-		Add(lst, TypesetString(rels[j]));
+		Add(lst, TypesetInternal(rels[j]));
 	od;
 
 	return lst;
@@ -272,7 +309,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, TypesetString(gens[i]));
+		Add(lst, TypesetInternal(gens[i]));
 	od;
 
 	return lst;
@@ -285,7 +322,7 @@ function ( g )
 	gens := GeneratorsOfGroup(g);
 
 	for i in [1..Length(gens)] do
-		Add(lst, String(gens[i]));
+		Add(lst, TypesetInternal(gens[i]));
 	od;
 
 	return lst;
@@ -316,14 +353,13 @@ end);
 
 #############################################################################
 ##
-#M  MergeSubOptions( <options record> ) . 
+#F  MergeSubOptions( <current options record> ) . 
 ##  
 ## generates a new options record that can be passed to sub-calls from a parent.
 ## used to allow users to set options that may differ between recursive calls
 ## of a single method (e.g. Matrix delimitors).
 ##
-InstallMethod(MergeSubOptions, "for generating alternative sub-call options", true,
-[ IsRecord ], 0,
+InstallGlobalFunction(MergeSubOptions,
 function ( opts )
 	local subOptions, tempSub, name;
 
@@ -338,3 +374,16 @@ function ( opts )
 
 	return subOptions;
 end);
+
+#############################################################################
+##
+#V  DEFAULT_TYPESET_OPTIONS . 
+##  
+## 	List of default optional arguments passed to the Typeset method.
+##
+InstallValue(DEFAULT_TYPESET_OPTIONS,
+	rec(
+		ReturnStr := false, LDelim := "(", RDelim :=")",
+		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
+	)
+);

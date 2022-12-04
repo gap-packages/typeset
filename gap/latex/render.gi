@@ -1,11 +1,10 @@
 #############################################################################
 ##
-#M  RenderLatex( <string> ) . 
+#F  RenderLatex( <string> ) . 
 ##  
 ## renders a given string in a LaTeX environment.
 ##
-InstallMethod(RenderLatex, "for all LaTeX strings", true,
-[ IsString ], 0,
+InstallGlobalFunction(RenderLatex,
 function( str )
     local render;
     if ValueOption("output")<>fail then
@@ -25,94 +24,173 @@ end);
 
 #############################################################################
 ##
-#M  PDFLatex( <string> ) . 
+#F  PDFLatex( <string> ) . 
 ##  
 ## renders a given LaTeX string in a PDF file using the pdflatex bash command.
 ##
-InstallMethod(PDFLatex, "for all LaTeX strings renderable by pdflatex", true,
-[ IsString ], 0,
+InstallGlobalFunction(PDFLatex,
 function ( str )
-    local dir, f;
+    local dir, f, out;
 
+    Info(InfoTypeset, 3, "Creating temporary .tex file");
     dir := DirectoryTemporary();
     f := Filename(dir, "out.tex");
+    out := OutputTextFile(f, true);
+    SetPrintFormattingStatus(out, false);
 
-    PrintTo(f, "\\documentclass[12pt]{article}\n\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}\n\\usepackage{tikz}\n\\begin{document}\n");
-    AppendTo(f, Concatenation("$", str, "$"));
-    AppendTo(f, "\n\\end{document}");
+    PrintTo(out, DEFAULT_LATEX_PREAMBLE);
+    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        str := Concatenation("$", str, "$");
+    fi;
+    AppendTo(out, str);
+    AppendTo(out, "\n\\end{document}");
+    Info(InfoTypeset, 3, "Successfully created .tex file for compilation");
 
-    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex out.tex"));
+    Info(InfoTypeset, 3, "Running pdflatex on created .tex file");
+    Exec(Concatenation("cd ", Filename(dir, ""), ";", "pdflatex --shell-escape out.tex"));
 
     OpenExternal(Filename(dir, "out.pdf"));
 end);
 
 #############################################################################
 ##
-#M  MathJax( <string> ) . 
+#F  MathJax( <string> ) . 
 ##  
 ## renders a given LaTeX string in a HTML file using the MathJax library.
 ##
-InstallMethod(MathJax, "for all LaTeX strings renderable by MathJax", true,
-[ IsString ], 0,
+InstallGlobalFunction(MathJax,
 function ( str )
-    local dir, f;
+    local dir, f, out;
 
+    Info(InfoTypeset, 3, "Creating temporary .html file");
     dir := DirectoryTemporary();
     f := Filename(dir, "out.html");
+    out := OutputTextFile(f, true);
+    SetPrintFormattingStatus(out, false);
 
-    PrintTo(f, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width\">\n<title>MathJax Output</title>\n<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>\n</head>");
-    AppendTo(f, "<body><p>");
+    PrintTo(out, DEFAULT_MATHJAX_TAGS);
+    AppendTo(out, "<body><p>");
+    if StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        if StartsWith(str{[63..Length(str) - 1]}, "\\begin{dot2tex}") then
+            # Throw Error
+			Error("Importing LaTeX packages is not implemented in MathJax and required for dot2texi, please try a different rendering method.");
+            return;
+        else
+            str := ReplacedString(str{[16..Length(str)-13]}, ">=latex',", "");
+            str := Concatenation("\n<script type=\"text/tikz\">\n", str, "</script>");
+        fi;
+    else
+        str := Concatenation("\\[\n", str, "\\]");
+    fi;
 
-
-    AppendTo(f, "\\[\n");
-    AppendTo(f, str);
-    AppendTo(f, "\\]\n</p></body>");
+    AppendTo(out, str);
+    AppendTo(out, "\n</p></body>");
+    Info(InfoTypeset, 3, "Successfully created .html file for viewing");
 
     OpenExternal(f);
 end);
 
 #############################################################################
 ##
-#M  Overleaf( <string> ) . 
+#F  Overleaf( <string> ) . 
 ##  
 ## renders a given LaTeX string in a HTML file using the Overleaf API.
 ##
-InstallMethod(Overleaf, "for all LaTeX strings renderable by Overleaf", true,
-[ IsString ], 0,
+InstallGlobalFunction(Overleaf,
 function ( str )
     local url;
+    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+        # Assume all non-tikz strings are to be processed in math mode.
+        str := Concatenation("$", str, "$");
+    fi;
+
+    str := Concatenation(DEFAULT_LATEX_PREAMBLE, str, "\n\\end{document}");
 
     url := "https://www.overleaf.com/docs?snip=";
     Append(url, URIEncodeComponent(str));
+    Info(InfoTypeset, 3, "Successfully created URL for Overleaf, navigating there now");
 
     OpenExternal(url);
 end);
 
 #############################################################################
 ##
-#M  URIEncodeComponent( <string> ) . 
+#F  URIEncodeComponent( <string> ) . 
 ##  
 ## replaces reserved characters in a URI component according to RFC-3986.
 ##
-InstallMethod(URIEncodeComponent, "to encode URLS to avoid unprocessable characters", true,
-[ IsString ], 0,
+InstallGlobalFunction(URIEncodeComponent,
 function ( raw )
-    local uriComp, old, new, i, alwaysUnescaped;
-    alwaysUnescaped := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~\n";
-    uriComp := "%24"; # Add dollar sign to indicate math mode.
+    local uriComp, old, new, i;
+    uriComp := "";
 
     for i in [1..Length(raw)] do
-        if raw[i] in alwaysUnescaped then
+        if raw[i] in ALWAYS_UNESCAPED_CHARS then
             Add(uriComp, raw[i]);
         else
-            new := Concatenation("%", HexStringInt(IntChar(raw[i])));
+            new := HexStringInt(IntChar(raw[i]));
+            if Length(new) = 1 then
+                # HexStringInt does not return leading zeroes,
+                # so need to manually add them.
+                new := Concatenation("0", new);
+            fi;
+
+            new := Concatenation("%", new);
             Append(uriComp, new);
         fi;
     od;
 
-    # HexStringInt returns %A0 rather than %0A for new-line characters...
-    uriComp := ReplacedString(uriComp, "\n", "%0A");
-    Append(uriComp, "%24");
-
     return uriComp;
 end);
+
+#############################################################################
+##
+#V  DEFAULT_LATEX_PREAMBLE . 
+##  
+## 	Default Preamble for a .tex document to load all of the possible packages
+##  that may be required by a generated LaTeX snippet by this package.
+##
+InstallValue(DEFAULT_LATEX_PREAMBLE,
+    Concatenation(["\\documentclass[12pt]{article}\n",
+    "\\usepackage[english]{babel}\n",
+    "\\usepackage{amsmath}\n",
+    "\\usepackage{amssymb}\n",
+    "\\usepackage{dot2texi}\n",
+    "\\usepackage[x11names, svgnames, rgb]{xcolor}\n",
+    "\\usepackage[utf8]{inputenc}\n",
+    "\\usepackage{tikz}\n",
+    "\\usetikzlibrary{decorations,arrows,shapes}\n",
+    "\\begin{document}\n",
+    "\\pagestyle{empty}\n"])
+);
+
+#############################################################################
+##
+#V  DEFAULT_MATHJAX_TAGS . 
+##  
+## 	Default HTML document and head tags used to render MathJax snippets.
+##
+InstallValue(DEFAULT_MATHJAX_TAGS,
+    Concatenation(["<!DOCTYPE html>\n",
+    "<html>\n",
+    "<head>\n",
+    "<meta charset=\"utf-8\">\n",
+    "<meta name=\"viewport\" content=\"width=device-width\">\n",
+    "<title>MathJax Output</title>\n",
+    "<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n",
+    "<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>\n",
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://tikzjax.com/v1/fonts.css\">\n",
+    "<script src=\"https://tikzjax.com/v1/tikzjax.js\"></script>\n",
+    "</head>"])
+);
+
+#############################################################################
+##
+#V  ALWAYS_UNESCAPED_CHARS . 
+##  
+## 	String containing all of the characters that do not need to be percent
+##  encoded within URI components as per RFC-3986.
+##
+InstallValue(ALWAYS_UNESCAPED_CHARS,
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~"
+);
