@@ -28,6 +28,16 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 If you'd like to contribute to the development of this project, feel free to read
 the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
 
+## Discussions
+If you have any questions, or just want some off-topic discussion, check out the
+discussions area of the repository:
+
+  <https://github.com/ZachNewbery/typeset/discussions>
+
+This is the place to go if you have any new ideas you want to flesh out before
+committing to writing out an issue, or are having any problems you think might not 
+be a bug!
+
 ## Bug Reports and Feature Requests
 Please submit bug reports and feature requests via the GitHub issue tracker:
 

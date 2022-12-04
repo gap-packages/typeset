@@ -18,3 +18,4 @@ If there's _not_ an existing issue, please open one first to make it more likely
 - [ ] I have added the necessary functions to implement my fix in a structured, readable way.
 - [ ] I have documented my added code to the codebase, added new directories to `makedoc.g` and new chapters/sections to `order_info.g`.
 - [ ] I have tested my additions, and included the tests within the `tst` directory.
+- [ ] I have summarised any large features as bullet points in [CHANGES](CHANGES).
