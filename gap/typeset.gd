@@ -3,15 +3,25 @@
 #
 #! @Chapter Introduction
 #!
-#! typeset is a package that implements an operation Typeset that can
-#! generate LaTeX string representations of a commonly used subset
-#! of mathematical objects within the GAP system.
+#! typeset is a package that implements a typesetting framework that can
+#! be implemented for numerous typesetting languages as a standardised
+#! way to generate renderable strings.
 #!
-#! Typeset is also built to be incredibly extensible, and can be easily
-#! extended to also support the generation of strings for other mark-up
-#! languages.
+#! At it's core, it implements the function <Ref Func="Typeset" /> which
+#! makes use of typesetting language-specific functions to generate format
+#! strings. These strings are then populated with a list of the semantic
+#! features of the &GAP; objects they represent, which is obtained from the
+#! operation <Ref Func="GenArgs" />.
 #!
-#! @Section Core Functions
+#! An example implementation of this framework is also provided by this
+#! package, for LaTeX typesetting under the chapter <Ref Chapter="&LaTeX; Generation" />.
+#!
+#! Guidelines for extending the framework to support more types, or for
+#! implementing the framework for another typesetting language can
+#! be found within the contributing guidelines in the Github repository,
+#! <URL Link="https://github.com/ZachNewbery/typeset/" LinkText="link" />.
+#!
+#! @Section Core Framework Functions
 #! @Description
 #!   Info class for the <Package>typeset</Package> package.  Set this to the following
 #!   levels for different levels of information:

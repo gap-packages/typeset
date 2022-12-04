@@ -3,13 +3,32 @@
 #
 #! @Chapter &LaTeX; Generation
 #!
-#! typeset is a package that implements an operation Typeset that can
-#! generate LaTeX string representations of a commonly used subset
-#! of mathematical objects within the GAP system.
+#! <Ref Sect="Core Framework Functions" /> describes a powerful framework implemented in
+#! this package that allows for a centralised methodology to generate typesetting strings
+#! through the semantic features of objects.
 #!
-#! Typeset is also built to be incredibly extensible, and can be easily
-#! extended to also support the generation of strings for other mark-up
-#! languages.
+#! This section describes the implementation of the framework for &LaTeX;, providing both
+#! the invaluable functionality to typeset a subset of &GAP; objects as &LaTeX; strings
+#! whilst also serving as an example of how the framework can be used for other typesetting
+#! languages. 
+#!
+#! It also provides some insight into the kinds of functions that would be expected
+#! from an implementation for a different language.
+#!
+#! Currently, the following types have explicit methods installed for LaTeX generation:
+#!  
+#!  * Rationals (Integers and Fractions)
+#!  * Internal Finite-Field Elements
+#!  * Permutations
+#!  * Matrices
+#!  * Polynomials and Non-Polynomial Rational Functions
+#!  * Character Tables
+#!  * Generators for FP, PC, Matrix and Permutation Groups
+#!  * Associative Words in Letter Representation
+#!
+#! It should also be noted that <Ref Func="Typeset" /> does fallback to the core library
+#! function <Ref BookName="ref" Func="String" />, which can be used for any types which
+#! do not require LaTeX-specific formatting to be renderable in math mode (e.g. floats).
 #!
 #! @Section LaTeX Generation for &GAP; Objects
 #! @Description
