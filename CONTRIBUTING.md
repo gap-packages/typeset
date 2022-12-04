@@ -36,31 +36,43 @@ Creating a new package may be ideal for developers who want to implement several
 
 #### Supporting a new typesetting language
 
-To implement the `typeset` framework for a new typesetting language, there are a small number of steps that should make the process as smooth as possible. First, it is best to create a new directory named after the language within the `gap` sub-directory of this package - just to keep things organised!
+To implement the `typeset` framework for a new typesetting language, there are a small number of steps that should make the process as smooth as possible. 
+
+First, it is best to create a new directory named after the language within the `gap` sub-directory of this package - just to keep things organised!
 
 Within this directory, you'll want to have at least two files, a _lang_.gd and a _lang_.gi. These files will follow the typical layout for GAP declaration and implementation files, and will contain the language-specific functions for your new implementation.
 
-Once your files have been created, the next step will be implementing the operation to generate template strings for your language. As described in the [documentation](http://www.zachnewbery.com/typeset/doc/chap1_mj.html), the framework works by calling language-specific functions to generate language-specific template strings followed by populating them with a language-agnostic list of semantic features pertaining to the GAP object being typeset. Therefore, you'll want to implement a method of the name Gen<em>Lang</em>Tmpl (only the first letter of the language should be capitalised) for any and all of the types you're looking to typeset. It may also be a good idea to have a default fallback to the core GAP method `String`, as many objects may not even need any specific changes to get them typeset!
+Once your files have been created, the next step will be implementing the operation to generate template strings for your language. As described in the [documentation](http://www.zachnewbery.com/typeset/doc/chap1_mj.html), the framework works by calling language-specific functions to generate language-specific template strings followed by populating them with a language-agnostic list of semantic features pertaining to the GAP object being typeset. 
+
+Therefore, you'll want to implement a method of the name Gen<em>Lang</em>Tmpl (only the first letter of the language should be capitalised) for any and all of the types you're looking to typeset. It may also be a good idea to have a default fallback to the core GAP method `String`, as many objects may not even need any specific changes to get them typeset!
 
 Beyond this template string generation, there may be a small number of other language-specific helper methods that will need to be created (e.g. `CtblLegendLatex` for character tables in LaTeX). This does depend heavily on the types of GAP objects you're looking to typeset and for most cases following what has been done in the LaTeX implementation of this framework should suffice.
 
 With this, you should now have a working implementation of the `typeset` framework, congrats! :tada:
 
-Now, before you can get all your changes committed, make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected.
+Now, before you can get all your changes committed, make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. 
+
+Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected.
 
 #### Extending support for new GAP types
 
-Extending the package to support other GAP types (that may be implemented in other packages, or just not currently supported in the latest version) follows a slightly different process. If you're looking to support a type implemented in another package, first decide if it's worth simply implementing the framework in the other package and making `typeset` a dependency. If not, it is preferred that support for these external packages are kept in separate files named after the package itself under the `gap` sub-directory.
+Extending the package to support other GAP types (that may be implemented in other packages, or just not currently supported in the latest version) follows a slightly different process. 
+
+If you're looking to support a type implemented in another package, first decide if it's worth simply implementing the framework in the other package and making `typeset` a dependency. If not, it is preferred that support for these external packages are kept in separate files named after the package itself under the `gap` sub-directory.
 
 To ensure the implemented methods are only installed if the external package is available, ensure you add a call to `IsPackageMarkedForLoading` when adding the new files to [init.g](init.g) and [read.g](read.g).
 
 If you're looking to simply add support for a type that is available as part of the GAP core distribution, then feel free to make additions to the files [gap/typeset.gi](gap/typeset.gi) and [gap/typeset.gd](gap/typeset.gd).
 
-As supporting new types is seen as language-agnostic, the main concern for you as a developer will be installing a new method for the operation `GenArgs`. At it's core, this method should return a **list** of strings that would likely be used to populate a template string representing this new type regardless of the typesetting language. Of course, it may not always be possible to make this method perfectly generic, and if that is the case make sure to document exactly what else a developer would need to add to integrate your method into their implementation.
+As supporting new types is seen as language-agnostic, the main concern for you as a developer will be installing a new method for the operation `GenArgs`. At it's core, this method should return a **list** of strings that would likely be used to populate a template string representing this new type regardless of the typesetting language. 
+
+Of course, it may not always be possible to make this method perfectly generic, and if that is the case make sure to document exactly what else a developer would need to add to integrate your method into their implementation.
 
 Beyond this, writing a new method for the operation `GenLatexTmpl` within the file latex.gi would provide a way for you to test if your `GenArgs` methods would integrate nicely, as well as provide an example for other developers. As LaTeX was the original focus of this package, this should be done before writing methods for other languages if possible.
 
-Finally, before you can get all your changes committed make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected. Feel free to also write tests for the contents of `GenArgs`, there's no such thing as too many tests!
+Finally, before you can get all your changes committed make sure to document your code and methods cleanly, and add tests to ensure everything you've written works as expected. Documentation is fairly standard for GAP, and should at minimum include comments above declarations within .gd files, and some section header comments in your .gi files. 
+
+Tests should also be contained within their own language-specific directory under the `tst` sub-directory for consistency, but the range of tests you write is up to you and simply needs to prove that your implementation works as expected. Feel free to also write tests for the contents of `GenArgs`, there's no such thing as too many tests!
 
 ### Making Changes
 
