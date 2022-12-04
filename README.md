@@ -24,6 +24,10 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 <https://zachnewbery.com/typeset>
 
+## Contributing
+If you'd like to contribute to the development of this project, feel free to read
+the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
+
 ## Bug Reports and Feature Requests
 Please submit bug reports and feature requests via the GitHub issue tracker:
 
