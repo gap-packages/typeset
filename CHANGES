@@ -1,6 +1,6 @@
 --- v1.1 (current release) ---
 
-- Renamed package to 'typeset', and gave ownership to 'gap-packages' organisation
+- Renamed package to 'typeset'
 - Added digraph integration to LaTeX generation with raw dot and dot2tex options
 - Implemented rendering methods to allow users to view LaTeX output via MathJax, pdflatex, or Overleaf
 - Reworked permutation handling to include \left and \right for LaTeX output

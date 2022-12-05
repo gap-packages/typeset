@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/gap-packages/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/gap-packages/typeset/actions?query=workflow%3ACI+branch%3Amain)
-[![Code Coverage](https://codecov.io/github/gap-packages/typeset/coverage.svg?branch=main&token=)](https://codecov.io/gh/gap-packages/typeset)
+[![Build Status](https://github.com/ZachNewbery/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/ZachNewbery/typeset/actions?query=workflow%3ACI+branch%3Amain)
+[![Code Coverage](https://codecov.io/github/ZachNewbery/typeset/coverage.svg?branch=main&token=)](https://codecov.io/gh/ZachNewbery/typeset)
 
 # The typeset GAP package
 This package implements a framework for automatic typesetting of common GAP objects, 
@@ -22,7 +22,7 @@ within GAP to see another relevant part of the manual).
 Full information and documentation can be found in the manual, available
 as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
-<https://gap-packages.github.io/typeset>
+<https://ZachNewbery.github.io/typeset>
 
 ## Contributing
 If you'd like to contribute to the development of this project, feel free to read
@@ -32,7 +32,7 @@ the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
 If you have any questions, or just want some off-topic discussion, check out the
 discussions area of the repository:
 
-  <https://github.com/gap-packages/typeset/discussions>
+  <https://github.com/ZachNewbery/typeset/discussions>
 
 This is the place to go if you have any new ideas you want to flesh out before
 committing to writing out an issue, or are having any problems you think might not 
@@ -41,7 +41,7 @@ be a bug!
 ## Bug Reports and Feature Requests
 Please submit bug reports and feature requests via the GitHub issue tracker:
 
-  <https://github.com/gap-packages/typeset/issues>
+  <https://github.com/ZachNewbery/typeset/issues>
 
 # License
 typeset is free software; you can redistribute it and/or modify
