@@ -1,15 +1,16 @@
   
   
-                                   [1X latexgen [101X
+                                   [1X typeset [101X
   
   
-           [1X Automatic LaTeX string generation for common [5XGAP[105X objects [101X
+      [1X Automatic typesetting framework for common [5XGAP[105X objects, with LaTeX
+                                  generation [101X
   
   
-                                      1.0
+                                      1.1
   
   
-                                11 November 2022
+                                5 December 2022
   
   
                                Zachariah Newbery
@@ -23,23 +24,42 @@
   -------------------------------------------------------
   
   
-  [1XContents (latexgen)[101X
+  [1XContents (typeset)[101X
   
   1 [33X[0;0YIntroduction[133X
-    1.1 [33X[0;0YExample Methods[133X
-      1.1-1 InfoLatexgen
+    1.1 [33X[0;0YCore Framework Functions[133X
+      1.1-1 InfoTypeset
       1.1-2 Typeset
-      1.1-3 TypesetString
-      1.1-4 GenLatexTmpl
-      1.1-5 GenArgs
-      1.1-6 CtblLatexLegend
-      1.1-7 FactoriseAssocWordLatex
-      1.1-8 MergeSubOptions
-  2 [33X[0;0YStructure Descriptions[133X
-    2.1 [33X[0;0YStructure Description of Groups[133X
-      2.1-1 TypesetStructureDescription
-      2.1-2 LatexStructureDescription
-      2.1-3 ConcatStructDescOperands
+      1.1-3 TypesetInternal
+    1.2 [33X[0;0YCore Operations[133X
+      1.2-1 GenArgs
+    1.3 [33X[0;0YConstants and Utility Functions[133X
+      1.3-1 MergeSubOptions
+      1.3-2 DEFAULT_TYPESET_OPTIONS
+  2 [33X[0;0YLaTeX Generation[133X
+    2.1 [33X[0;0YLaTeX Generation Functions for GAP Objects[133X
+      2.1-1 GenLatexTmpl
+      2.1-2 CtblEntryLatex
+      2.1-3 CtblLegendLatex
+      2.1-4 GenNameAssocLetterLatex
+      2.1-5 FactoriseAssocWordLatex
+    2.2 [33X[0;0YRendering LaTeX Strings[133X
+      2.2-1 RenderLatex
+      2.2-2 PDFLatex
+      2.2-3 MathJax
+      2.2-4 Overleaf
+      2.2-5 URIEncodeComponent
+      2.2-6 DEFAULT_LATEX_PREAMBLE
+      2.2-7 DEFAULT_MATHJAX_TAGS
+      2.2-8 ALWAYS_UNESCAPED_CHARS
+    2.3 [33X[0;0YDigraphs Integration[133X
+      2.3-1 DEFAULT_DOT2TEX_OPTIONS
+      2.3-2 Dot2Tex
+  3 [33X[0;0YStructure Descriptions[133X
+    3.1 [33X[0;0YTypesetting Structure Descriptions of Groups[133X
+      3.1-1 TypesetStructureDescription
+      3.1-2 LatexStructureDescription
+      3.1-3 ConcatStructDescOperands
   
   
   [32X

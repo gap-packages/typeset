@@ -1,9 +1,9 @@
-name: latexgen
-version: "1.0"
+name: typeset
+version: "1.1"
 license: "GPL-2.0-or-later"
-date: 2022-11-11
+date: 2022-12-05
 description: |
-    Automatic LaTeX string generation for common GAP objects
+    Automatic typesetting framework for common GAP objects, with LaTeX generation
 
 authors:
     - name: Zachariah Newbery
@@ -15,13 +15,18 @@ maintainers:
 
 GAP: ">= 4.11"
 
-www: https://ZachNewbery.github.io/latexgen/
+suggested-pkgs:
+    - name: "digraphs"
+      version: ">=1.5.0"
+      url: "https://digraphs.github.io/Digraphs"
+
+www: https://ZachNewbery.github.io/typeset/
 readme: README.md
-packageinfo: https://ZachNewbery.github.io/latexgen/PackageInfo.g
+packageinfo: https://ZachNewbery.github.io/typeset/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/ZachNewbery/latexgen/releases/download/v1.0/latexgen-1.0.tar.gz
+      url: https://github.com/ZachNewbery/typeset/releases/download/v1.1/typeset-1.1.tar.gz
 
 abstract: |
 
@@ -33,25 +38,25 @@ keywords: |
 citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>New22</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
-     <i class='BibTitle'>latexgen, Automatic LaTeX string generation for common GAP objects,
-             Version 1.0</i>
+     <i class='BibTitle'>typeset, Automatic typesetting framework for common GAP objects, with LaTeX generation,
+             Version 1.1</i>
      (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://ZachNewbery.github.io/latexgen/">https://ZachNewbery.github.io/latexgen/</a></span>.
+    <span class='BibHowpublished'><a href="https://ZachNewbery.github.io/typeset/">https://ZachNewbery.github.io/typeset/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ latexgen1.0,
+    @misc{ typeset1.1,
       author =           {Newbery, Z.},
-      title =            {{latexgen},  Automatic  LaTeX  string  generation  for
-                          common GAP objects, {V}ersion 1.0},
-      month =            {Nov},
+      title =            {{typeset},  Automatic typesetting framework for common
+                          GAP objects, with LaTeX generation, {V}ersion 1.1},
+      month =            {Dec},
       year =             {2022},
       note =             {GAP package},
-      howpublished =     {\href        {https://ZachNewbery.github.io/latexgen/}
+      howpublished =     {\href         {https://ZachNewbery.github.io/typeset/}
                           {\texttt{https://ZachNewbery.github.io/}\discretionary
-                          {}{}{}\texttt{latexgen/}}},
+                          {}{}{}\texttt{typeset/}}},
       keywords =         {latex; typesetting; markdown},
       printedkey =       {New22}
     }

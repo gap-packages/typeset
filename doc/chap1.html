@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (latexgen) - Chapter 1: Introduction</title>
+<title>GAP (typeset) - Chapter 1: Introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -15,43 +15,53 @@
 <body class="chap1"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap1_mj.html">[MathJax on]</a></p>
 <p><a id="X7DFB63A97E67C0A1" name="X7DFB63A97E67C0A1"></a></p>
 <div class="ChapSects"><a href="chap1.html#X7DFB63A97E67C0A1">1 <span class="Heading">Introduction</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7ED1D62579C10890">1.1 <span class="Heading">Example Methods</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7F60CF8C7C27BFFF">1.1 <span class="Heading">Core Framework Functions</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7836EBA18368A803">1.1-1 InfoLatexgen</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FBC14437D1F193F">1.1-2 Typeset</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8680171A79DBE21B">1.1-3 TypesetString</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X817F73037F401EBE">1.1-4 GenLatexTmpl</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X860806A279FED206">1.1-5 GenArgs</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X799019C783DBB0B1">1.1-6 CtblLatexLegend</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7A5FBB7479C86F83">1.1-7 FactoriseAssocWordLatex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8564D42C83B07928">1.1-8 MergeSubOptions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7A7D88777B9A0588">1.1-1 InfoTypeset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8739447F7A4111CC">1.1-2 Typeset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X860735DF791563F0">1.1-3 TypesetInternal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X79FAE10A87238E4C">1.2 <span class="Heading">Core Operations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X860806A279FED206">1.2-1 GenArgs</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7F753FFF815225A2">1.3 <span class="Heading">Constants and Utility Functions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8588DF877EC7F955">1.3-1 MergeSubOptions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X83056BB487424F07">1.3-2 DEFAULT_TYPESET_OPTIONS</a></span>
 </div></div>
 </div>
 
 <h3>1 <span class="Heading">Introduction</span></h3>
 
-<p>latexgen is a package that implements an operation Typeset that can generate LaTeX string representations of a commonly used subset of mathematical objects within the GAP system.</p>
+<p><a id="X7F60CF8C7C27BFFF" name="X7F60CF8C7C27BFFF"></a></p>
 
-<p>Typeset is also built to be incredibly extensible, and can be easily extended to also support the generation of strings for other mark-up languages.</p>
+<h4>1.1 <span class="Heading">Core Framework Functions</span></h4>
 
-<p><a id="X7ED1D62579C10890" name="X7ED1D62579C10890"></a></p>
+<p><strong class="pkg">typeset</strong> is a package that implements a typesetting framework that can be implemented for numerous typesetting languages as a standardised way to generate renderable strings.</p>
 
-<h4>1.1 <span class="Heading">Example Methods</span></h4>
+<p>At it's core, it implements the function <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>) which makes use of typesetting language-specific functions to generate format strings. These strings are then populated with a list of the semantic features of the <strong class="pkg">GAP</strong> objects they represent, which is obtained from the operation <code class="func">GenArgs</code> (<a href="chap1.html#X860806A279FED206"><span class="RefLink">1.2-1</span></a>).</p>
 
-<p><a id="X7836EBA18368A803" name="X7836EBA18368A803"></a></p>
+<p>An example implementation of this framework is also provided by this package for LaTeX typesetting within chapter <a href="chap2.html#X877F82D67F8A4C37"><span class="RefLink">2</span></a>.</p>
 
-<h5>1.1-1 InfoLatexgen</h5>
+<p>Guidelines for extending the framework to support more types, or for implementing the framework for another typesetting language can be found within the contributing guidelines in the GitHub repository.</p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoLatexgen</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
-<p>Info class for the <strong class="pkg">latexgen</strong> package. Set this to the following levels for different levels of information:</p>
+<p><a id="X7A7D88777B9A0588" name="X7A7D88777B9A0588"></a></p>
+
+<h5>1.1-1 InfoTypeset</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoTypeset</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the <strong class="pkg">typeset</strong> package. Set this to the following levels for different levels of information:</p>
 
 
 <ul>
@@ -68,76 +78,117 @@
 
 </li>
 </ul>
-<p>Set this using, for example <code class="code">SetInfoLevel(InfoLatexgen, 1)</code>. Default value is 2.</p>
+<p>Set this using, for example <code class="code">SetInfoLevel(InfoTypeset, 1)</code>. Default value is 2.</p>
 
-<p><a id="X7FBC14437D1F193F" name="X7FBC14437D1F193F"></a></p>
+<p><a id="X8739447F7A4111CC" name="X8739447F7A4111CC"></a></p>
 
 <h5>1.1-2 Typeset</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Typeset</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: String representation of object in given mark-up language.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Typeset</code>( <var class="Arg">obj</var>[, <var class="Arg">options</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A String, if <code class="code">ReturnStr</code> option is set to <code class="code">true</code></p>
 
-<p>Typeset takes a mathematical object and generates a mark-up string representing that object in the given mark-up language (default: LaTeX). Optional records can be added to modify the result: TODO: list of optional parameters</p>
+<p>Generates a mark-up string representing the object <var class="Arg">obj</var> in the given mark-up language. <strong class="pkg">GAP</strong> options can also be added to modify the result:</p>
 
-<p><a id="X8680171A79DBE21B" name="X8680171A79DBE21B"></a></p>
 
-<h5>1.1-3 TypesetString</h5>
+<ul>
+<li><p><code class="code">ReturnStr</code> : Whether the method should return a string (<code class="code">true</code>), or simply print the result (<code class="code">false</code>). (default - <code class="code">false</code>)</p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TypesetString</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Typesetable String representation of object.</p>
+</li>
+<li><p><code class="code">LDelim</code> : Left Delimiter for matrices. (default - <code class="code">"("</code>)</p>
 
-<p>TypesetString generates a string representation of a passed mathematical object that can be rendered by a typesetter.</p>
+</li>
+<li><p><code class="code">RDelim</code> : Right Delimiter for matrices. (default - <code class="code">")"</code>)</p>
 
-<p><a id="X817F73037F401EBE" name="X817F73037F401EBE"></a></p>
+</li>
+<li><p><code class="code">Lang</code> : Markup language of output, currently only <code class="code">"latex"</code> is supported. (default - <code class="code">"latex"</code>)</p>
 
-<h5>1.1-4 GenLatexTmpl</h5>
+</li>
+<li><p><code class="code">DigraphOut</code> : Typesetting method for Digraphs, one of <code class="code">"dot"</code> to use raw dot within TeX, or <code class="code">"dot2tex"</code> to convert the dot to native TeX. (default - <code class="code">"dot"</code>)</p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GenLatexTmpl</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Unpopulated LaTeX format string representing the structural description of the passed object.</p>
+</li>
+<li><p><code class="code">SubCallOpts</code> : Alternate <strong class="pkg">GAP</strong> options for nested sub-objects, via a record with the same options as the parent (but different values), or <code class="code">false</code> if all options are to stay the same between sub-calls. Options merging is handled by <code class="func">MergeSubOptions</code> (<a href="chap1.html#X8588DF877EC7F955"><span class="RefLink">1.3-1</span></a>). (default - <code class="code">false</code>) either by specifying each options as an individual GAP options like below:</p>
 
-<p>GenLatexTmpl generates a format string that represents the structural definition of the given mathematical object in LaTeX. It contains no parameter values, and will need to be populated with the arguments representing the semantic values of the object before it can be rendered in a LaTeX environment.</p>
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Typeset([[1, 2], [2, 1]] : LDelim := "[", ReturnStr := true);</span>
+"\\left[\\begin{array}{rr}\n1 &amp; 2 \\\\\n2 &amp; 1 \\\\\n\\end{array}\\right)\n"
+</pre></div>
+
+<p>or wrapping them in a record under an <code class="code">options</code> GAP option, like:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Typeset([[1, 2], [2, 1]] : options := rec(LDelim := "[", ReturnStr := true));</span>
+"\\left[\\begin{array}{rr}\n1 &amp; 2 \\\\\n2 &amp; 1 \\\\\n\\end{array}\\right)\n"
+</pre></div>
+
+<p>or even simply passing a record object as the optional second argument:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Typeset([[1, 2], [2, 1]], rec(LDelim := "[", ReturnStr := true));</span>
+"\\left[\\begin{array}{rr}\n1 &amp; 2 \\\\\n2 &amp; 1 \\\\\n\\end{array}\\right)\n"
+</pre></div>
+
+<p><a id="X860735DF791563F0" name="X860735DF791563F0"></a></p>
+
+<h5>1.1-3 TypesetInternal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TypesetInternal</code>( <var class="Arg">obj</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A String</p>
+
+<p>Generates a string representation of a passed <strong class="pkg">GAP</strong> object <var class="Arg">obj</var> that can be rendered by a typesetter. Called from the top-level method <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>), which also passes a constructed options record as the <code class="code">options</code> <strong class="pkg">GAP</strong> option.</p>
+
+<p><a id="X79FAE10A87238E4C" name="X79FAE10A87238E4C"></a></p>
+
+<h4>1.2 <span class="Heading">Core Operations</span></h4>
 
 <p><a id="X860806A279FED206" name="X860806A279FED206"></a></p>
 
-<h5>1.1-5 GenArgs</h5>
+<h5>1.2-1 GenArgs</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GenArgs</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: List of strings that describe the semantic structure of an object.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GenArgs</code>( <var class="Arg">obj</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A List of Strings</p>
 
-<p>GenArgs generates the arguments describing the semantic definition of the passed mathematical object. This should result in a list that can be used to populate a format string in any mark-up language.</p>
+<p>Generates the arguments describing the semantic definition of the passed <strong class="pkg">GAP</strong> object <var class="Arg">obj</var>. This returns a list that can be used to populate a format string in any mark-up language.</p>
 
-<p><a id="X799019C783DBB0B1" name="X799019C783DBB0B1"></a></p>
+<p><a id="X7F753FFF815225A2" name="X7F753FFF815225A2"></a></p>
 
-<h5>1.1-6 CtblLatexLegend</h5>
+<h4>1.3 <span class="Heading">Constants and Utility Functions</span></h4>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CtblLatexLegend</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Strings that describe the calculated substitutions.</p>
+<p><a id="X8588DF877EC7F955" name="X8588DF877EC7F955"></a></p>
 
-<p>CtblLatexLegend generates a string representation of the mathematical substitutions for entries within a character table.</p>
+<h5>1.3-1 MergeSubOptions</h5>
 
-<p><a id="X7A5FBB7479C86F83" name="X7A5FBB7479C86F83"></a></p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MergeSubOptions</code>( <var class="Arg">opts</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A Record</p>
 
-<h5>1.1-7 FactoriseAssocWordLatex</h5>
+<p>Merges the passed options record <var class="Arg">opts</var> to change any values that are set in the <strong class="pkg">GAP</strong> option <code class="code">SubCallOpts</code>. If this option is not false (default), it can contain a record of any <strong class="pkg">GAP</strong> options that can be passed to <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>) which should differ for sub-calls.</p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FactoriseAssocWordLatex</code>( <var class="Arg">arg1</var>, <var class="Arg">arg2</var>, <var class="Arg">arg3</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: String describing the factorised assoc word.</p>
+<p>For example, to alter the delimiters for nested objects so that the outer object is delimited by square braces and the inner object by parentheses, the following can be set:</p>
 
-<p>FactoriseAssocWordLatex generates a factorised string representation of an assoc word in letter representation, based on the return value from FindSubstringPowers.</p>
 
-<p><a id="X8564D42C83B07928" name="X8564D42C83B07928"></a></p>
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MergeSubOptions(rec(ReturnStr := false, Lang := "latex", DigraphOut := "dot", RDelim := "]", LDelim := "[", SubCallOpts := rec(RDelim := ")", LDelim := "(")));</span>
+rec(ReturnStr := false, Lang := "latex", DigraphOut := "dot", RDelim := ")", LDelim := "(", SubCallOpts := false)
+</pre></div>
 
-<h5>1.1-8 MergeSubOptions</h5>
+<p>It should be noted that <code class="code">SubCallOpts</code> only changes the options for one level of recursion (i.e. it is set back to the default of <code class="code">false</code> once this function is called). To change options for more recursion levels, the <code class="code">SubCallOpts</code> option can be nested as many times as necessary.</p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MergeSubOptions</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Records representing the options that should be passed to any sub calls within the current method.</p>
+<p><a id="X83056BB487424F07" name="X83056BB487424F07"></a></p>
 
-<p>MergeSubOptions will merge the options records passed optionally within a function call to GenArgs. It allows for the subOpts record value to specify any option values that should be altered on nested subcalls when generating typesetting strings.</p>
+<h5>1.3-2 DEFAULT_TYPESET_OPTIONS</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DEFAULT_TYPESET_OPTIONS</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>Default options record passed to <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>). Merged with user-provided options to ensure correct construction of options for sub-calls, whilst also allowing option-less calls to the method.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
