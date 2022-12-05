@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/gap-packages/typeset/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/typeset/actions?query=workflow%3ACI+branch%3Amain)
+[![Build Status](https://github.com/gap-packages/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/gap-packages/typeset/actions?query=workflow%3ACI+branch%3Amain)
 [![Code Coverage](https://codecov.io/github/gap-packages/typeset/coverage.svg?branch=main&token=)](https://codecov.io/gh/gap-packages/typeset)
 
 # The typeset GAP package
