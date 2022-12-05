@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "typeset",
 Subtitle := "Automatic typesetting framework for common GAP objects, with LaTeX generation",
-Version := "1.0",
-Date := "11/11/2022", # dd/mm/yyyy format
+Version := "1.1",
+Date := "05/12/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
