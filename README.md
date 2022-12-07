@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/ZachNewbery/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/ZachNewbery/typeset/actions?query=workflow%3ACI+branch%3Amain)
-[![Code Coverage](https://codecov.io/github/ZachNewbery/typeset/coverage.svg?branch=main&token=)](https://codecov.io/gh/ZachNewbery/typeset)
+[![Code Coverage](https://codecov.io/gh/ZachNewbery/typeset/branch/main/graph/badge.svg?token=8M7DUY6DWT)](https://codecov.io/gh/ZachNewbery/typeset)
 
 # The typeset GAP package
 This package implements a framework for automatic typesetting of common GAP objects, 
