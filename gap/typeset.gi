@@ -104,9 +104,9 @@ end);
 InstallMethod(GenArgs, "fallback default method", true,
 [ IsObject ], 0, 
 function ( obj )
-	# For some objects, simply calling String(obj) may already be typesettable
-	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to String()");
-	return [String(obj)];
+	# For some objects, simply calling ViewString(obj) may already be typesettable
+	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to ViewString()");
+	return [ViewString(obj)];
 end);
 
 InstallMethod(GenArgs, "rational", true,
