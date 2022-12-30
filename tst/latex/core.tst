@@ -39,6 +39,12 @@ gap> p := (1, 2, 3)(4, 5);;
 gap> Typeset(p);
 \left(1,2,3\right)\left(4,5\right)
 
+# Floats
+gap> x := 3.14;; Typeset(x);
+3.14
+gap> x := 6.62607e-34;; Typeset(x);
+6.62607e-34
+
 # Matrix of Rationals
 gap> x := [[0, 1], [1, 0]];;
 gap> Typeset(x);
