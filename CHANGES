@@ -2,8 +2,9 @@
 
 - Renamed package to 'typeset'
 - Added digraph integration to LaTeX generation with raw dot and dot2tex options
+- Added support for infinity and negative infinity using \infty LaTeX macro
 - Implemented rendering methods to allow users to view LaTeX output via MathJax, pdflatex, or Overleaf
-- Reworked permutation handling to include \left and \right for LaTeX output
+- Reworked permutation handling to include \left and \right for LaTeX output, and matrix handling to use \langle and \rangle for angled brackets
 - Wrote developer guides for users looking to implement the framework
 - Added a CONTRIBUTING file to guide new contributors
 - Overhauled documentation
