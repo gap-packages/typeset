@@ -151,7 +151,7 @@ end);
 ##
 InstallGlobalFunction(NeedsLatexMathMode,
 function ( raw )
-    return not (StartsWith(raw, "\\begin{center}\n\\begin{tikzpicture}") or StartsWith(raw, "\\begin{gather}"));
+    return not (StartsWith(raw, "\\begin{center}\n\\begin{tikzpicture}") or StartsWith(raw, "\\begin{gather*}"));
 end);
 
 #############################################################################

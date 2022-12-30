@@ -184,8 +184,8 @@ InstallMethod(GenLatexTmpl, "for character tables", true,
 function (tbl )
 	local ret, cnr, classes, i, j, k, nCols, nRows, header;
 
-	Info(InfoTypeset, 2, "To use the gather LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
-	ret := "\\begin{{gather}}\n\\begin{{array}}{{";
+	Info(InfoTypeset, 2, "To use the gather* LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
+	ret := "\\begin{{gather*}}\n\\begin{{array}}{{";
 	cnr := CharacterNames(tbl);
 	classes := ClassNames(tbl);
 
@@ -212,7 +212,7 @@ function (tbl )
 	od;
 
 	# Closing environment, with empty space for legend.
-	Append(ret, "\\end{{array}}{}\n\\end{{gather}}");
+	Append(ret, "\\end{{array}}{}\n\\end{{gather*}}");
 
 	return ret;
 end);
