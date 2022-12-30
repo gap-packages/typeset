@@ -28,8 +28,7 @@ X.2 & 3 & -1 & -1 & . & 1 \\
 X.3 & 2 & . & 2 & -1 & . \\
 X.4 & 3 & 1 & -1 & . & -1 \\
 X.5 & 1 & 1 & 1 & 1 & 1 \\
-\end{array}\\
-\end{aligned}
+\end{array}
 \end{gather}
 
 # Alternating Group

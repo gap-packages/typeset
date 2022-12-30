@@ -212,7 +212,7 @@ function (tbl )
 	od;
 
 	# Closing environment, with empty space for legend.
-	Append(ret, "\\end{{array}}\\\\{}\n\\end{{gather}}");
+	Append(ret, "\\end{{array}}{}\n\\end{{gather}}");
 
 	return ret;
 end);
@@ -317,13 +317,13 @@ end);
 InstallGlobalFunction(CtblLegendLatex,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
-	ret := "\n";
+	ret := "";
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
-		Info(InfoTypeset, 2, "To use the align LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
+		Info(InfoTypeset, 2, "To use the aligned LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
-		Append(ret, "\\begin{aligned}\n");
+		Append(ret, "\\\\\n\\begin{aligned}\n");
 	fi;
 
 	for i in [1..Length(irrstack)] do

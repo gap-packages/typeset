@@ -39,7 +39,7 @@ function ( str )
     SetPrintFormattingStatus(out, false);
 
     PrintTo(out, DEFAULT_LATEX_PREAMBLE);
-    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+    if NeedsLatexMathMode(str) then
         str := Concatenation("$", str, "$");
     fi;
     AppendTo(out, str);
@@ -99,7 +99,7 @@ end);
 InstallGlobalFunction(Overleaf,
 function ( str )
     local url;
-    if not StartsWith(str, "\\begin{center}\n\\begin{tikzpicture}") then
+    if NeedsLatexMathMode(str) then
         # Assume all non-tikz strings are to be processed in math mode.
         str := Concatenation("$", str, "$");
     fi;
@@ -141,6 +141,17 @@ function ( raw )
     od;
 
     return uriComp;
+end);
+
+#############################################################################
+##
+#F  NeedsLatexMathMode( <string> ) . 
+##  
+## returns true if the provided snippet needs to be rendered in math mode.
+##
+InstallGlobalFunction(NeedsLatexMathMode,
+function ( raw )
+    return not (StartsWith(raw, "\\begin{center}\n\\begin{tikzpicture}") or StartsWith(raw, "\\begin{gather}"));
 end);
 
 #############################################################################

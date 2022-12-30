@@ -61,6 +61,16 @@ DeclareGlobalFunction("Overleaf");
 DeclareGlobalFunction("URIEncodeComponent");
 
 #! @Description
+#!   Determines if the LaTeX snippet <A>raw</A> requires
+#!   LaTeX's math mode to be rendered correctly.
+#!
+#! @Arguments raw
+#!
+#! @Returns
+#!  A Boolean
+DeclareGlobalFunction("NeedsLatexMathMode");
+
+#! @Description
 #!   Default LaTeX preamble string used for creating
 #!   compilable `.tex` files from LaTeX snippets.
 DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
