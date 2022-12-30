@@ -44,6 +44,8 @@ gap> x := 3.14;; Typeset(x);
 3.14
 gap> x := 6.62607e-34;; Typeset(x);
 6.62607e-34
+gap> x := 3.4/5.9;; Typeset(x);
+0.576271
 
 # Matrix of Rationals
 gap> x := [[0, 1], [1, 0]];;
