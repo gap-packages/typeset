@@ -119,6 +119,21 @@ function ( x )
 	fi;
 end);
 
+InstallMethod(GenArgs, "infinity", true,
+[ IsInfinity ], 0,
+function ( inf )
+	# Infinity is normally handled via a special language-specific macro (e.g. \infty for LaTeX).
+	# Therefore, rely on Gen<lang>Tmpl to return macro.
+	return [];
+end);
+
+InstallMethod(GenArgs, "negative infinity", true,
+[ IsNegInfinity ], 0,
+function ( inf )
+	# Same reasoning as infinity.
+	return [];
+end);
+
 InstallMethod(GenArgs, "internal ffe", true,
 [ IsFFE and IsInternalRep ], 0,
 function ( ffe )

@@ -20,6 +20,18 @@ function( x )
 	fi;
 end);
 
+InstallMethod(GenLatexTmpl, "for infinity", true,
+[ IsInfinity ], 0,
+function ( inf )
+	return "\\infty";
+end);
+
+InstallMethod(GenLatexTmpl, "for negative infinity", true,
+[ IsNegInfinity ], 0,
+function ( ninf )
+	return "-\\infty";
+end);
+
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
 [ IsFFE and IsInternalRep ], 0,
 function ( ffe )
@@ -67,8 +79,10 @@ InstallMethod(GenLatexTmpl, "for matrices", true,
 function( m )
 	local i, j, l, n, s, opts, left, right;
 	opts := ValueOption("options");
-	left := opts.("LDelim");
-	right := opts.("RDelim");
+
+	# Get delimiters (and replace angled brackets).
+	left := ReplacedString(ReplacedString(opts.("LDelim"), "<", "\\langle"), ">", "\\rangle");
+	right := ReplacedString(ReplacedString(opts.("RDelim"), "<", "\\langle"), ">", "\\rangle");
 
   	l := Length(m);
   	n := Length(m[1]);

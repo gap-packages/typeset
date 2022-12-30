@@ -1,5 +1,5 @@
-#@local x, y, f, b, g
-gap> START_TEST( "polynomial Latex string generation ");
+#@local x, y, f, b, g, m
+gap> START_TEST( "polynomial LaTeX string generation ");
 
 # Trivial single variable polynomial
 gap> x := Indeterminate(Rationals, 1);;
@@ -28,6 +28,14 @@ x_{1}^{7}x_{2}+x_{1}^{6}x_{2}^{2}+5x_{1}^{5}+x_{1}^{3}x_{2}^{2}+x_{1}^{2}x_{2}^{
 gap> b:=(g)/(f^2);;
 gap> Typeset(b);
 \frac{x_{1}^{2}x_{2}+x_{1}x_{2}^{2}+5}{x_{1}^{10}+2x_{1}^{6}x_{2}+6x_{1}^{5}+x_{1}^{2}x_{2}^{2}+6x_{1}x_{2}+9}
+
+# Matrix of polynomials
+gap> m := [[g, f], [b, f]];;
+gap> Typeset(m);
+\left(\begin{array}{rr}
+x_{1}^{2}x_{2}+x_{1}x_{2}^{2}+5 & x_{1}^{5}+x_{1}x_{2}+3 \\
+\frac{x_{1}^{2}x_{2}+x_{1}x_{2}^{2}+5}{x_{1}^{10}+2x_{1}^{6}x_{2}+6x_{1}^{5}+x_{1}^{2}x_{2}^{2}+6x_{1}x_{2}+9} & x_{1}^{5}+x_{1}x_{2}+3 \\
+\end{array}\right)
 
 # End test
 gap> STOP_TEST( "polynomials.tst" );
