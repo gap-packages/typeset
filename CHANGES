@@ -1,10 +1,13 @@
+--- v1.2 (next release) ---
+- Refactor matrix handling to use \langle and \rangle for angled brackets
+- Added support for infinity and negative infinity using \infty LaTeX macro
+
 --- v1.1 (current release) ---
 
 - Renamed package to 'typeset'
 - Added digraph integration to LaTeX generation with raw dot and dot2tex options
-- Added support for infinity and negative infinity using \infty LaTeX macro
 - Implemented rendering methods to allow users to view LaTeX output via MathJax, pdflatex, or Overleaf
-- Reworked permutation handling to include \left and \right for LaTeX output, and matrix handling to use \langle and \rangle for angled brackets
+- Reworked permutation handling to include \left and \right for LaTeX output
 - Wrote developer guides for users looking to implement the framework
 - Added a CONTRIBUTING file to guide new contributors
 - Overhauled documentation
