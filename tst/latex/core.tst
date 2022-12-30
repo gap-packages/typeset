@@ -84,8 +84,8 @@ gap> x := [ [ Z(3)^0, Z(3)^0,   Z(3) ],
 gap> Typeset(x);
 \left(\begin{array}{rrr}
 Z(3)^{0} & Z(3)^{0} & Z(3) \\
-Z(3) & 0*Z(3) & Z(3) \\
-0*Z(3) & Z(3) & 0*Z(3) \\
+Z(3) & 0 \times Z(3) & Z(3) \\
+0 \times Z(3) & Z(3) & 0 \times Z(3) \\
 \end{array}\right)
 
 # End Test

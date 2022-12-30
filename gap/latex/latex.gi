@@ -38,7 +38,7 @@ function ( ffe )
 	local str, log, deg, char;
   	char := Characteristic(ffe);
   	if IsZero(ffe) then
-    	str := "0*Z({})";
+    	str := "0 \\times Z({})";
   	else
     	str := "Z({}{}){}";
   	fi;
