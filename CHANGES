@@ -1,6 +1,10 @@
 --- v1.2 (next release) ---
 - Refactor matrix handling to use \langle and \rangle for angled brackets
 - Added support for infinity and negative infinity using \infty LaTeX macro
+- Refactored fallback method to use ViewString over String
+- Refactored FFEs to use \times
+- Added info for tikz usage in LaTeX, and shell-escape requirements for pdflatex
+- Fixed structure description handling for unary operations, and increased test cases
 
 --- v1.1 (current release) ---
 
