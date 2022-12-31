@@ -40,7 +40,7 @@ function( desc )
         return ConcatStructDescOperands(desc, "=", "=");
     else
         if '(' in desc and ')' in desc then
-            if not ',' in desc and PositionSublist(desc, "Sz(")=fail and PositionSublist(desc, "Ree(")=fail then
+            if PositionSublist(desc, "C(")<>fail or PositionSublist(desc, "Phi(")<>fail then
                 # Structure descriptions of the form C(G) or Phi(G)
                 ret := "";
 

@@ -27,6 +27,10 @@ gap> TypesetStructureDescription("C2 x ((C6 x C2) : C2)");
 \rm C_{2} \times ((C_{6} \times C_{2}) \rtimes C_{2})
 gap> TypesetStructureDescription("Phi(C2) . C2/Phi(C2)");
 \rm \Phi(C_{2}) \cdot C_{2}/\Phi(C_{2})
+gap> TypesetStructureDescription("Phi(SL(2, 4)) . SL(2, 4)/Phi(SL(2, 4))");
+\rm \Phi(SL(2, 4)) \cdot SL(2, 4)/\Phi(SL(2, 4))
 gap> TypesetStructureDescription("C(C2) . C2/C(C2) = C2' . C2/C2'");
 \rm C(C_{2}) \cdot C_{2}/C(C_{2}) = C_{2}' \cdot C_{2}/C_{2}'
+gap> TypesetStructureDescription("C(Ree(4)) . Ree(4)/C(Ree(4)) = Ree(4)' . Ree(4)/Ree(4)'");
+\rm C(Ree(4)) \cdot Ree(4)/C(Ree(4)) = Ree(4)' \cdot Ree(4)/Ree(4)'
 gap> STOP_TEST( "structdesc.tst" );
