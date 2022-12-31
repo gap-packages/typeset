@@ -3,8 +3,18 @@ gap> START_TEST( "structure descriptions of groups" );
 # 'Typeset' for sample structure descriptions
 gap> TypesetStructureDescription("1");
 \rm 1
+gap> TypesetStructureDescription("M11");
+\rm M_{11}
 gap> TypesetStructureDescription("C2");
 \rm C_{2}
+gap> TypesetStructureDescription("Fi24'");
+\rm Fi_{24}'
+gap> TypesetStructureDescription("Ree(3)");
+\rm Ree(3)
+gap> TypesetStructureDescription("O(4, 3)");
+\rm O(4, 3)
+gap> TypesetStructureDescription("O+(4, 3)");
+\rm O^{+}(4, 3)
 gap> TypesetStructureDescription("C5 : C4");
 \rm C_{5} \rtimes C_{4}
 gap> TypesetStructureDescription("SL(2, 3)");

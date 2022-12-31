@@ -40,7 +40,7 @@ function( desc )
         return ConcatStructDescOperands(desc, "=", "=");
     else
         if '(' in desc and ')' in desc then
-            if not ',' in desc and not "Sz(" in desc and not "Ree(" in desc then
+            if not ',' in desc and PositionSublist(desc, "Sz(")=fail and PositionSublist(desc, "Ree(")=fail then
                 # Structure descriptions of the form C(G) or Phi(G)
                 ret := "";
 
@@ -60,7 +60,13 @@ function( desc )
                     return Concatenation(ret, "\\Phi(", op);
                 fi;
             fi;
-            # If parentheses are included, can return the raw description.
+
+            if 'O' in desc then
+                # Orthogonal group, need to super-script + and -
+                desc := ReplacedString(ReplacedString(desc, "O+", "O^{+}"), "O-", "O^{-}");
+            fi;
+
+            # All other groups with parentheses don't need any extra processing
             return desc;
         else
             # Generic structure descriptions
