@@ -24,6 +24,8 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 <https://ZachNewbery.github.io/typeset>
 
+Added features for each version of the package are also tracked in the [changelog](CHANGELOG.md).
+
 ## Contributing
 If you'd like to contribute to the development of this project, feel free to read
 the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
