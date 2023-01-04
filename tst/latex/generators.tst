@@ -26,12 +26,12 @@ gap> g := Group( m1, m2 );;
 gap> Typeset(g);
 \left\langle \left(\begin{array}{rrr}
 Z(3)^{0} & Z(3)^{0} & Z(3) \\
-Z(3) & 0*Z(3) & Z(3) \\
-0*Z(3) & Z(3) & 0*Z(3) \\
+Z(3) & 0 \times Z(3) & Z(3) \\
+0 \times Z(3) & Z(3) & 0 \times Z(3) \\
 \end{array}\right),\left(\begin{array}{rrr}
 Z(3) & Z(3) & Z(3)^{0} \\
-Z(3) & 0*Z(3) & Z(3) \\
-Z(3)^{0} & 0*Z(3) & Z(3) \\
+Z(3) & 0 \times Z(3) & Z(3) \\
+Z(3)^{0} & 0 \times Z(3) & Z(3) \\
 \end{array}\right) \right\rangle
 
 # Finitely Presented (FP) Groups

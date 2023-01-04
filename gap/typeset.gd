@@ -96,7 +96,8 @@ DeclareGlobalFunction("TypesetInternal");
 #! @Description
 #!   Generates the arguments describing the semantic definition of the passed &GAP;
 #!   object <A>obj</A>. This returns a list that can be used to populate a format string in any
-#!   mark-up language.
+#!   mark-up language. If no method is installed for a type, it will fallback to returning the
+#!   list [ ViewString(obj) ].
 #!
 #! @Arguments obj
 #!

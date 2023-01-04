@@ -104,9 +104,9 @@ end);
 InstallMethod(GenArgs, "fallback default method", true,
 [ IsObject ], 0, 
 function ( obj )
-	# For some objects, simply calling String(obj) may already be typesettable
-	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to String()");
-	return String(obj);
+	# For some objects, simply calling ViewString(obj) may already be typesettable
+	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to ViewString()");
+	return [ViewString(obj)];
 end);
 
 InstallMethod(GenArgs, "rational", true,
@@ -117,6 +117,21 @@ function ( x )
   	else
 		return [ NumeratorRat(x), DenominatorRat(x) ];
 	fi;
+end);
+
+InstallMethod(GenArgs, "infinity", true,
+[ IsInfinity ], 0,
+function ( inf )
+	# Infinity is normally handled via a special language-specific macro (e.g. \infty for LaTeX).
+	# Therefore, rely on Gen<lang>Tmpl to return macro.
+	return [];
+end);
+
+InstallMethod(GenArgs, "negative infinity", true,
+[ IsNegInfinity ], 0,
+function ( inf )
+	# Same reasoning as infinity.
+	return [];
 end);
 
 InstallMethod(GenArgs, "internal ffe", true,

@@ -48,11 +48,12 @@ node [shape=circle]
 
 # Dot2Tex Command Line Invocation
 # Due to dependence on display screen size used by dot2tex
-# it is difficult to create a positive test case that works
+# it is difficult to create a positive instance case that works
 # both locally and in the repo. Therefore, a simple check
-# for a non-empty populated templated string should suffice.
+# for a non-empty populated templated string should suffice,
+# as this will only occur when dot2tex returns successfully.
 gap> s := Typeset(g : ReturnStr := true, DigraphOut := "dot2tex");;
-gap> s <> "\\begin{center}\n\\begin{tikzpicture}[>=latex',line join=bevel,]\n\n\\end{tikzpicture}\n\\end{center}";
+gap> PositionSublist(s, "\\node")<>fail;
 true
 
 # End Test

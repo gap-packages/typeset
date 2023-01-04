@@ -16,6 +16,7 @@ InstallValue(DEFAULT_DOT2TEX_OPTIONS,
 InstallMethod(GenLatexTmpl, "for directed graphs", true,
 [ IsDigraph ], 0,
 function( obj )
+	Info(InfoTypeset, 2, "To use the tikzpicture LaTeX environment, add the tikz package to your premable with \\usepackage{tikz} and \\usetikzlibrary{decorations,arrows,shapes}");
 	return "\\begin{{center}}\n\\begin{{tikzpicture}}[>=latex',line join=bevel,]\n{}\n\\end{{tikzpicture}}\n\\end{{center}}";
 end);
 
@@ -39,6 +40,7 @@ function ( obj )
 		# Simply makes use of the dot2texi LaTeX package to allow raw DOT to be input
 		# and converted during LaTeX compilation.
 		Info(InfoTypeset, 2, "To use the dot2tex LaTeX environment, add the dot2texi package to your premable \\usepackage{dot2texi}");
+		Info(InfoTypeset, 2, "Shell escape is needed to render digraphs via pdflatex, using the command line flag -shell-escape");
 		dot := DotDigraph(obj);
 		Append(ret, "\\begin{dot2tex}[dot,tikz,codeonly,styleonly]\n");
 

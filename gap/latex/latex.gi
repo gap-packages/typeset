@@ -20,13 +20,25 @@ function( x )
 	fi;
 end);
 
+InstallMethod(GenLatexTmpl, "for infinity", true,
+[ IsInfinity ], 0,
+function ( inf )
+	return "\\infty";
+end);
+
+InstallMethod(GenLatexTmpl, "for negative infinity", true,
+[ IsNegInfinity ], 0,
+function ( ninf )
+	return "-\\infty";
+end);
+
 InstallMethod(GenLatexTmpl, "for an internal FFE", true,
 [ IsFFE and IsInternalRep ], 0,
 function ( ffe )
 	local str, log, deg, char;
   	char := Characteristic(ffe);
   	if IsZero(ffe) then
-    	str := "0*Z({})";
+    	str := "0 \\times Z({})";
   	else
     	str := "Z({}{}){}";
   	fi;
@@ -67,8 +79,10 @@ InstallMethod(GenLatexTmpl, "for matrices", true,
 function( m )
 	local i, j, l, n, s, opts, left, right;
 	opts := ValueOption("options");
-	left := opts.("LDelim");
-	right := opts.("RDelim");
+
+	# Get delimiters (and replace angled brackets).
+	left := ReplacedString(ReplacedString(opts.("LDelim"), "<", "\\langle"), ">", "\\rangle");
+	right := ReplacedString(ReplacedString(opts.("RDelim"), "<", "\\langle"), ">", "\\rangle");
 
   	l := Length(m);
   	n := Length(m[1]);
@@ -170,8 +184,8 @@ InstallMethod(GenLatexTmpl, "for character tables", true,
 function (tbl )
 	local ret, cnr, classes, i, j, k, nCols, nRows, header;
 
-	Info(InfoTypeset, 2, "To use the gather LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
-	ret := "\\begin{{gather}}\n\\begin{{array}}{{";
+	Info(InfoTypeset, 2, "To use the gather* LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
+	ret := "\\begin{{gather*}}\n\\begin{{array}}{{";
 	cnr := CharacterNames(tbl);
 	classes := ClassNames(tbl);
 
@@ -198,7 +212,7 @@ function (tbl )
 	od;
 
 	# Closing environment, with empty space for legend.
-	Append(ret, "\\end{{array}}\\\\{}\n\\end{{gather}}");
+	Append(ret, "\\end{{array}}{}\n\\end{{gather*}}");
 
 	return ret;
 end);
@@ -303,13 +317,13 @@ end);
 InstallGlobalFunction(CtblLegendLatex,
 function ( data ) 
 	local ret, irrstack, irrnames, i, q;
-	ret := "\n";
+	ret := "";
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
-		Info(InfoTypeset, 2, "To use the align LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
+		Info(InfoTypeset, 2, "To use the aligned LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
 		irrnames := data.irrnames;
-		Append(ret, "\\begin{aligned}\n");
+		Append(ret, "\\\\\n\\begin{aligned}\n");
 	fi;
 
 	for i in [1..Length(irrstack)] do

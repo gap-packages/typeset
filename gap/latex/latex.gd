@@ -19,6 +19,7 @@
 #! Currently, the following types have explicit methods installed for LaTeX generation:
 #!  
 #!  * Rationals (Integers and Fractions)
+#!  * Infinity and Negative Infinity
 #!  * Internal Finite-Field Elements
 #!  * Permutations
 #!  * Matrices
@@ -28,7 +29,7 @@
 #!  * Associative Words in Letter Representation
 #!
 #! It should also be noted that <Ref Func="Typeset" /> does fallback to the core library
-#! function <Ref BookName="ref" Func="String" />, which can be used for any types which
+#! function <Ref BookName="ref" Func="ViewString" />, which can be used for any types which
 #! do not require LaTeX-specific formatting to be renderable in math mode (e.g. floats).
 
 #! @Description
