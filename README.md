@@ -37,7 +37,7 @@ discussions area of the repository:
   <https://github.com/ZachNewbery/typeset/discussions>
 
 This is the place to go if you have any new ideas you want to flesh out before
-committing to writing out an issue, or are having any problems you think might not 
+committing to writing out an issue or are having any problems you think might not 
 be a bug!
 
 ## Bug Reports and Feature Requests
