@@ -9,8 +9,8 @@ ENV GAP_VERSION 4.11.1
 WORKDIR /home/gap/inst/gap-${GAP_VERSION}/pkg
 RUN rm -rf typeset \
     && wget https://github.com/ZachNewbery/typeset/archive/main.zip \
-    && unzip -q typeset-main.zip \
-    && rm typeset-main.zip \
+    && unzip -q main.zip \
+    && rm main.zip \
     && mv typeset-main typeset
 
 USER gap
