@@ -11,8 +11,7 @@ RUN rm -rf typeset \
     && wget https://github.com/ZachNewbery/typeset/archive/demo.zip \
     && unzip -q demo.zip \
     && rm demo.zip \
-    && mv typeset-demo typeset \
-    && cp -R typeset/demos/custom ~/.jupyter 
+    && mv typeset-demo typeset
 
 USER gap
 
