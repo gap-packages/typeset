@@ -27,6 +27,10 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 Added features for each version of the package are also tracked in the [changelog](CHANGELOG.md).
 
+## Feature Demonstrations
+The Binder badge at the top of this file will create a Binder session within which you can browse the 
+Jupyter Notebook demos/demo.ipynb containing some example uses of the package.
+
 ## Contributing
 If you'd like to contribute to the development of this project, feel free to read
 the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
