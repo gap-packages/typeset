@@ -14,6 +14,8 @@ RUN rm -rf typeset \
     && mv typeset-demo typeset \
     && cp -R typeset/demos/custom ~/.jupyter 
 
+
+
 USER gap
 
 WORKDIR /home/gap/inst/gap-${GAP_VERSION}/pkg/typeset/demos
