@@ -1,6 +1,6 @@
 FROM ghcr.io/gap-system/gap-docker:master
 
-LABEL maintainer="Zachariah Newbery <zachariah.newbery@gmail.com>"
+LABEL maintainer="Zachariah (Zach) Newbery <zachariah.newbery@gmail.com>"
 
 # Update version number each time after gap-docker container is updated
 ENV GAP_VERSION 4.11.1
@@ -13,8 +13,6 @@ RUN rm -rf typeset \
     && rm demo.zip \
     && mv typeset-demo typeset \
     && cp -R typeset/demos/custom ~/.jupyter 
-
-
 
 USER gap
 
