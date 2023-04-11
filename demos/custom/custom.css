@@ -1,0 +1,7 @@
+#ipython_notebook::before{
+    content:"Welcome to my Jupyter Notebook"
+}
+
+#ipython_notebook img{
+    display:none;
+}
