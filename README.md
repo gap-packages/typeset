@@ -1,5 +1,6 @@
 [![Build Status](https://github.com/ZachNewbery/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/ZachNewbery/typeset/actions?query=workflow%3ACI+branch%3Amain)
 [![Code Coverage](https://codecov.io/gh/ZachNewbery/typeset/branch/main/graph/badge.svg?token=8M7DUY6DWT)](https://codecov.io/gh/ZachNewbery/typeset)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ZachNewbery/typeset/main)
 
 # The typeset GAP package
 This package implements a framework for automatic typesetting of common GAP objects, 
@@ -26,6 +27,10 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 Added features for each version of the package are also tracked in the [changelog](CHANGELOG.md).
 
+## Feature Demonstrations
+The Binder badge at the top of this file will create a Binder session within which you can browse the 
+Jupyter Notebook demos/demo.ipynb containing some example uses of the package.
+
 ## Contributing
 If you'd like to contribute to the development of this project, feel free to read
 the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
@@ -37,7 +42,7 @@ discussions area of the repository:
   <https://github.com/ZachNewbery/typeset/discussions>
 
 This is the place to go if you have any new ideas you want to flesh out before
-committing to writing out an issue, or are having any problems you think might not 
+committing to writing out an issue or are having any problems you think might not 
 be a bug!
 
 ## Bug Reports and Feature Requests
