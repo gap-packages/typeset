@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Added interactive demonstrations in Jupyter Notebooks, which can be run through a Binder Instance
 - Added support for infinity and negative infinity using \infty LaTeX macro
 - Added info logging for tikz usage in LaTeX and shell-escape requirements for pdflatex
 
