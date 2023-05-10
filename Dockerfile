@@ -8,12 +8,12 @@ ENV GAP_VERSION 4.11.1
 # Remove previous typeset installation, copy this repository and make new install
 WORKDIR /home/gap/inst/gap-${GAP_VERSION}/pkg
 RUN rm -rf typeset \
-    && wget https://github.com/ZachNewbery/typeset/archive/demo.zip \
-    && unzip -q demo.zip \
-    && rm demo.zip \
-    && mv typeset-demo typeset \
-    && cp -R typeset/demos/custom ~/.jupyter 
+    && wget https://github.com/ZachNewbery/typeset/archive/main.zip \
+    && unzip -q main.zip \
+    && rm main.zip \
+    && mv typeset-main typeset \
+    && cp -R typeset/demo/custom ~/.jupyter 
 
 USER gap
 
-WORKDIR /home/gap/inst/gap-${GAP_VERSION}/pkg/typeset/demos
+WORKDIR /home/gap/inst/gap-${GAP_VERSION}/pkg/typeset/demo

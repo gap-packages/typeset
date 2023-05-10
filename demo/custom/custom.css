@@ -1,7 +1,3 @@
-#ipython_notebook::before{
-    content:"Typeset Notebooks"
-}
-
 div.cell {
     transition: all 0.25s;
     border: none;
