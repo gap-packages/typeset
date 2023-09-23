@@ -19,6 +19,9 @@ manual, chapter [GAP Packages](https://docs.gap-system.org/doc/ref/chap76_mj.htm
 (and if you don't have write access to the Gap installation, type "?GAP root directory"
 within GAP to see another relevant part of the manual).
 
+In essence, clone this repository to your GAP package directory. Then, you can load
+the package as per normal.
+
 ## Documentation
 Full information and documentation can be found in the manual, available
 as a [PDF](doc/manual.pdf) or as HTML on the package homepage at

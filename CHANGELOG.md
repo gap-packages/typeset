@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added interactive demonstrations in Jupyter Notebooks, which can be run through a Binder Instance
 - Added support for infinity and negative infinity using \infty LaTeX macro
 - Added info logging for tikz usage in LaTeX and shell-escape requirements for pdflatex
+- Added (explicit) support for lists, and an option to treat matrices as lists
+- Downgraded info logging for ViewString fallback to make it more explicit that it is being used
 
 ### Fixed
 - Fixed structure description handling for unary operations, and increased test cases
