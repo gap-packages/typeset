@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added info logging for tikz usage in LaTeX and shell-escape requirements for pdflatex
 - Added (explicit) support for lists, and an option to treat matrices as lists
 - Downgraded info logging for ViewString fallback to make it more explicit that it is being used
+- Added barebones MathML implementation to demonstrate the extensibility of the framework
 
 ### Fixed
 - Fixed structure description handling for unary operations, and increased test cases

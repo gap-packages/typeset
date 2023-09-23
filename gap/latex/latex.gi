@@ -7,6 +7,7 @@
 InstallMethod(GenLatexTmpl, "fallback default method for all objects", true,
 [ IsObject ], 0,
 function( obj )
+	Info(InfoTypeset, 2, "Could not find installed LaTeX template method for object filter, falling back to default method");
 	return "{}";
 end);
 
