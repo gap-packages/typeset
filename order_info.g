@@ -18,3 +18,6 @@
 #! @Chapter Structure Descriptions
 #!
 #! @Section Typesetting Structure Descriptions of Groups
+#!
+#! @Chapter MathML Generation (Example)
+#! @Section MathML Generation Functions for &GAP; Objects
