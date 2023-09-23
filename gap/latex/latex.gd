@@ -14,7 +14,8 @@
 #! languages. 
 #!
 #! It also provides some insight into the kinds of functions that would be expected
-#! from an implementation for a different language.
+#! from an implementation for a different language. A bare-boned example implementation
+#! for MathML is provided in <Ref Sect="Chapter_MathML_Generation" />.
 #!
 #! Currently, the following types have explicit methods installed for LaTeX generation:
 #!  
@@ -22,6 +23,7 @@
 #!  * Infinity and Negative Infinity
 #!  * Internal Finite-Field Elements
 #!  * Permutations
+#!  * Lists
 #!  * Matrices
 #!  * Polynomials and Non-Polynomial Rational Functions
 #!  * Character Tables
