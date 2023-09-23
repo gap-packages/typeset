@@ -7,6 +7,7 @@
 InstallMethod(GenLatexTmpl, "fallback default method for all objects", true,
 [ IsObject ], 0,
 function( obj )
+	Info(InfoTypeset, 2, "Could not find installed LaTeX template method for object filter, falling back to default method");
 	return "{}";
 end);
 
@@ -74,11 +75,31 @@ function( perm )
   	return str;
 end );
 
+InstallMethod(GenLatexTmpl, "for lists", true,
+[ IsList ], 0,
+function( lst )
+	local str, i;
+  	str := "[";
+  	for i in [1..Length(lst)] do
+		Append(str, "{}");
+		if i<Length(lst) then
+	  		Append(str, ",");
+		fi;
+  	od;
+  	Append(str, "]");
+
+  	return str;
+end );
+
 InstallMethod(GenLatexTmpl, "for matrices", true,
 [ IsMatrix ], 0,
 function( m )
 	local i, j, l, n, s, opts, left, right;
 	opts := ValueOption("options");
+
+	if opts.("MatAsList") then
+		TryNextMethod();
+	fi;
 
 	# Get delimiters (and replace angled brackets).
 	left := ReplacedString(ReplacedString(opts.("LDelim"), "<", "\\langle"), ">", "\\rangle");

@@ -38,6 +38,9 @@ gap> Typeset(p);
 gap> p := (1, 2, 3)(4, 5);;
 gap> Typeset(p);
 \left(1,2,3\right)\left(4,5\right)
+gap> p := ();;
+gap> Typeset(p);
+\left(\right)
 
 # Floats
 gap> x := 3.14;; Typeset(x);
@@ -46,6 +49,20 @@ gap> x := 6.62607e-34;; Typeset(x);
 6.62607e-34
 gap> x := 3.4/5.9;; Typeset(x);
 0.576271
+
+# Lists
+gap> x := [1];;
+gap> Typeset(x);
+[1]
+gap> x := [1, 2];;
+gap> Typeset(x);
+[1,2]
+gap> x := [1, 1/3, (1, 2)];;
+gap> Typeset(x);
+[1,\frac{1}{3},\left(1,2\right)]
+gap> x := [];;
+gap> Typeset(x);
+[]
 
 # Matrix of Rationals
 gap> x := [[0, 1], [1, 0]];;
@@ -87,6 +104,27 @@ Z(3)^{0} & Z(3)^{0} & Z(3) \\
 Z(3) & 0 \times Z(3) & Z(3) \\
 0 \times Z(3) & Z(3) & 0 \times Z(3) \\
 \end{array}\right)
+
+# Nested Lists and Matrices
+gap> x := [[[1]]];;
+gap> Typeset(x:MatAsList:=false);
+[\left(\begin{array}{r}
+1 \\
+\end{array}\right)]
+gap> Typeset(x:MatAsList:=true);
+[[[1]]]
+gap> x := [[[(1, 2)], [1]], [1/7]];;
+gap> Typeset(x);
+[[[\left(1,2\right)],[1]],[\frac{1}{7}]]
+gap> x := [[[(1, 2)]]];;
+gap> Typeset(x:MatAsList:=true);
+[[[\left(1,2\right)]]]
+gap> x := [[[0], [1]], [1/7]];;
+gap> Typeset(x);
+[\left(\begin{array}{r}
+0 \\
+1 \\
+\end{array}\right),[\frac{1}{7}]]
 
 # End Test
 gap> STOP_TEST( "typeset.tst" );

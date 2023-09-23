@@ -105,7 +105,7 @@ InstallMethod(GenArgs, "fallback default method", true,
 [ IsObject ], 0, 
 function ( obj )
 	# For some objects, simply calling ViewString(obj) may already be typesettable
-	Info(InfoTypeset, 3, "Could not find installed typesetting method for object filter, falling back to ViewString()");
+	Info(InfoTypeset, 2, "Could not find installed typesetting method for object filter, falling back to ViewString()");
 	return [ViewString(obj)];
 end);
 
@@ -182,11 +182,30 @@ function( perm )
   	return ret;
 end );
 
+InstallMethod(GenArgs, "list", true,
+[ IsList ], 0,
+function ( lst )
+	local i, r, subOptions;
+	subOptions := MergeSubOptions(ValueOption("options"));
+
+	r := [];
+	for i in [1..Length(lst)] do
+		Add(r, TypesetInternal(lst[i] : options := subOptions));
+	od;
+
+	return r;
+end);
+
 InstallMethod(GenArgs, "matrix", true,
 [ IsMatrix ], 0,
 function ( m )
-	local i, j, l, n, r, subOptions;
-	subOptions := MergeSubOptions(ValueOption("options"));
+	local i, j, l, n, r, opts, subOptions;
+	opts := ValueOption("options");
+	subOptions := MergeSubOptions(opts);
+
+	if(opts.("MatAsList")) then
+		TryNextMethod();
+	fi;
 
 	l:=Length(m);
   	n:=Length(m[1]);
@@ -399,6 +418,7 @@ end);
 InstallValue(DEFAULT_TYPESET_OPTIONS,
 	rec(
 		ReturnStr := false, LDelim := "(", RDelim :=")",
-		Lang := "latex", DigraphOut := "dot", SubCallOpts := false
+		Lang := "latex", DigraphOut := "dot", SubCallOpts := false,
+		MatAsList := false,
 	)
 );
