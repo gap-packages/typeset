@@ -46,8 +46,9 @@ gap> Typeset(x: Lang:="mathml");
 <mo>(</mo><mtable><mtr><mtd><mn>0</mn></mtd><mtd><mfrac><mn>1</mn><mn>3</mn></mfrac></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mfrac><mn>3</mn><mn>4</mn></mfrac></mtd></mtr></mtable><mo>)</mo>
 
 # Matrix as list
-gap> Typeset(x : Lang:="mathml", MatAsList:=true); 
-<mo>(</mo><mo>(</mo><mn>0</mn><mo>,&nbsp;</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mo>)</mo><mo>,&nbsp;</mo><mo>(</mo><mn>1</mn><mo>,&nbsp;</mo><mfrac><mn>3</mn><mn>4</mn></mfrac><mo>)</mo><mo>)</mo>
+gap> x := [[[1]]];;
+gap> Typeset([[[1]]] : Lang:="mathml", MatAsList:=true);
+<mo>(</mo><mo>(</mo><mo>(</mo><mn>1</mn><mo>)</mo><mo>)</mo><mo>)</mo>
 
 # End Test
 gap> STOP_TEST( "typeset.tst" );
