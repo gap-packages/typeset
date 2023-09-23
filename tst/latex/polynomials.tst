@@ -6,6 +6,9 @@ gap> x := Indeterminate(Rationals, 1);;
 gap> f := x + x^2 - 12 + 7 * x ^ 3;;
 gap> Typeset(f);
 7x_{1}^{3}+x_{1}^{2}+x_{1}-12
+gap> f := -x^7;;
+gap> Typeset(f);
+-x_{1}^{7}
 
 # Multi-variable polynomial
 gap> y := Indeterminate(Rationals, 2);;

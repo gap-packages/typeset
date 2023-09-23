@@ -38,6 +38,9 @@ gap> Typeset(p);
 gap> p := (1, 2, 3)(4, 5);;
 gap> Typeset(p);
 \left(1,2,3\right)\left(4,5\right)
+gap> p := ();;
+gap> Typeset(p);
+\left(\right)
 
 # Floats
 gap> x := 3.14;; Typeset(x);
