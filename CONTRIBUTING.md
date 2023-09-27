@@ -22,11 +22,11 @@ Welcome! To get an overview of the package, read the [README](README.md). Here a
 
 #### Create a new issue
 
-If you spot a problem or find something you want to add, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a [new issue](https://github.com/ZachNewbery/typeset/issues/new). 
+If you spot a problem or find something you want to add, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a [new issue](https://github.com/gap-packages/typeset/issues/new). 
 
 #### Solve an issue
 
-Scan through the [existing issues](https://github.com/ZachNewbery/typeset/issues) to find one that interests you. You can narrow down the search using `labels` as filters. See [Labels](https://github.com/ZachNewbery/typeset/labels) for more information. As a general rule, we don’t assign issues to anyone. If you find an issue to work on, you are welcome to open a PR with a fix.
+Scan through the [existing issues](https://github.com/gap-packages/typeset/issues) to find one that interests you. You can narrow down the search using `labels` as filters. See [Labels](https://github.com/gap-packages/typeset/labels) for more information. As a general rule, we don’t assign issues to anyone. If you find an issue to work on, you are welcome to open a PR with a fix.
 
 ### Types of Contributions
 
@@ -42,7 +42,7 @@ First, it is best to create a new directory named after the language within the 
 
 Within this directory, you'll want to have at least two files, a _lang_.gd and a _lang_.gi. These files will follow the typical layout for GAP declaration and implementation files, and will contain the language-specific functions for your new implementation.
 
-Once your files have been created, the next step will be implementing the operation to generate template strings for your language. As described in the [documentation](http://ZachNewbery.github.io/typeset/doc/chap1_mj.html), the framework works by calling language-specific functions to generate language-specific template strings followed by populating them with a language-agnostic list of semantic features pertaining to the GAP object being typeset. 
+Once your files have been created, the next step will be implementing the operation to generate template strings for your language. As described in the [documentation](http://gap-packages.github.io/typeset/doc/chap1_mj.html), the framework works by calling language-specific functions to generate language-specific template strings followed by populating them with a language-agnostic list of semantic features pertaining to the GAP object being typeset. 
 
 Therefore, you'll want to implement a method of the name Gen<em>Lang</em>Tmpl (only the first letter of the language should be capitalised) for any and all of the types you're looking to typeset. It may also be a good idea to have a default fallback to the core GAP method `String`, as many objects may not even need any specific changes to get them typeset!
 

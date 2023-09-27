@@ -1,6 +1,5 @@
-[![Build Status](https://github.com/ZachNewbery/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/ZachNewbery/typeset/actions?query=workflow%3ACI+branch%3Amain)
-[![Code Coverage](https://codecov.io/gh/ZachNewbery/typeset/branch/main/graph/badge.svg?token=8M7DUY6DWT)](https://codecov.io/gh/ZachNewbery/typeset)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ZachNewbery/typeset/HEAD)
+[![Build Status](https://github.com/gap-packages/typeset/workflows/CI/badge.svg?branch=main)](https://github.com/gap-packages/typeset/actions?query=workflow%3ACI+branch%3Amain)
+[![Code Coverage](https://codecov.io/github/gap-packages/typeset/coverage.svg?branch=main&token=)](https://codecov.io/gh/gap-packages/typeset)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gap-packages/typeset/HEAD)
 
 # The typeset GAP package
 This package implements a framework for automatic typesetting of common GAP objects, 
@@ -26,7 +25,7 @@ the package as per normal.
 Full information and documentation can be found in the manual, available
 as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
-<https://ZachNewbery.github.io/typeset>
+<https://gap-packages.github.io/typeset>
 
 Added features for each version of the package are also tracked in the [changelog](CHANGELOG.md).
 
@@ -42,7 +41,7 @@ the [contributing guide](CONTRIBUTING.md). All help is greatly appreciated!
 If you have any questions, or just want some off-topic discussion, check out the
 discussions area of the repository:
 
-  <https://github.com/ZachNewbery/typeset/discussions>
+  <https://github.com/gap-packages/typeset/discussions>
 
 This is the place to go if you have any new ideas you want to flesh out before
 committing to writing out an issue or are having any problems you think might not 
@@ -51,7 +50,7 @@ be a bug!
 ## Bug Reports and Feature Requests
 Please submit bug reports and feature requests via the GitHub issue tracker:
 
-  <https://github.com/ZachNewbery/typeset/issues>
+  <https://github.com/gap-packages/typeset/issues>
 
 # License
 typeset is free software; you can redistribute it and/or modify
