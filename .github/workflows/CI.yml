@@ -34,7 +34,7 @@ jobs:
       - name: "Checkout package repository"
         uses: actions/checkout@v4
       - name: "Setup Python"
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
       - name: "Install dot2tex dependencies"
         run: sudo apt install graphviz texlive preview-latex-style dot2tex
       - name: "Setup GAP"
