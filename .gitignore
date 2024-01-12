@@ -18,6 +18,9 @@
 /doc/*.tex
 /doc/*.toc
 /doc/_*.xml
+/doc/manual.pdf
+/doc/title.xml
+/doc/typeset.xml
 
 /bin/
 /gen/
