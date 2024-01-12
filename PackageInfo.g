@@ -77,5 +77,3 @@ TestFile := "tst/testall.g",
 Keywords := [ "latex", "typesetting", "markdown" ],
 
 ));
-
-
