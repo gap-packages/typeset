@@ -1,13 +1,13 @@
 name: CI
 
-# Trigger the workflow on push to master / main, or on pull request
+# Trigger the workflow on push or pull request
 on:
   push:
     branches:
       - master
-      - main
   pull_request:
 
+# the `concurrency` settings ensure that not too many CI jobs run in parallel
 concurrency:
   # group by workflow and ref; the last slightly strange component ensures that for pull
   # requests, we limit to 1 concurrent job, but for the master branch we don't
@@ -25,13 +25,14 @@ jobs:
       matrix:
         gap-branch:
           - master
+          - stable-4.12
           - stable-4.11
         pkgs-to-clone: 
           - datastructures NautyTracesInterface digraphs
 
     steps:
       - name: "Checkout package repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Setup Python"
         uses: actions/setup-python@v1
       - name: "Install dot2tex dependencies"
@@ -50,8 +51,6 @@ jobs:
         uses: gap-actions/process-coverage@v2
       - name: "Publish code coverage"
         uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
 
   # The documentation job
   manual:
@@ -59,13 +58,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: gap-actions/setup-gap@v2
       - uses: gap-actions/build-pkg-docs@v1
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: manual
           path: ./doc/manual.pdf
+          if-no-files-found: error
