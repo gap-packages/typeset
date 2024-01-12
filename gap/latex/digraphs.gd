@@ -26,8 +26,7 @@
 #! @Description
 #!   Default command-line options passed to the `dot2tex` executable
 #!   to convert dot strings.
-DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS",
-    "List of default command-line options passed to dot2tex when converting dot snippets.");
+DeclareGlobalVariable("DEFAULT_DOT2TEX_OPTIONS");
 
 #! @Description
 #!   Executes `dot2tex` on the dot string representing a

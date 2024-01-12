@@ -73,18 +73,15 @@ DeclareGlobalFunction("NeedsLatexMathMode");
 #! @Description
 #!   Default LaTeX preamble string used for creating
 #!   compilable `.tex` files from LaTeX snippets.
-DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE",
-    "Default LaTeX preamble used for creating compilable TeX files from snippets.");
+DeclareGlobalVariable("DEFAULT_LATEX_PREAMBLE");
 
 #! @Description
 #!   Default HTML document and head tags used to create
 #!   HTML files using MathJax to render LaTeX snippets.
-DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS",
-    "Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.");
+DeclareGlobalVariable("DEFAULT_MATHJAX_TAGS");
 
 #! @Description
 #!   String containing all of the characters that do not
 #!   need to be percent-encoded within URI components,
 #!   as per RFC-3986.
-DeclareGlobalVariable("ALWAYS_UNESCAPED_CHARS",
-    "Reserved characters in URIs that do not need to be percent encoded.");
+DeclareGlobalVariable("ALWAYS_UNESCAPED_CHARS");
