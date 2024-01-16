@@ -1,0 +1,23 @@
+  
+  [1X4 [33X[0;0YMathML Example Generation[133X[101X
+  
+  
+  [1X4.1 [33X[0;0YMathML Generation Functions for [5XGAP[105X[101X[1X Objects[133X[101X
+  
+  [33X[0;0YThis  section  describes  a  bare-bones  implementation of the framework for
+  generating  MathML representations. It is intended to be used as a reference
+  for implementing the framework, and as a starting point for implementing the
+  framework  for other languages - not as a fully functional implementation of
+  the framework.[133X
+  
+  [1X4.1-1 GenMathmlTmpl[101X
+  
+  [33X[1;0Y[29X[2XGenMathmlTmpl[102X( [3Xobj[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YAn Unpopulated MathML Format String[133X
+  
+  [33X[0;0YGenerates  a  format string that represents the structural definition of the
+  given  [5XGAP[105X  object  [3Xobj[103X in MathML. It contains no parameter values, and will
+  need  to be populated with the arguments representing the semantic values of
+  the  object,  generated  via [2XGenArgs[102X ([14X1.2-1[114X), before it can be rendered in a
+  MathML environment.[133X
+  

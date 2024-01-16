@@ -1,7 +1,7 @@
 name: typeset
-version: "1.1"
+version: "1.2.0"
 license: "GPL-2.0-or-later"
-date: 2022-12-05
+date: 2024-01-16
 description: |
     Automatic typesetting framework for common GAP objects, with LaTeX generation
 
@@ -20,13 +20,13 @@ suggested-pkgs:
       version: ">=1.5.0"
       url: "https://digraphs.github.io/Digraphs"
 
-www: https://ZachNewbery.github.io/typeset/
+www: https://gap-packages.github.io/typeset/
 readme: README.md
-packageinfo: https://ZachNewbery.github.io/typeset/PackageInfo.g
+packageinfo: https://gap-packages.github.io/typeset/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/ZachNewbery/typeset/releases/download/v1.1/typeset-1.1.tar.gz
+      url: https://github.com/gap-packages/typeset/releases/download/v1.2.0/typeset-1.2.0.tar.gz
 
 abstract: |
 
@@ -37,27 +37,27 @@ keywords: |
     latex, typesetting, markdown.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>New22</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
+    [<span class='BibKey'>New24</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
      <i class='BibTitle'>typeset, Automatic typesetting framework for common GAP objects, with LaTeX generation,
-             Version 1.1</i>
-     (<span class='BibYear'>2022</span>)<br />
+             Version 1.2.0</i>
+     (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://ZachNewbery.github.io/typeset/">https://ZachNewbery.github.io/typeset/</a></span>.
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/typeset/">https://gap-packages.github.io/typeset/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ typeset1.1,
+    @misc{ typeset1.2.0,
       author =           {Newbery, Z.},
       title =            {{typeset},  Automatic typesetting framework for common
-                          GAP objects, with LaTeX generation, {V}ersion 1.1},
-      month =            {Dec},
-      year =             {2022},
+                          GAP objects, with LaTeX generation, {V}ersion 1.2.0},
+      month =            {Jan},
+      year =             {2024},
       note =             {GAP package},
-      howpublished =     {\href         {https://ZachNewbery.github.io/typeset/}
-                          {\texttt{https://ZachNewbery.github.io/}\discretionary
+      howpublished =     {\href        {https://gap-packages.github.io/typeset/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
                           {}{}{}\texttt{typeset/}}},
       keywords =         {latex; typesetting; markdown},
-      printedkey =       {New22}
+      printedkey =       {New24}
     }
 

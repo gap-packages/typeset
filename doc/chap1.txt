@@ -109,7 +109,8 @@
   
   [33X[0;0YGenerates the arguments describing the semantic definition of the passed [5XGAP[105X
   object [3Xobj[103X. This returns a list that can be used to populate a format string
-  in any mark-up language.[133X
+  in  any  mark-up  language.  If  no  method is installed for a type, it will
+  fallback to returning the list [ ViewString(obj) ].[133X
   
   
   [1X1.3 [33X[0;0YConstants and Utility Functions[133X[101X

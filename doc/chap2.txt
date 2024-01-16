@@ -14,16 +14,21 @@
   framework can be used for other typesetting languages.[133X
   
   [33X[0;0YIt  also  provides  some  insight  into the kinds of functions that would be
-  expected from an implementation for a different language.[133X
+  expected  from  an  implementation  for  a  different language. A bare-boned
+  example implementation for MathML is provided in [14X4[114X.[133X
   
   [33X[0;0YCurrently,  the  following  types  have explicit methods installed for LaTeX
   generation:[133X
   
   [30X    [33X[0;6YRationals (Integers and Fractions)[133X
   
+  [30X    [33X[0;6YInfinity and Negative Infinity[133X
+  
   [30X    [33X[0;6YInternal Finite-Field Elements[133X
   
   [30X    [33X[0;6YPermutations[133X
+  
+  [30X    [33X[0;6YLists[133X
   
   [30X    [33X[0;6YMatrices[133X
   
@@ -36,9 +41,9 @@
   [30X    [33X[0;6YAssociative Words in Letter Representation[133X
   
   [33X[0;0YIt  should  also  be  noted  that  [2XTypeset[102X ([14X1.1-2[114X) does fallback to the core
-  library function [2XString[102X ([14XReference: String[114X), which can be used for any types
-  which do not require LaTeX-specific formatting to be renderable in math mode
-  (e.g. floats).[133X
+  library  function  [2XViewString[102X ([14XReference: ViewString[114X), which can be used for
+  any types which do not require LaTeX-specific formatting to be renderable in
+  math mode (e.g. floats).[133X
   
   [1X2.1-1 GenLatexTmpl[101X
   
@@ -148,21 +153,29 @@
   
   [33X[0;0YReplaces reserved characters within a URI component [3Xraw[103X as per RFC-3986.[133X
   
-  [1X2.2-6 DEFAULT_LATEX_PREAMBLE[101X
+  [1X2.2-6 NeedsLatexMathMode[101X
+  
+  [33X[1;0Y[29X[2XNeedsLatexMathMode[102X( [3Xraw[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA Boolean[133X
+  
+  [33X[0;0YDetermines  if  the  LaTeX  snippet  [3Xraw[103X  requires  LaTeX's  math mode to be
+  rendered correctly.[133X
+  
+  [1X2.2-7 DEFAULT_LATEX_PREAMBLE[101X
   
   [33X[1;0Y[29X[2XDEFAULT_LATEX_PREAMBLE[102X [32X global variable[133X
   
   [33X[0;0YDefault  LaTeX  preamble string used for creating compilable [10X.tex[110X files from
   LaTeX snippets.[133X
   
-  [1X2.2-7 DEFAULT_MATHJAX_TAGS[101X
+  [1X2.2-8 DEFAULT_MATHJAX_TAGS[101X
   
   [33X[1;0Y[29X[2XDEFAULT_MATHJAX_TAGS[102X [32X global variable[133X
   
   [33X[0;0YDefault  HTML document and head tags used to create HTML files using MathJax
   to render LaTeX snippets.[133X
   
-  [1X2.2-8 ALWAYS_UNESCAPED_CHARS[101X
+  [1X2.2-9 ALWAYS_UNESCAPED_CHARS[101X
   
   [33X[1;0Y[29X[2XALWAYS_UNESCAPED_CHARS[102X [32X global variable[133X
   

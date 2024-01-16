@@ -15,7 +15,7 @@
 <body class="chap2"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3.html">[Next Chapter]</a>&nbsp;  </div>
 
@@ -39,9 +39,10 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8179071D786C381C">2.2-3 MathJax</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X800F87247AE87FE5">2.2-4 Overleaf</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X824C38568286ECBB">2.2-5 URIEncodeComponent</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X853D2C5F85183D3C">2.2-6 DEFAULT_LATEX_PREAMBLE</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X83CE796886A570A5">2.2-7 DEFAULT_MATHJAX_TAGS</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X789A6A708289DE47">2.2-8 ALWAYS_UNESCAPED_CHARS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8628E043862C318A">2.2-6 NeedsLatexMathMode</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X853D2C5F85183D3C">2.2-7 DEFAULT_LATEX_PREAMBLE</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X83CE796886A570A5">2.2-8 DEFAULT_MATHJAX_TAGS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X789A6A708289DE47">2.2-9 ALWAYS_UNESCAPED_CHARS</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7EF74AB68325E735">2.3 <span class="Heading">Digraphs Integration</span></a>
 </span>
@@ -61,7 +62,7 @@
 
 <p>This section describes the implementation of the framework for LaTeX, providing both the invaluable functionality to typeset a subset of <strong class="pkg">GAP</strong> objects as LaTeX strings whilst also serving as an example of how the framework can be used for other typesetting languages.</p>
 
-<p>It also provides some insight into the kinds of functions that would be expected from an implementation for a different language.</p>
+<p>It also provides some insight into the kinds of functions that would be expected from an implementation for a different language. A bare-boned example implementation for MathML is provided in <a href="chap4.html#X80E5E58082AB0716"><span class="RefLink">4</span></a>.</p>
 
 <p>Currently, the following types have explicit methods installed for LaTeX generation:</p>
 
@@ -70,10 +71,16 @@
 <li><p>Rationals (Integers and Fractions)</p>
 
 </li>
+<li><p>Infinity and Negative Infinity</p>
+
+</li>
 <li><p>Internal Finite-Field Elements</p>
 
 </li>
 <li><p>Permutations</p>
+
+</li>
+<li><p>Lists</p>
 
 </li>
 <li><p>Matrices</p>
@@ -92,7 +99,7 @@
 
 </li>
 </ul>
-<p>It should also be noted that <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>) does fallback to the core library function <code class="func">String</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap27.html#X81FB5BE27903EC32"><span class="RefLink">Reference: String</span></a>), which can be used for any types which do not require LaTeX-specific formatting to be renderable in math mode (e.g. floats).</p>
+<p>It should also be noted that <code class="func">Typeset</code> (<a href="chap1.html#X8739447F7A4111CC"><span class="RefLink">1.1-2</span></a>) does fallback to the core library function <code class="func">ViewString</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap27.html#X7803FBCA79DB5529"><span class="RefLink">Reference: ViewString</span></a>), which can be used for any types which do not require LaTeX-specific formatting to be renderable in math mode (e.g. floats).</p>
 
 <p><a id="X817F73037F401EBE" name="X817F73037F401EBE"></a></p>
 
@@ -200,23 +207,32 @@
 
 <p>Replaces reserved characters within a URI component <var class="Arg">raw</var> as per RFC-3986.</p>
 
+<p><a id="X8628E043862C318A" name="X8628E043862C318A"></a></p>
+
+<h5>2.2-6 NeedsLatexMathMode</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NeedsLatexMathMode</code>( <var class="Arg">raw</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A Boolean</p>
+
+<p>Determines if the LaTeX snippet <var class="Arg">raw</var> requires LaTeX's math mode to be rendered correctly.</p>
+
 <p><a id="X853D2C5F85183D3C" name="X853D2C5F85183D3C"></a></p>
 
-<h5>2.2-6 DEFAULT_LATEX_PREAMBLE</h5>
+<h5>2.2-7 DEFAULT_LATEX_PREAMBLE</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DEFAULT_LATEX_PREAMBLE</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
 <p>Default LaTeX preamble string used for creating compilable <code class="code">.tex</code> files from LaTeX snippets.</p>
 
 <p><a id="X83CE796886A570A5" name="X83CE796886A570A5"></a></p>
 
-<h5>2.2-7 DEFAULT_MATHJAX_TAGS</h5>
+<h5>2.2-8 DEFAULT_MATHJAX_TAGS</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DEFAULT_MATHJAX_TAGS</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
 <p>Default HTML document and head tags used to create HTML files using MathJax to render LaTeX snippets.</p>
 
 <p><a id="X789A6A708289DE47" name="X789A6A708289DE47"></a></p>
 
-<h5>2.2-8 ALWAYS_UNESCAPED_CHARS</h5>
+<h5>2.2-9 ALWAYS_UNESCAPED_CHARS</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ALWAYS_UNESCAPED_CHARS</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
 <p>String containing all of the characters that do not need to be percent-encoded within URI components, as per RFC-3986.</p>
@@ -251,7 +267,7 @@
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

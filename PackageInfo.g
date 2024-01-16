@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "typeset",
 Subtitle := "Automatic typesetting framework for common GAP objects, with LaTeX generation",
-Version := "1.1",
-Date := "05/12/2022", # dd/mm/yyyy format
+Version := "1.2.0",
+Date := "16/01/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -19,7 +19,7 @@ Persons := [
     FirstNames := "Zachariah",
     LastName := "Newbery",
     WWWHome := "https://zachnewbery.com",
-    Email := "zn6@st-andrews.ac.uk",
+    Email := "zachariah.newbery@gmail.com",
     IsAuthor := true,
     IsMaintainer := true,
     #PostalAddress := TODO,
@@ -30,10 +30,10 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := "https://github.com/ZachNewbery/typeset",
+    URL := "https://github.com/gap-packages/typeset",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://ZachNewbery.github.io/typeset/",
+PackageWWWHome  := "https://gap-packages.github.io/typeset/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
@@ -77,5 +77,3 @@ TestFile := "tst/testall.g",
 Keywords := [ "latex", "typesetting", "markdown" ],
 
 ));
-
-
