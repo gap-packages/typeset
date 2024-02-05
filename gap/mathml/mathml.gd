@@ -1,7 +1,7 @@
 #
 # typeset: Automatic typesetting framework for common GAP objects, with LaTeX generation
 #
-#! @Chapter MathML Generation (Example)
+#! @Chapter MathML Example Generation
 #! @Section MathML Generation Functions for &GAP; Objects
 #!
 #! This section describes a bare-bones implementation of the framework for generating MathML

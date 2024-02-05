@@ -15,7 +15,7 @@
 #!
 #! It also provides some insight into the kinds of functions that would be expected
 #! from an implementation for a different language. A bare-boned example implementation
-#! for MathML is provided in <Ref Sect="Chapter_MathML_Generation" />.
+#! for MathML is provided in <Ref Sect="Chapter_MathML_Example_Generation" />.
 #!
 #! Currently, the following types have explicit methods installed for LaTeX generation:
 #!  
