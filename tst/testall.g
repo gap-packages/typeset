@@ -4,7 +4,13 @@
 # This file runs package tests. It is also referenced in the package
 # metadata in PackageInfo.g.
 #
-LoadPackage( "typeset" );
+LoadPackage( "ctbllib" );
+LoadPackage( "digraphs" );
+
+# Reread package instead of loading due to digraphs functionality
+# potentially not being loaded.
+RereadPackage( "typeset", "init.g");
+RereadPackage( "typeset", "read.g");
 
 SetInfoLevel(InfoTypeset, 0);
 
