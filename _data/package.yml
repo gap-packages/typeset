@@ -1,7 +1,7 @@
 name: typeset
 version: "1.2.0"
 license: "GPL-2.0-or-later"
-date: 2024-01-16
+date: 2024-02-05
 description: |
     Automatic typesetting framework for common GAP objects, with LaTeX generation
 
@@ -51,7 +51,7 @@ bibtex: |
       author =           {Newbery, Z.},
       title =            {{typeset},  Automatic typesetting framework for common
                           GAP objects, with LaTeX generation, {V}ersion 1.2.0},
-      month =            {Jan},
+      month =            {Feb},
       year =             {2024},
       note =             {GAP package},
       howpublished =     {\href        {https://gap-packages.github.io/typeset/}

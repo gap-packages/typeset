@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 PackageName := "typeset",
 Subtitle := "Automatic typesetting framework for common GAP objects, with LaTeX generation",
 Version := "1.2.0",
-Date := "16/01/2024", # dd/mm/yyyy format
+Date := "05/02/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -19,7 +19,7 @@ Persons := [
     FirstNames := "Zachariah",
     LastName := "Newbery",
     WWWHome := "https://zachnewbery.com",
-    Email := "zachariah.newbery@gmail.com",
+    Email := "me@zachnewbery.com",
     IsAuthor := true,
     IsMaintainer := true,
     #PostalAddress := TODO,
