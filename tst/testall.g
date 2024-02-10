@@ -7,10 +7,7 @@
 LoadPackage( "ctbllib" );
 LoadPackage( "digraphs" );
 
-# Reread package instead of loading due to digraphs functionality
-# potentially not being loaded.
-RereadPackage( "typeset", "init.g");
-RereadPackage( "typeset", "read.g");
+LoadPackage( "typeset" );
 
 SetInfoLevel(InfoTypeset, 0);
 
