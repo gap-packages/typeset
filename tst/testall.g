@@ -4,6 +4,9 @@
 # This file runs package tests. It is also referenced in the package
 # metadata in PackageInfo.g.
 #
+LoadPackage( "ctbllib" );
+LoadPackage( "digraphs" );
+
 LoadPackage( "typeset" );
 
 SetInfoLevel(InfoTypeset, 0);
