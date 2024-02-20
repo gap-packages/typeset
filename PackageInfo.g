@@ -22,7 +22,6 @@ Persons := [
     Email := "me@zachnewbery.com",
     IsAuthor := true,
     IsMaintainer := true,
-    #PostalAddress := TODO,
     Place := "St. Andrews",
     Institution := "University of St. Andrews",
   ),
@@ -50,7 +49,7 @@ ArchiveFormats := ".tar.gz",
 ##    "dev"           for development versions of packages
 ##    "other"         for all other packages
 ##
-Status := "dev",
+Status := "deposited",
 
 AbstractHTML   :=  "",
 
