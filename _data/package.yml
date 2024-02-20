@@ -1,7 +1,7 @@
 name: typeset
-version: "1.2.0"
+version: "1.2.1"
 license: "GPL-2.0-or-later"
-date: 2024-02-05
+date: 2024-02-20
 description: |
     Automatic typesetting framework for common GAP objects, with LaTeX generation
 
@@ -26,11 +26,11 @@ packageinfo: https://gap-packages.github.io/typeset/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/typeset/releases/download/v1.2.0/typeset-1.2.0.tar.gz
+      url: https://github.com/gap-packages/typeset/releases/download/v1.2.1/typeset-1.2.1.tar.gz
 
 abstract: |
 
-status: dev
+status: deposited
 doc-html: doc/chap0_mj.html
 doc-pdf: doc/manual.pdf
 keywords: |
@@ -39,7 +39,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>New24</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
      <i class='BibTitle'>typeset, Automatic typesetting framework for common GAP objects, with LaTeX generation,
-             Version 1.2.0</i>
+             Version 1.2.1</i>
      (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/typeset/">https://gap-packages.github.io/typeset/</a></span>.
@@ -47,10 +47,10 @@ citeas: |
     
 
 bibtex: |
-    @misc{ typeset1.2.0,
+    @misc{ typeset1.2.1,
       author =           {Newbery, Z.},
       title =            {{typeset},  Automatic typesetting framework for common
-                          GAP objects, with LaTeX generation, {V}ersion 1.2.0},
+                          GAP objects, with LaTeX generation, {V}ersion 1.2.1},
       month =            {Feb},
       year =             {2024},
       note =             {GAP package},
