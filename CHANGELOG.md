@@ -12,7 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-## [v1.2.0] - 2024-02-05 (current release)
+## [v1.2.1] - 2024-02-20 (current release)
+## Fixed
+- Fixed test suite failing when minimal dependencies are loaded
+- Updated package status to deposited
+
+## [v1.2.0] - 2024-02-05
 ### Added
 - Added interactive demonstrations in Jupyter Notebooks, which can be run through a Binder Instance
 - Added support for infinity and negative infinity using \infty LaTeX macro
@@ -30,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [v1.1] - 2022-12-05 (current release)
+## [v1.1] - 2022-12-05
 ### Added
 - Added digraph integration to LaTeX generation with raw dot and dot2tex options
 - Implemented rendering methods to allow users to view LaTeX output via MathJax, pdflatex, or Overleaf
