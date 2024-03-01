@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [Unreleased] - yyyy/mm/dd
+## [Unreleased] - yyyy-mm-dd
 ### Added
 
 ### Fixed
 
-## [v1.2.1] - 2024-02-20 (current release)
+## [v1.2.2] - 2024-03-01 (current release)
+## Fixed
+- Excluded digraphs tests when the digraphs package is not loaded
+
+## [v1.2.1] - 2024-02-20
 ## Fixed
 - Fixed test suite failing when minimal dependencies are loaded
 - Updated package status to deposited
