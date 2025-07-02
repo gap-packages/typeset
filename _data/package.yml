@@ -1,7 +1,7 @@
 name: typeset
-version: "1.2.2"
+version: "1.2.3"
 license: "GPL-2.0-or-later"
-date: 2024-03-01
+date: 2025-07-03
 description: |
     Automatic typesetting framework for common GAP objects, with LaTeX generation
 
@@ -26,7 +26,7 @@ packageinfo: https://gap-packages.github.io/typeset/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/typeset/releases/download/v1.2.2/typeset-1.2.2.tar.gz
+      url: https://github.com/gap-packages/typeset/releases/download/v1.2.3/typeset-1.2.3.tar.gz
 
 abstract: |
 
@@ -37,27 +37,27 @@ keywords: |
     latex, typesetting, markdown.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>New24</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
+    [<span class='BibKey'>New25</span>]   <b class='BibAuthor'>Newbery, Z.</b>,
      <i class='BibTitle'>typeset, Automatic typesetting framework for common GAP objects, with LaTeX generation,
-             Version 1.2.2</i>
-     (<span class='BibYear'>2024</span>)<br />
+             Version 1.2.3</i>
+     (<span class='BibYear'>2025</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/typeset/">https://gap-packages.github.io/typeset/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ typeset1.2.2,
+    @misc{ typeset,
       author =           {Newbery, Z.},
-      title =            {{typeset},  Automatic typesetting framework for common
-                          GAP objects, with LaTeX generation, {V}ersion 1.2.2},
-      month =            {Mar},
-      year =             {2024},
+      title =            {{typeset}, {Automatic typesetting framework for common
+                          GAP objects, with LaTeX generation}, {V}ersion 1.2.3},
+      month =            {Jul},
+      year =             {2025},
       note =             {GAP package},
       howpublished =     {\href        {https://gap-packages.github.io/typeset/}
-                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {\texttt{https://gap\texttt{\symbol{45}}packages.github.io/}\discretionary
                           {}{}{}\texttt{typeset/}}},
       keywords =         {latex; typesetting; markdown},
-      printedkey =       {New24}
+      printedkey =       {New25}
     }
 
