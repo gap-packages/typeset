@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [Unreleased] - yyyy-mm-dd
+## [v] - yyyy-mm-dd
 ### Added
 
 ### Fixed
+
+## [v1.2.3] - 2025-07-03 (current release)
+## Fixed
+- Fixed test suite failing with the next major GAP release.
 
 ## [v1.2.2] - 2024-03-01 (current release)
 ## Fixed
