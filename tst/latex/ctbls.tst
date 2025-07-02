@@ -31,24 +31,6 @@ X.5 & 1 & 1 & 1 & 1 & 1 \\
 \end{array}
 \end{gather*}
 
-# Alternating Group
-gap> c := CharacterTable(AlternatingGroup(5));;
-gap> Typeset(c);
-\begin{gather*}
-\begin{array}{c c c c c c}
- & 1a & 2a & 3a & 5a & 5b \\
-X.1 & 1 & 1 & 1 & 1 & 1 \\
-X.2 & 3 & -1 & . & A & *A \\
-X.3 & 3 & -1 & . & *A & A \\
-X.4 & 4 & . & 1 & -1 & -1 \\
-X.5 & 5 & 1 & -1 & . & . \\
-\end{array}\\
-\begin{aligned}
-A &= -E(5)-E(5)^4 \\
- &= (1-Sqrt(5))/2 = -b5 \\
-\end{aligned}
-\end{gather*}
-
 # SL Group
 gap> c := CharacterTable(SL(2, 5));;
 gap> Typeset(c);
