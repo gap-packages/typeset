@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: "Checkout package repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Setup Python"
         uses: actions/setup-python@v5
       - name: "Install dot2tex dependencies"
@@ -48,9 +48,9 @@ jobs:
       - name: "Build 'typeset' package"
         uses: gap-actions/build-pkg@v1
       - name: "Run 'typeset' package tests"
-        uses: gap-actions/run-pkg-tests@v2
+        uses: gap-actions/run-pkg-tests@v3
       - name: "Run 'typeset' package tests (with only needed packages loaded)"
-        uses: gap-actions/run-pkg-tests@v2
+        uses: gap-actions/run-pkg-tests@v3
         with:
           only-needed: true
       - name: "Process test coverage"
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: gap-actions/setup-gap@v2
       - uses: gap-actions/build-pkg-docs@v1
         with:
