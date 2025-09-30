@@ -66,7 +66,7 @@ Dependencies := rec(
   GAP := ">= 4.11",
   NeededOtherPackages := [ ],
   SuggestedOtherPackages := [["digraphs", ">=1.5.0"],],
-  ExternalConditions := [ ],
+  ExternalConditions := ["dot2tex (https://dot2tex.readthedocs.io/en/latest/installation_guide.html) must be installed"],
 ),
 
 AvailabilityTest := ReturnTrue,
