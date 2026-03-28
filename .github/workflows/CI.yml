@@ -18,44 +18,51 @@ concurrency:
 jobs:
   # The CI test job
   test:
-    name: ${{ matrix.gap-branch }}
+    name: ${{ matrix.gap-version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        gap-branch:
-          - master
-          - stable-4.15
-          - stable-4.14
-          - stable-4.13
-          - stable-4.12
+        gap-version:
+          - 'devel'
+          - '4.15'
+          - '4.14'
+          - '4.13'
+          - '4.12'
         pkgs-to-clone: 
-          - datastructures NautyTracesInterface digraphs
+          - |
+            gap-packages/datastructures@devel
+            gap-packages/NautyTracesInterface@devel
+            digraphs/digraphs@devel
 
     steps:
       - name: "Checkout package repository"
         uses: actions/checkout@v6
       - name: "Setup Python"
-        uses: actions/setup-python@v5
-      - name: "Install dot2tex dependencies"
-        run: sudo apt install graphviz texlive preview-latex-style dot2tex
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
       - name: "Setup GAP"
-        uses: gap-actions/setup-gap@v2
+        uses: gap-actions/setup-gap@v3
         with:
-          GAP_PKGS_TO_CLONE: "${{ matrix.pkgs-to-clone }}"
-          GAP_PKGS_TO_BUILD: "io orb profiling grape NautyTracesInterface datastructures digraphs"
-          GAPBRANCH: ${{ matrix.gap-branch }}
+          gap-version: ${{ matrix.gap-version }}
+      - name: "Clone packages"
+        uses: gap-actions/install-pkg@v1
+        with:
+          packages: ${{ matrix.pkgs-to-clone }}
       - name: "Build 'typeset' package"
-        uses: gap-actions/build-pkg@v1
-      - name: "Run 'typeset' package tests"
-        uses: gap-actions/run-pkg-tests@v3
-      - name: "Run 'typeset' package tests (with only needed packages loaded)"
-        uses: gap-actions/run-pkg-tests@v3
+        uses: gap-actions/build-pkg@v3
         with:
-          only-needed: true
+          build-suggested-pkgs: 'recursive' # Also build packages suggested by digraphs
+      - name: "Run 'typeset' package tests"
+        uses: gap-actions/run-pkg-tests@v4
+      - name: "Run 'typeset' package tests (with only needed packages loaded)"
+        uses: gap-actions/run-pkg-tests@v4
+        with:
+          mode: onlyneeded
       - name: "Process test coverage"
-        uses: gap-actions/process-coverage@v2
+        uses: gap-actions/process-coverage@v3
       - name: "Publish code coverage"
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
