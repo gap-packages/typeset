@@ -66,6 +66,7 @@ Dependencies := rec(
   GAP := ">= 4.11",
   NeededOtherPackages := [ ],
   SuggestedOtherPackages := [["digraphs", ">=1.5.0"],],
+  NeededSystemPackages := rec( Ubuntu := [["dot2tex"],  ["preview-latex-style"], ["texlive-pictures"]] ),
   ExternalConditions := [ ],
 ),
 
