@@ -21,9 +21,29 @@ Persons := [
     WWWHome := "https://zachnewbery.com",
     Email := "me@zachnewbery.com",
     IsAuthor := true,
-    IsMaintainer := true,
-    Place := "St. Andrews",
-    Institution := "University of St. Andrews",
+    IsMaintainer := true
+  ),
+  rec(
+    LastName      := "Konovalov",
+    FirstNames    := "Olexandr",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    Email         := "obk1@st-andrews.ac.uk",
+    WWWHome       := "https://olexandr-konovalov.github.io/",
+    PostalAddress := Concatenation( [
+                     "School of Computer Science\n",
+                     "University of St Andrews\n",
+                     "Jack Cole Building, North Haugh,\n",
+                     "St Andrews, Fife, KY16 9SX, Scotland" ] ),
+    Place         := "St Andrews",
+    Institution   := "University of St Andrews"
+  ),
+  rec(
+    LastName      := "GAP Team",
+    FirstNames    := "The",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    Email         := "support@gap-system.org",
   ),
 ],
 
