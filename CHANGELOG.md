@@ -7,21 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [v] - yyyy-mm-dd
-### Added
+## [v1.2.4] - 2026-04-28
+- Added Olexandr Konovalov as well as the GAP Team as package maintainers
+- Added `NeededSystemPackages` and `ExternalConditions` to the package
+  metadata in `PackageInfo.g`
+- Updated `makedoc.g` to not use obsolete call syntax for `AutoDoc`
 
+## [v1.2.3] - 2025-07-03
 ### Fixed
-
-## [v1.2.3] - 2025-07-03 (current release)
-## Fixed
 - Fixed test suite failing with the next major GAP release.
 
-## [v1.2.2] - 2024-03-01 (current release)
-## Fixed
+## [v1.2.2] - 2024-03-01
+### Fixed
 - Excluded digraphs tests when the digraphs package is not loaded
 
 ## [v1.2.1] - 2024-02-20
-## Fixed
+### Fixed
 - Fixed test suite failing when minimal dependencies are loaded
 - Updated package status to deposited
 
