@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed package to 'typeset'
 - Reworked permutation handling to include \left and \right for LaTeX output
 - Overhauled documentation
-- Refactored code to use global variables where appropiate
+- Refactored code to use global variables where appropriate
 
 <br/>
 

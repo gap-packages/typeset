@@ -27,7 +27,7 @@
 #!     * 0 - No messages
 #!     * 1 - Problems only: messages describing what went wrong, with no
 #!           messages if an operation is successful
-#!     * 2 - Required preamble packages: displays informations about any required
+#!     * 2 - Required preamble packages: displays information about any required
 #!           LaTeX packages that need to be added to the preamble to be rendered.
 #!     * 3 - Progress: also shows step-by-step progress of operations
 #!
