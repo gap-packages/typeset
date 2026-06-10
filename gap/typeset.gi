@@ -391,7 +391,7 @@ end);
 ##  
 ## generates a new options record that can be passed to sub-calls from a parent.
 ## used to allow users to set options that may differ between recursive calls
-## of a single method (e.g. Matrix delimitors).
+## of a single method (e.g. Matrix delimiters).
 ##
 InstallGlobalFunction(MergeSubOptions,
 function ( opts )

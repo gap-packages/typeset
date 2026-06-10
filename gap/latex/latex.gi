@@ -205,7 +205,7 @@ InstallMethod(GenLatexTmpl, "for character tables", true,
 function (tbl )
 	local ret, cnr, classes, i, j, k, nCols, nRows, header;
 
-	Info(InfoTypeset, 2, "To use the gather* LaTeX environment in character tables, add the amsmath package to your premable \\usepackage{amsmath}");
+	Info(InfoTypeset, 2, "To use the gather* LaTeX environment in character tables, add the amsmath package to your preamble \\usepackage{amsmath}");
 	ret := "\\begin{{gather*}}\n\\begin{{array}}{{";
 	cnr := CharacterNames(tbl);
 	classes := ClassNames(tbl);
@@ -342,7 +342,7 @@ function ( data )
 
 	irrstack := data.irrstack;
 	if not IsEmpty(irrstack) then
-		Info(InfoTypeset, 2, "To use the aligned LaTeX environment in table legends, add the amsmath package to your premable \\usepackage{amsmath}");
+		Info(InfoTypeset, 2, "To use the aligned LaTeX environment in table legends, add the amsmath package to your preamble \\usepackage{amsmath}");
 		irrnames := data.irrnames;
 		Append(ret, "\\\\\n\\begin{aligned}\n");
 	fi;
