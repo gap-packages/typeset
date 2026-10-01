@@ -28,7 +28,7 @@ as a [PDF](doc/manual.pdf) or as HTML on the package homepage at
 
 <https://gap-packages.github.io/typeset>
 
-Added features for each version of the package are also tracked in the [changelog](CHANGELOG.md).
+Added features for each version of the package are also tracked in the [changelog](CHANGES.md).
 
 ## Feature Demonstrations
 The Binder badge at the top of this file will create a Binder session within which you can browse the 
