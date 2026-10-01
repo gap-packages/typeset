@@ -83,14 +83,19 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.11",
+  GAP := ">= 4.13",
   NeededOtherPackages := [ ],
   SuggestedOtherPackages := [["digraphs", ">=1.5.0"],],
   NeededSystemPackages := rec( Ubuntu := [["dot2tex"],  ["preview-latex-style"], ["texlive-pictures"]] ),
   ExternalConditions := [["dot2tex must be installed", "https://dot2tex.readthedocs.io/en/latest/installation_guide.html"]],
 ),
 
+Extensions := [
+  rec( needed := [ [ "digraphs", ">= 1.5.0" ] ], filename := "gap/latex/digraphs.g" ),
+],
+
 AvailabilityTest := ReturnTrue,
+
 
 TestFile := "tst/testall.g",
 
