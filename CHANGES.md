@@ -7,26 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [v1.2.4] - 2026-04-28
+## 1.2.4 (2026-04-28)
+
 - Added Olexandr Konovalov as well as the GAP Team as package maintainers
 - Added `NeededSystemPackages` and `ExternalConditions` to the package
   metadata in `PackageInfo.g`
 - Updated `makedoc.g` to not use obsolete call syntax for `AutoDoc`
 
-## [v1.2.3] - 2025-07-03
+## 1.2.3 (2025-07-03)
+
 ### Fixed
 - Fixed test suite failing with the next major GAP release.
 
-## [v1.2.2] - 2024-03-01
+## 1.2.2 (2024-03-01)
+
 ### Fixed
 - Excluded digraphs tests when the digraphs package is not loaded
 
-## [v1.2.1] - 2024-02-20
+## 1.2.1 (2024-02-20)
+
 ### Fixed
 - Fixed test suite failing when minimal dependencies are loaded
 - Updated package status to deposited
 
-## [v1.2.0] - 2024-02-05
+## 1.2.0 (2024-02-05)
+
 ### Added
 - Added interactive demonstrations in Jupyter Notebooks, which can be run through a Binder Instance
 - Added support for infinity and negative infinity using \infty LaTeX macro
@@ -44,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [v1.1] - 2022-12-05
+## 1.1 (2022-12-05)
+
 ### Added
 - Added digraph integration to LaTeX generation with raw dot and dot2tex options
 - Implemented rendering methods to allow users to view LaTeX output via MathJax, pdflatex, or Overleaf
@@ -61,7 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br/>
 
-## [v1.0] - 2022-11-11
+## 1.0 (2022-11-11)
+
 ### Added
 - Implemented a general options handling to allow alternating sub-call options alongside customisation
 - Created package homepage on GitHub Pages
