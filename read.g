@@ -8,6 +8,3 @@ ReadPackage( "typeset", "gap/latex/latex.gi" );
 ReadPackage( "typeset", "gap/latex/structdesc.gi" );
 ReadPackage( "typeset", "gap/latex/render.gi" );
 ReadPackage( "typeset", "gap/mathml/mathml.gi" );
-if IsPackageMarkedForLoading( "digraphs", "1.5.0" ) then
-    ReadPackage( "typeset", "gap/latex/digraphs.gi");
-fi;
